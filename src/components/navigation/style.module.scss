@@ -1,0 +1,32 @@
+@use '../../base_css/base';
+
+.navList{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+//.navbar {
+//  min-height: 90%;
+//  background-color: base.$background-color;
+//  border-radius: 5px;
+//  padding: 15px 0;
+//}
+
+.navItem{
+  padding: 1.5vh 1.5vw;
+}
+
+.navItem:hover{
+  background-color: base.$secondary-color;
+}
+
+.navLink {
+  font-size: base.$navigation-text-size;
+  font-weight: bold;
+  text-decoration: none;
+  color: base.$standard-text-color;
+  display: block;
+  width: 100%;
+  height: 100%;
+}

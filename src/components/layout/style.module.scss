@@ -1,0 +1,59 @@
+@use '../../base_css/base';
+
+.layout{
+  //background-color: base.$background-color;
+  font-family: base.$font;
+}
+
+.header {
+  background-image: linear-gradient(75deg, #094d8f, base.$primary-color);
+  background-color: base.$primary-color;
+  //border-bottom: 1px solid #ccc;
+  padding: 15px 0;
+  min-height: 10vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: 70vh;
+  //background-color: base.$tertiary-color;
+  background: base.$noise-background;
+}
+
+.sidebar {
+  flex-basis: 25%;
+  background-color: base.$background-color;
+  min-height: 95%;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 2vh 1vw;
+}
+
+.content {
+  background-color: base.$background-color;
+  flex-basis: 75%;
+  padding: 20px;
+  margin: 2vh 1vw 2vh 0;
+  border-radius: 5px;
+}
+
+.footer {
+  //background-color: #d2caca;
+  //background-color: base.$footer-color;
+  //background-image: linear-gradient(35deg, base.$footer-color, #0b0d1c);
+  //background: base.$noise-background;
+
+  //background-image: linear-gradient(75deg, #094d8f, base.$primary-color);
+  //background-color: base.$primary-color;
+
+  background-color: base.$background-color;
+  padding: 30px 0;
+  font-size: 16px;
+  color: base.$standard-text-color;
+  text-align: center;
+}
+
+.footer a:hover {
+  color: #333;
+}

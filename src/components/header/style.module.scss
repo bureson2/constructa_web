@@ -1,0 +1,9 @@
+@use '../../base_css/base';
+
+.application_name{
+  padding: 20px;
+  color: base.$alternative-text-color;
+  font-size: base.$h1-text-size;
+  text-shadow: 1px 1px 1px #000000;
+  margin: 0;
+}
