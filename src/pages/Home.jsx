@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import axios from "axios";
 
 const Home = () => {
     return (
-        <div>Home</div>
+        <>
+            <div>Home</div>
+        </>
+
     )
 }
 

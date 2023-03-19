@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-const Users = () => {
+const UserListTable = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/users'
+        axios.get('http://localhost:8080/api/v1/users'
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -44,4 +44,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default UserListTable;

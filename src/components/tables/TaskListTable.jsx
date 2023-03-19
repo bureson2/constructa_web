@@ -1,10 +1,16 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
-const TaskList = () => {
+
+const TaskListTable = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/tasks')
+        axios.get('http://localhost:8080/api/v1/tasks'
+            , {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                }
+            })
             .then(response => {
                 setUsers(response.data);
             })
@@ -45,4 +51,4 @@ const TaskList = () => {
     );
 };
 
-export default TaskList;
+export default TaskListTable;
