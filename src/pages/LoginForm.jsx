@@ -8,7 +8,7 @@ function LoginForm() {
         event.preventDefault();
 
         // volání API pro přihlášení
-        const response = await fetch('http://localhost:8080/auth/authenticate', {
+        const response = await fetch('http://localhost:8080/api/v1/auth/authenticate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
