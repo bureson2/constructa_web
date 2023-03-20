@@ -17,3 +17,15 @@
 .form label{
   margin: 2vh 2vw;
 }
+
+.formButtons{
+  display: flex;
+  flex-direction: row;
+  margin: 2vw;
+}
+
+.formButtons button{
+  height: 45px;
+  width: 45px;
+  margin-right: 1vw;
+}

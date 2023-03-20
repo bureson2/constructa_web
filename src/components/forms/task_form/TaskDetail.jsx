@@ -3,13 +3,15 @@ import styles from "./style.module.scss";
 import axios from 'axios';
 import {useEffect, useState} from "react";
 
-const TaskDetail = (taskId) => {
+const TaskDetail = () => {
 
+    const url = window.location.href;
+    const taskId = url.substring(url.lastIndexOf("/") + 1);
     const [task, setTask] = useState("");
 
     useEffect(() => {
         // TODO
-        axios.get('http://localhost:8080/api/v1/tasks/${taskId}'
+        axios.get('http://localhost:8080/api/v1/tasks/' + taskId
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
