@@ -1,0 +1,18 @@
+@use '../../../base_css/base';
+
+.form{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.form input{
+  padding: 4px;
+  border-radius: 3px;
+  margin: 0 2vw;
+  width: 20%;
+}
+
+.form label{
+  margin: 2vh 2vw;
+}

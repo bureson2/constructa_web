@@ -1,11 +1,10 @@
 import {useState, useEffect} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
-import AcceptButton from "../buttons/AcceptButton";
-import RejectButton from "../buttons/RejectButton";
 import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
+import {Link} from "react-router-dom";
 
 const TaskListTable = () => {
     const [users, setUsers] = useState([]);
@@ -26,13 +25,11 @@ const TaskListTable = () => {
     }, []);
     return (
         <div>
-            <h2>Seznam úkolů</h2>
-            <div>
-                <AcceptButton/>
-                <RejectButton/>
-                <EditButton/>
-                <CreateButton/>
-                <DeleteButton/>
+            <div className={styles.tableHeader}>
+                <h2>Seznam úkolů</h2>
+                <Link to="/tasks/create">
+                    <CreateButton/>
+                </Link>
             </div>
             <table>
                 <thead>
@@ -42,8 +39,9 @@ const TaskListTable = () => {
                     <th>Popis úkolu</th>
                     <th>Místo</th>
                     <th>Řešitel</th>
-                    <th>Od:</th>
-                    <th>Do:</th>
+                    <th>Od</th>
+                    <th>Do</th>
+                    <th>Akce</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,6 +54,12 @@ const TaskListTable = () => {
                         <td>{user.assignee ? user.assignee.firstname.concat(" ", user.assignee.lastname) : "-"}</td>
                         <td>{user.timeFrom}</td>
                         <td>{user.timeTo}</td>
+                        <td className={styles.buttonTd}>
+                            {/* TODO edit*/}
+                            <Link to="/tasks/edit/1">
+                                <EditButton/>
+                            </Link>
+                            <DeleteButton/></td>
                     </tr>
                 ))}
                 </tbody>

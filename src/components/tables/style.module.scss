@@ -1,5 +1,12 @@
 @use '../../base_css/base';
 
+.tableHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1vw;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -27,4 +34,10 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: #ddd;
+}
+
+.buttonTd{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }

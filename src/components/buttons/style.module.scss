@@ -5,10 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 2rem;
+  width: 2rem;
 }
 
 .button img{
   max-height: 1.5rem;
+  max-width: 1.5rem;
 }
 
 .acceptButton, .createButton {
