@@ -1,0 +1,36 @@
+@use '../../base_css/base';
+
+.button{
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button img{
+  max-height: 1.5rem;
+}
+
+.acceptButton, .createButton {
+  background-color: base.$button-confirm-color;
+}
+
+.acceptButton:hover, .createButton:hover {
+  background-color: base.$button-confirm-color-hover;
+}
+
+.editButton{
+  background-color: base.$button-basic-color;
+}
+
+.editButton:hover{
+  background-color: base.$button-basic-color-hover;
+}
+
+.rejectButton, .deleteButton{
+  background-color: base.$button-reject-color;
+}
+
+.rejectButton:hover, .deleteButton:hover{
+  background-color: base.$button-reject-color-hover;
+}

@@ -14,10 +14,11 @@ function App() {
                 <Routes>
                     <Route element = {<PrivateRoutes />}>
                         <Route element={<Home />} exact path="/" />
-                        <Route element={<Layout tableElement={<UserListTable/>}/>} path="/users" />
-                        <Route element={<Layout tableElement={<TaskListTable/>}/>} path="/tasks" />
+                        <Route element={<Layout tableElement={<UserListTable/>} location={"USERS"}/>} path="/users" />
+
                     </Route>
                     <Route element={<LoginForm />} path="/login"/>
+                    <Route element={<Layout tableElement={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />
                 </Routes>
             </Router>
         </>

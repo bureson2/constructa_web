@@ -3,7 +3,8 @@ import { Outlet, Navigate } from 'react-router-dom'
 const PrivateRoutes = ({children, ...rest}) => {
     const token = sessionStorage.getItem('token');
     return(
-        token ? <Outlet /> : <Navigate to="/login" />
+        // todo return login
+        token ? <Outlet /> : <Navigate to="/tasks" />
     )
 }
 

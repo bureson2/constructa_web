@@ -1,6 +1,11 @@
 import {useState, useEffect} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
+import AcceptButton from "../buttons/AcceptButton";
+import RejectButton from "../buttons/RejectButton";
+import EditButton from "../buttons/EditButton";
+import CreateButton from "../buttons/CreateButton";
+import DeleteButton from "../buttons/DeleteButton";
 
 const TaskListTable = () => {
     const [users, setUsers] = useState([]);
@@ -22,6 +27,13 @@ const TaskListTable = () => {
     return (
         <div>
             <h2>Seznam úkolů</h2>
+            <div>
+                <AcceptButton/>
+                <RejectButton/>
+                <EditButton/>
+                <CreateButton/>
+                <DeleteButton/>
+            </div>
             <table>
                 <thead>
                 <tr>
