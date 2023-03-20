@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
 import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
+import EditTask from "../forms/task_form/EditTask";
 
 const TaskListTable = () => {
     const [users, setUsers] = useState([]);
@@ -47,16 +48,18 @@ const TaskListTable = () => {
                 <tbody>
                 {users.map(user => (
                     <tr key={user.id}>
-                        <td>{user.name}</td>
-                        <td>{user.description}</td>
                         <td>{user.id}</td>
+                        <td>
+                            <Link to={"/tasks/" + user.id} className={styles.detailLink} taskId={user.id}>
+                                {user.name}
+                            </Link></td>
+                        <td>{user.description}</td>
                         <td>{user.locationTime}</td>
                         <td>{user.assignee ? user.assignee.firstname.concat(" ", user.assignee.lastname) : "-"}</td>
                         <td>{user.timeFrom}</td>
                         <td>{user.timeTo}</td>
                         <td className={styles.buttonTd}>
-                            {/* TODO edit*/}
-                            <Link to="/tasks/edit/1">
+                            <Link to={"/tasks/edit/" + user.id}>
                                 <EditButton/>
                             </Link>
                             <DeleteButton/></td>

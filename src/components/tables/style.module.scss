@@ -41,3 +41,9 @@ tr:hover {
   flex-direction: row;
   justify-content: start;
 }
+
+.detailLink{
+  text-decoration: underline;
+  color: base.$standard-text-color;
+  height: auto;
+}

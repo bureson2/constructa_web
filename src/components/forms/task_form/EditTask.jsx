@@ -5,11 +5,13 @@ import styles from "./style.module.scss";
 
 const EditTask = () => {
 
+    const url = window.location.href;
+    const taskId = url.substring(url.lastIndexOf("/") + 1);
     const [task, setTask] = useState("");
 
     useEffect(() => {
         // TODO
-        axios.get('http://localhost:8080/api/v1/tasks/1'
+        axios.get('http://localhost:8080/api/v1/tasks/'+ taskId
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`

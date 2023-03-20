@@ -3,7 +3,7 @@ import Header from "./header/Header";
 import styles from "./style.module.scss";
 import SideNavigation from "./navigation/SideNavigation";
 
-function Layout({tableElement, location}) {
+function Layout({element, location}) {
 
     return (
         <div className={styles.layout}>
@@ -15,7 +15,7 @@ function Layout({tableElement, location}) {
                     <SideNavigation/>
                 </nav>
                 <main className={styles.content}>
-                    {tableElement}
+                    {element}
                 </main>
             </div>
             <footer className={styles.footer}>
