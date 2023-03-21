@@ -5,6 +5,7 @@ import RejectButton from "../../buttons/RejectButton";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import MapInput from "../../inputs/MapInput";
 
 const CreateTask = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const CreateTask = () => {
     const [timeFrom, setTimeFrom] = useState(new Date().toISOString().slice(0, 16));
     const [timeTo, setTimeTo] = useState(new Date().toISOString().slice(0, 16));
 
-    function handleCreateTask(taskId) {
+    function handleCreateTask() {
 
         axios.post('http://localhost:8080/api/v1/tasks', {
             name: taskName,
@@ -66,6 +67,9 @@ const CreateTask = () => {
                 <div onClick={handleCreateTask}><AcceptButton/></div>
                 <Link to={"/tasks"}><RejectButton/></Link>
             </div>
+            {/*<MapInput>*/}
+
+            {/*</MapInput>*/}
         </form>
     );
 }

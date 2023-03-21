@@ -23,6 +23,12 @@ function App() {
                         <Route element={<Layout element={<TaskDetail/>} location={"USERS"}/>} path="/tasks/:id" />
                     </Route>
                     <Route element={<LoginForm />} path="/login"/>
+                    {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/" />*/}
+                    {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users" />*/}
+                    {/*<Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />*/}
+                    {/*<Route element={<Layout element={<EditTask/>} location={"USERS"}/>}  path="/tasks/edit/:id" />*/}
+                    {/*<Route element={<Layout element={<CreateTask/>} location={"USERS"}/>} path="/tasks/create" />*/}
+                    {/*<Route element={<Layout element={<TaskDetail/>} location={"USERS"}/>} path="/tasks/:id" />*/}
                 </Routes>
             </Router>
         </>
