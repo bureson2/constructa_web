@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import icon from "../../images/edit_icon.svg"
-function EditButton(props) {
+function EditButton() {
     return (
         <button className={`${styles.button} ${styles.editButton}`}>
             <img src={icon} alt="Edit Icon" />

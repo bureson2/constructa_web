@@ -7,7 +7,6 @@ import RejectButton from "../../buttons/RejectButton";
 
 
 const EditTask = () => {
-
     const navigate = useNavigate();
     const url = window.location.href;
 

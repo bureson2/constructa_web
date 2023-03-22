@@ -5,7 +5,7 @@ import RejectButton from "../../buttons/RejectButton";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import MapInput from "../../inputs/MapInput";
+// import MapInput from "../../inputs/MapInput";
 
 const CreateTask = () => {
     const navigate = useNavigate();

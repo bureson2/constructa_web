@@ -1,26 +1,24 @@
-import {MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
-import styles from "./style.module.scss";
-
-const MapInput = () => {
-    return (
-        <div className={styles.map}>
-
-
-            <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[51.505, -0.09]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br/> Easily customizable.
-                    </Popup>
-                </Marker>
-            </MapContainer>
-        </div>
-    );
-}
-
-export default MapInput;
-
-
+// import React, { useState } from 'react';
+// // import { Map, MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+// // import L from 'leaflet';
+// // import styles from "./style.module.scss";
+//
+// const MapInput = () => {
+//
+//     const [center, setCenter] = useState({lat: 13.084622, lng: 80.248357});
+//     const ZOOM_LEVEL = 9;
+//
+//     return (
+//         <></>
+//         // <Map
+//         //     center={center}
+//         //     zoom={ZOOM_LEVEL}>
+//         //     {/*<TileLayer url={} atribution={} />*/}
+//         //
+//         // </Map>
+//     );
+// }
+//
+// export default MapInput;
+//
+//

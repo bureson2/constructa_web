@@ -17,13 +17,13 @@ function SideNavigation() {
                 </Link>
             </li>
             <li className={styles.navItem}>
-                <Link to="/projects" className={styles.navLink}>
-                    Projekty
+                <Link to="/vehicles" className={styles.navLink}>
+                    Vozidla
                 </Link>
             </li>
             <li className={styles.navItem}>
-                <Link to="/vehicles" className={styles.navLink}>
-                    Vozidla
+                <Link to="/projects" className={styles.navLink}>
+                    Projekty
                 </Link>
             </li>
             <li className={styles.navItem}>

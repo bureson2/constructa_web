@@ -5,7 +5,6 @@ import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
-import EditTask from "../forms/task_form/EditTask";
 
 const TaskListTable = () => {
     const [tasks, setTasks] = useState([]);

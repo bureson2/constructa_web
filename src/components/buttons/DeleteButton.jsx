@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import icon from "../../images/delete_icon.svg"
-function DeleteButton(props) {
+function DeleteButton() {
 
     return (
         <button className={`${styles.button} ${styles.deleteButton}`}>

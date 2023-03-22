@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import icon from "../../images/add_icon.svg"
 
-function CreateButton(props) {
+function CreateButton() {
     return (
         <button className={`${styles.button} ${styles.createButton}`}>
             <img src={icon} alt="Create Icon" />

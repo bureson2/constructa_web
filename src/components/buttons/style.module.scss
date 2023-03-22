@@ -37,3 +37,11 @@
 .rejectButton:hover, .deleteButton:hover{
   background-color: base.$button-reject-color-hover;
 }
+
+.reportButton{
+  background-color: base.$secondary-color;
+}
+
+.reportButton:hover{
+  background-color: #dea70c;
+}
