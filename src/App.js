@@ -1,4 +1,3 @@
-import LoginForm from "./components/forms/LoginForm";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import UserListTable from "./components/tables/UserListTable";
@@ -12,6 +11,7 @@ import VehicleListTable from "./components/tables/VehicleListTable";
 import EditVehicle from "./components/forms/vehicle_form/EditVehicle";
 import CreateVehicle from "./components/forms/vehicle_form/CreateVehicle";
 import VehicleDetail from "./components/forms/vehicle_form/VehicleDetail";
+import LoginPage from "./pages/login/LoginPage";
 
 function App() {
     return (
@@ -30,7 +30,7 @@ function App() {
                         <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>} path="/vehicles/create" />
                         <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
                     </Route>
-                    <Route element={<LoginForm />} path="/login"/>
+                    <Route element={<LoginPage />} path="/login"/>
                     {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/" />*/}
                     {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users" />*/}
                     {/*<Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />*/}

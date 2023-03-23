@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import styles from "./style.module.scss";
+import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
 import {Link, useNavigate} from "react-router-dom";
 import RejectButton from "../../buttons/RejectButton";

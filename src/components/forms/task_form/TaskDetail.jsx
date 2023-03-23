@@ -1,7 +1,9 @@
 
-import styles from "./style.module.scss";
+import styles from "../style.module.scss";
 import axios from 'axios';
 import {useEffect, useState} from "react";
+import BackButton from "../../buttons/BackButton";
+import {Link} from "react-router-dom";
 
 const TaskDetail = () => {
 
@@ -42,6 +44,10 @@ const TaskDetail = () => {
             <input type="text" id="timeFrom" name="timeFrom" value={task.timeFrom} readOnly={true}/>
             <label htmlFor="timeTo">Datum ukončení:</label>
             <input type="text" id="timeTo" name="timeTo" value={task.timeTo} readOnly={true}/>
+            {/*TODO position*/}
+            <Link to={"/tasks"}>
+                <BackButton/>
+            </Link>
         </form>
     );
 }

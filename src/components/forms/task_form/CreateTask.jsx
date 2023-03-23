@@ -1,5 +1,5 @@
 import axios from "axios";
-import styles from "./style.module.scss";
+import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
 import {Link} from "react-router-dom";

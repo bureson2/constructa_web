@@ -1,0 +1,52 @@
+@use '../../base_css/base';
+
+.form{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input, .form select{
+  padding: 4px;
+  border-radius: 3px;
+  margin: 0 2vw;
+  min-width: 30%;
+  max-width: 50%;
+  font-weight: bold;
+}
+
+.readonly{
+  display: flex;
+  align-items: center;
+}
+
+.readonly label{
+  font-weight: bold;
+}
+
+.topButtons{
+  display: flex;
+  position: absolute;
+  right: -5px;
+}
+
+.form label{
+  margin: 2vh 2vw;
+}
+
+.formButtons{
+  display: flex;
+  flex-direction: row;
+  margin: 2vw;
+}
+
+.formButtons button{
+  height: 45px;
+  width: 45px;
+  margin-right: 1vw;
+}
+
+.bottomBackButton button{
+  margin-top: 4vh;
+  margin-left: 2vw;
+}
