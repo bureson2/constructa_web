@@ -57,7 +57,7 @@ const CreateVehicle = () => {
             <select name="type" onChange={(event) => setVehicleType(event.target.value)}>
                 <option value="CAR" selected>Auto</option>
                 <option value="VEHICLE">Stroj</option>
-                <option value="TRAILER  ">Vozík</option>
+                <option value="TRAILER  ">Přívěs</option>
             </select>
             <div className={styles.formButtons}>
                 <div onClick={handleCreateVehicle}><AcceptButton/></div>

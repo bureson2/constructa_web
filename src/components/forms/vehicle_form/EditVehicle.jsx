@@ -24,8 +24,8 @@ const EditVehicle = () => {
             id: vehicleId,
             factory: vehicleFactory,
             name: vehicleName,
-            registrationNumber: vehicleMileage,
-            mileage: vehicleRegistrationNumber,
+            registrationNumber: vehicleRegistrationNumber,
+            mileage: vehicleMileage,
             type: vehicleType
         }, {
             headers: {

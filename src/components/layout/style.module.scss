@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: row;
   min-height: 80vh;
-  //background-color: base.$tertiary-color;
   background: base.$noise-background;
 }
 
@@ -31,7 +30,7 @@
 
 .content {
   background-color: base.$background-color;
-  flex-basis: 80%;
+  flex-basis: 83%;
   padding: 20px;
   margin: 2vh 1vw 2vh 0;
   border-radius: 5px;

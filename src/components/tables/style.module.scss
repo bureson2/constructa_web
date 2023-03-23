@@ -51,6 +51,10 @@ tr:hover {
   justify-content: start;
 }
 
+.buttonTd button{
+  margin-right: 5px;
+}
+
 .detailLink{
   text-decoration: underline;
   color: base.$standard-text-color;
