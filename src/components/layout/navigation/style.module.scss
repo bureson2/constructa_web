@@ -6,18 +6,15 @@
   padding: 0;
 }
 
-//.navbar {
-//  min-height: 90%;
-//  background-color: base.$background-color;
-//  border-radius: 5px;
-//  padding: 15px 0;
-//}
-
-.navItem{
+.navList li{
   padding: 1.5vh 1.5vw;
 }
 
-.navItem:hover{
+.navList li:hover{
+  background-color: base.$secondary-color;
+}
+
+.active{
   background-color: base.$secondary-color;
 }
 

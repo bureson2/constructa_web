@@ -16,7 +16,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  min-height: 75vh;
+  min-height: 80vh;
   //background-color: base.$tertiary-color;
   background: base.$noise-background;
 }
@@ -25,9 +25,7 @@
   flex-basis: 15%;
   background-color: base.$background-color;
   min-height: 100%;
-  //border-radius: 5px;
   padding: 15px;
-  //margin: 2vh 1vw;
   margin-right: 1vw;
 }
 

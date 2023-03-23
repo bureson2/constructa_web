@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import icon from "../../images/close_icon.svg"
+import icon from "../../svg/close_icon.svg"
 
 function RejectButton() {
     return (

@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import icon from "../../images/add_icon.svg"
+import icon from "../../svg/add_icon.svg"
 
 function CreateButton() {
     return (

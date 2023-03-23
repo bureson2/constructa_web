@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './style.module.scss';
-import emailIcon from "../../images/mail_icon.svg";
-import lockIcon from "../../images/lock_icon.svg";
+import emailIcon from "../../svg/mail_icon.svg";
+import lockIcon from "../../svg/lock_icon.svg";
 import ConnectingParticlesBackground from "./ConnectingParticlesBackground";
 import {useNavigate} from "react-router-dom";
 

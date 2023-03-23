@@ -12,7 +12,7 @@ function Layout({element, location}) {
             </header>
             <div className={styles.container}>
                 <nav className={styles.sidebar}>
-                    <SideNavigation/>
+                    <SideNavigation location={location}/>
                 </nav>
                 <main className={styles.content}>
                     {element}

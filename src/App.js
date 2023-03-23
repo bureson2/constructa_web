@@ -12,6 +12,9 @@ import EditVehicle from "./components/forms/vehicle_form/EditVehicle";
 import CreateVehicle from "./components/forms/vehicle_form/CreateVehicle";
 import VehicleDetail from "./components/forms/vehicle_form/VehicleDetail";
 import LoginPage from "./pages/login/LoginPage";
+import EditUser from "./components/forms/user_form/EditUser";
+import AddUser from "./components/forms/user_form/AddUser";
+import UserDetail from "./components/forms/user_form/UserDetail";
 
 function App() {
     return (
@@ -21,6 +24,9 @@ function App() {
                     <Route element = {<PrivateRoutes />}>
                         <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/" />
                         <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users" />
+                        <Route element={<Layout element={<EditUser/>} location={"USERS"}/>}  path="/users/edit/:id" />
+                        <Route element={<Layout element={<AddUser/>} location={"USERS"}/>} path="/users/create" />
+                        <Route element={<Layout element={<UserDetail/>} location={"USERS"}/>} path="/users/:id" />
                         <Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />
                         <Route element={<Layout element={<EditTask/>} location={"TASKS"}/>}  path="/tasks/edit/:id" />
                         <Route element={<Layout element={<CreateTask/>} location={"TASKS"}/>} path="/tasks/create" />
@@ -31,12 +37,6 @@ function App() {
                         <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
                     </Route>
                     <Route element={<LoginPage />} path="/login"/>
-                    {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/" />*/}
-                    {/*<Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users" />*/}
-                    {/*<Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />*/}
-                    {/*<Route element={<Layout element={<EditTask/>} location={"USERS"}/>}  path="/tasks/edit/:id" />*/}
-                    {/*<Route element={<Layout element={<CreateTask/>} location={"USERS"}/>} path="/tasks/create" />*/}
-                    {/*<Route element={<Layout element={<TaskDetail/>} location={"USERS"}/>} path="/tasks/:id" />*/}
                 </Routes>
             </Router>
         </>

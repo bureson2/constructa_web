@@ -28,6 +28,10 @@ th, td {
   text-align: left;
 }
 
+td img{
+  height: 30px;
+}
+
 th {
   font-weight: 700;
   border-bottom: 2px solid #ddd;
@@ -51,4 +55,9 @@ tr:hover {
   text-decoration: underline;
   color: base.$standard-text-color;
   height: auto;
+}
+
+.vehicleIcons{
+  border: 0;
+  background-color: rgba(255, 255, 255, 0);
 }

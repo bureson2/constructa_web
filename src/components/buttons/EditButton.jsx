@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import icon from "../../images/edit_icon.svg"
+import icon from "../../svg/edit_icon.svg"
 function EditButton() {
     return (
         <button className={`${styles.button} ${styles.editButton}`}>

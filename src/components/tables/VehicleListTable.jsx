@@ -6,6 +6,10 @@ import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
 import ReportButton from "../buttons/ReportButton";
+import carIcon from "../../svg/car_icon.svg";
+import vehicleIcon from "../../svg/vehicle_icon.svg";
+import trailerIcon from "../../svg/trailer_icon.svg";
+
 
 const VehicleListTable = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -39,6 +43,25 @@ const VehicleListTable = () => {
         setVehicles(updatedVehicles);
     }
 
+    const getVehicleIcon = (vehicleType) => {
+        switch (vehicleType) {
+            case 'CAR':
+                return <button className={styles.vehicleIcons}>
+                    <img src={carIcon} alt="Car Icon" />
+                </button>;
+            case 'VEHICLE':
+                return <button className={styles.vehicleIcons}>
+                    <img src={vehicleIcon} alt="vehicle Icon" />
+                </button>;
+            case 'TRAILER':
+                return <button className={styles.vehicleIcons}>
+                    <img src={trailerIcon} alt="trailer Icon" />
+                </button>;
+            default:
+                return null;
+        }
+    };
+
     return (<div>
         <div className={styles.tableHeader}>
             <h2>Seznam vozidel</h2>
@@ -55,6 +78,7 @@ const VehicleListTable = () => {
             <thead>
             <tr>
                 <th>SPZ</th>
+                <th>Typ vozidla</th>
                 <th>Značka</th>
                 <th>Typ model</th>
                 <th>Najeté kilometry</th>
@@ -67,6 +91,9 @@ const VehicleListTable = () => {
                     <Link to={"/vehicles/" + vehicle.id} className={styles.detailLink}>
                         {vehicle.registrationNumber}
                     </Link>
+                </td>
+                <td>
+                    {getVehicleIcon(vehicle.type)}
                 </td>
                 <td>{vehicle.factory}</td>
                 <td>

@@ -1,6 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
+import {Link} from "react-router-dom";
+import CreateButton from "../buttons/CreateButton";
+import ReportButton from "../buttons/ReportButton";
+import EditButton from "../buttons/EditButton";
+import DeleteButton from "../buttons/DeleteButton";
+
 const UserListTable = () => {
     const [users, setUsers] = useState([]);
 
@@ -18,9 +24,33 @@ const UserListTable = () => {
                 console.log(error);
             });
     }, []);
+
+    function handleDeleteUser(userId) {
+
+        axios.delete('http://localhost:8080/api/v1/vehicles/' + userId, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
+            .catch(error => {
+                console.log(error);
+            });
+
+        const updatedUser = users.filter(user => user.id !== userId);
+        setUsers(updatedUser);
+    }
+
     return (
         <div>
-            <h2>Seznam uživatelů</h2>
+            <div className={styles.tableHeader}>
+
+                <h2>Seznam zaměstnanců</h2>
+                <div className={styles.buttonTd}>
+                    <Link to="/users/create">
+                        <CreateButton/>
+                    </Link>
+                </div>
+            </div>
             <table>
                 <thead>
                 <tr>
@@ -28,6 +58,7 @@ const UserListTable = () => {
                     <th>Username</th>
                     <th>Jméno a příjmení</th>
                     <th>Email</th>
+                    <th>Akce</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,8 +66,20 @@ const UserListTable = () => {
                     <tr key={user.id}>
                         <td>{user.id}</td>
                         <td>{user.username}</td>
-                        <td>{user.titleBeforeName}&nbsp;{user.firstname}&nbsp;{user.lastname}&nbsp;{user.titleAfterName}</td>
+                        <td>
+                            <Link to={"/users/" + user.id} className={styles.detailLink}>
+                                {user.firstname}&nbsp;{user.lastname}
+                            </Link>
+                        </td>
                         <td>{user.email}</td>
+                        <td className={styles.buttonTd}>
+                            <Link to={"/users/edit/" + user.id}>
+                                <EditButton/>
+                            </Link>
+                            <div onClick={() => handleDeleteUser(user.id)}>
+                                <DeleteButton/>
+                            </div>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

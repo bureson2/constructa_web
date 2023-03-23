@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import icon from "../../images/check_icon.svg"
+import icon from "../../svg/check_icon.svg"
 function AcceptButton() {
     return (
         <button className={`${styles.button} ${styles.acceptButton}`}>

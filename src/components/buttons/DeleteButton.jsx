@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import icon from "../../images/delete_icon.svg"
+import icon from "../../svg/delete_icon.svg"
 function DeleteButton() {
 
     return (
