@@ -45,6 +45,7 @@ const UserDetail = () => {
                 setBankAccout(response.data.bankAccount);
                 setPhone(response.data.phone);
                 setDateOfAcceptance(response.data.dateOfAcceptance);
+                setRoles(response.data.role)
             })
             .catch(error => {
                 console.log(error);
@@ -114,6 +115,10 @@ const UserDetail = () => {
                     <input type="text" id="bankAccount" name="bankAccount"
                            value={bankAccount} readOnly={true}
                            onChange={(event) => setBankAccout(event.target.value)}/>
+                    <label htmlFor="role">Pracovní pozice:</label>
+                    <input type="text" id="role" name="role"
+                           value={roles} readOnly={true}
+                           onChange={(event) => setRoles(event.target.value)}/>
                 </div>
             </div>
             <Link to={"/users"} className={styles.bottomBackButton}>

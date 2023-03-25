@@ -55,6 +55,7 @@ const UserListTable = () => {
                 <thead>
                 <tr>
                     <th>Jméno a příjmení</th>
+                    <th>Pozice</th>
                     <th>Email</th>
                     <th>Telefon</th>
                     <th>Akce</th>
@@ -68,6 +69,7 @@ const UserListTable = () => {
                                 {user.firstname}&nbsp;{user.lastname}
                             </Link>
                         </td>
+                        <td>{user.role}</td>
                         <td>{user.email}</td>
                         <td>{user.phone}</td>
                         <td className={styles.buttonTd}>

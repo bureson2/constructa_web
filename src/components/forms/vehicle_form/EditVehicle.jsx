@@ -18,6 +18,9 @@ const EditVehicle = () => {
     const [vehicleMileage, setVehicleMileage] = useState('');
     const [vehicleRegistrationNumber, setVehicleRegistrationNumber] = useState('');
     const [vehicleType, setVehicleType] = useState('');
+    const [motorcycleWatch, setMotorcycleWatch] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
+    const [boughtAt, setBoughtAt] = useState('');
 
     function handleEditVehicle() {
         axios.put('http://localhost:8080/api/v1/vehicles', {
@@ -26,7 +29,10 @@ const EditVehicle = () => {
             name: vehicleName,
             registrationNumber: vehicleRegistrationNumber,
             mileage: vehicleMileage,
-            type: vehicleType
+            type: vehicleType,
+            conditionMotorcycleWatch: motorcycleWatch,
+            createdAt: createdAt,
+            boughtAt: boughtAt,
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
@@ -82,30 +88,55 @@ const EditVehicle = () => {
                     <CloseButton/>
                 </Link>
             </div>
-            <label htmlFor="vehicleFactory">Značka:</label>
-            <input type="text" id="vehicleFactory" name="vehicleFactory"
-                   value={vehicleFactory}
-                   onChange={(event) => setVehicleFactory(event.target.value)}/>
-            <label htmlFor="vehicleName">Model:</label>
-            <input type="text" id="vehicleName" name="vehicleName"
-                   value={vehicleName}
-                   onChange={(event) => setVehicleName(event.target.value)}/>
-            <label htmlFor="vehicleRegistrationNumber">SPZ:</label>
-            <input type="text" id="vehicleRegistrationNumber" name="vehicleRegistrationNumber"
-                   value={vehicleRegistrationNumber}
-                   onChange={(event) => setVehicleRegistrationNumber(event.target.value)}/>
-            <label htmlFor="vehicleMileage">Najeté kilometry:</label>
-            <input type="text" id="vehicleMileage" name="vehicleMileage"
-                   value={vehicleMileage}
-                   onChange={(event) => setVehicleMileage(event.target.value)}/>
-            <label htmlFor="vehicleType">Druh vozidla:</label>
-            <select name="vehicleType" id="vehicleType"
-                    value={vehicleType}
-                    onChange={(event) => setVehicleType(event.target.value)}>
-                <option value="CAR">Auto</option>
-                <option value="VEHICLE">Stroj</option>
-                <option value="TRAILER">Přívěs</option>
-            </select>
+            <div>
+                <div className={styles.leftSide}>
+                    <label htmlFor="vehicleFactory">Značka:</label>
+                    <input type="text" id="vehicleFactory" name="vehicleFactory"
+                           value={vehicleFactory} readOnly={true}
+                           onChange={(event) => setVehicleFactory(event.target.value)}/>
+                    <label htmlFor="vehicleName">Model:</label>
+                    <input type="text" id="vehicleName" name="vehicleName"
+                           value={vehicleName} readOnly={true}
+                           onChange={(event) => setVehicleName(event.target.value)}/>
+                    <label htmlFor="vehicleRegistrationNumber">SPZ:</label>
+                    <input type="text" id="vehicleRegistrationNumber" name="vehicleRegistrationNumber"
+                           value={vehicleRegistrationNumber} readOnly={true}
+                           onChange={(event) => setVehicleRegistrationNumber(event.target.value)}/>
+                    <label htmlFor="createdAt">Datum výroby:</label>
+                    <input type="text" id="createdAt" name="createdAt"
+                           value={createdAt.substring(0, 10)} readOnly={true}
+                           onChange={(event) => setCreatedAt(event.target.value)}/>
+                    <label htmlFor="boughtAt">Datum nákupu:</label>
+                    <input type="text" id="boughtAt" name="boughtAt"
+                           value={boughtAt.substring(0, 10)} readOnly={true}
+                           onChange={(event) => setBoughtAt(event.target.value)}/>
+                    <label htmlFor="vehicleType">Druh vozidla:</label>
+                    <select name="vehicleType" id="vehicleType"
+                            value={vehicleType}
+                            onChange={(event) => setVehicleType(event.target.value)}>
+                        <option value="CAR">Auto</option>
+                        <option value="VEHICLE">Stroj</option>
+                        <option value="TRAILER">Přívěs</option>
+                    </select>
+                    {vehicleType === "CAR" ?
+                        <>
+                            <label htmlFor="vehicleMileage">Najeté kilometry:</label>
+                            <input type="text" id="vehicleMileage" name="vehicleMileage"
+                                   value={vehicleMileage} readOnly={true}
+                                   onChange={(event) => setVehicleMileage(event.target.value)}/>
+                        </> : ""
+                    }
+                    {vehicleType === "VEHICLE" ? <>
+                        <label htmlFor="vehicleMileage">Stav odpracovaných motohodin:</label>
+                        <input type="text" id="motorcycleWatch" name="motorcycleWatch"
+                               value={motorcycleWatch} readOnly={true}
+                               onChange={(event) => setMotorcycleWatch(event.target.value)}/>
+                    </> : ""}
+                </div>
+                <div className={styles.rightSide}>
+                    {/* TODO car reporty */}
+                </div>
+            </div>
             <div className={styles.formButtons}>
                 <div onClick={handleEditVehicle}><AcceptButton/></div>
                 <Link to={"/vehicles"}><RejectButton/></Link>

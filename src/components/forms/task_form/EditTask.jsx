@@ -21,6 +21,7 @@ const EditTask = () => {
     const [markerPosition, setMarkerPosition] = useState([50.073658, 14.418540]);
     const [assignee, setAssignee] = useState('');
     const [author, setAuthor] = useState('');
+    const [taskState, setState] = useState('');
     const customIcon = icon({
         iconUrl: locationIcon,
         iconSize: [40, 40],
@@ -28,11 +29,15 @@ const EditTask = () => {
 
     function handleEditTask() {
         axios.put('http://localhost:8080/api/v1/tasks', {
+            id: taskId,
             name: taskName,
             description: taskDescription,
             timeFrom: timeFrom,
             timeTo: timeTo,
             locationName: taskLocation,
+            state: taskState,
+            longitude: markerPosition[1],
+            latitude: markerPosition[0]
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -62,6 +67,15 @@ const EditTask = () => {
                 setAuthor(response.data.author ? response.data.author.firstname.concat(" ", response.data.author.lastname)
                     : "-")
                 setMarkerPosition([response.data.latitude, response.data.longitude])
+                if(response.data.state === "Nový"){
+                    setState("NEW");
+                } else if(response.data.state === "V řešení") {
+                    setState("IN_PROGRESS");
+                } else if(response.data.state === "Pozastaveno") {
+                    setState("STOPPED");
+                } else if(response.data.state === "Hotovo") {
+                    setState("DONE");
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -96,6 +110,13 @@ const EditTask = () => {
                     <input type="text" id="timeTo" name="timeTo"
                            value={timeTo}
                            onChange={(event) => setTimeTo(event.target.value)}/>
+                    <label htmlFor="state-select">Současný stav:</label>
+                    <select id="state-select" value={taskState} onChange={(event) => setState(event.target.value)}>
+                        <option value="NEW">Nový</option>
+                        <option value="IN_PROGRESS">V řešení</option>
+                        <option value="STOPPED">Pozastaveno</option>
+                        <option value="DONE">Hotovo</option>
+                    </select>
                 </div>
                 <div className={styles.rightSide}>
                     <label htmlFor="taskLocation">Místo výkonu práce:

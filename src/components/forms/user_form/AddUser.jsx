@@ -79,11 +79,12 @@ const AddUser = () => {
                     <label htmlFor="birthId">Rodné číslo:</label>
                     <input type="text" id="birthId" name="birthId"
                            onChange={(event) => setBirthId(event.target.value)}/>
-                    <label htmlFor="roles">Pracovní role:</label>
 
                 </div>
                 <div className={styles.rightSide}>
+                    <label htmlFor="bankAccount">Bankovní účet:</label>
                     <input type="text" id="bankAccount" name="bankAccount"
+                           value={bankAccount}
                            onChange={(event) => setBankAccout(event.target.value)}/>
                     <label htmlFor="hourRate">Hodinová mzda:</label>
                     <input type="text" id="hourRate" name="hourRate"
@@ -91,10 +92,7 @@ const AddUser = () => {
                     <label htmlFor="monthSalary">Měsíční mzda:</label>
                     <input type="text" id="monthSalary" name="monthSalary"
                            onChange={(event) => setMonthSalary(event.target.value)}/>
-                    <label htmlFor="bankAccount">Bankovní účet:</label>
-
-
-                    <label htmlFor="role-select">Select your role:</label>
+                    <label htmlFor="role-select">Pracovní pozice:</label>
                     <select id="role-select" value={roles} onChange={(event) => setRoles(event.target.value)}>
                         <option value="ROLE_MANAGER">Manager</option>
                         <option value="ROLE_REPORTER">Referent</option>
