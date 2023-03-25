@@ -13,3 +13,11 @@ code {
 *{
   box-sizing: border-box;
 }
+
+.green{
+  color: green;
+}
+
+.blue{
+  color: #0958a6;
+}

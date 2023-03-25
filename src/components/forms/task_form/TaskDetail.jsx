@@ -4,6 +4,8 @@ import axios from 'axios';
 import {useEffect, useState} from "react";
 import BackButton from "../../buttons/BackButton";
 import {Link} from "react-router-dom";
+import EditButton from "../../buttons/EditButton";
+import CloseButton from "../../buttons/CloseButton";
 
 const TaskDetail = () => {
 
@@ -29,6 +31,14 @@ const TaskDetail = () => {
 
     return (
         <form className={styles.form}>
+            <div className={styles.topButtons}>
+                <Link to={"/tasks/edit/" + taskId} className={styles.topEditButton}>
+                    <EditButton/>
+                </Link>
+                <Link to={"/vehicles"} className={styles.topBackButton}>
+                    <CloseButton/>
+                </Link>
+            </div>
             <label htmlFor="taskId">Identifikátor:</label>
             <input type="text" id="taskId" name="taskId" value={task.id} readOnly={true}/>
             <label htmlFor="taskName">Jméno:</label>
@@ -44,8 +54,7 @@ const TaskDetail = () => {
             <input type="text" id="timeFrom" name="timeFrom" value={task.timeFrom} readOnly={true}/>
             <label htmlFor="timeTo">Datum ukončení:</label>
             <input type="text" id="timeTo" name="timeTo" value={task.timeTo} readOnly={true}/>
-            {/*TODO position*/}
-            <Link to={"/tasks"}>
+            <Link to={"/tasks"} className={styles.bottomBackButton}>
                 <BackButton/>
             </Link>
         </form>

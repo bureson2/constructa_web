@@ -38,6 +38,19 @@ const TaskListTable = () => {
         setTasks(updatedTasks);
     }
 
+    function getStatusClassName(status) {
+        switch (status) {
+            case "Nový":
+                return "blue";
+            case "V řešení":
+                return "yellow";
+            case "Pozastaveno":
+                return "sred";
+            default:
+                return "green";
+        }
+    }
+
     return (<div>
         <div className={styles.tableHeader}>
             <h2>Seznam úkolů</h2>
@@ -48,19 +61,20 @@ const TaskListTable = () => {
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+                {/*<th>ID</th>*/}
                 <th>Úkol</th>
                 <th>Popis úkolu</th>
                 <th>Místo</th>
                 <th>Řešitel</th>
                 <th>Od</th>
                 <th>Do</th>
+                <th>Stav</th>
                 <th>Akce</th>
             </tr>
             </thead>
             <tbody>
             {tasks.map(task => (<tr key={task.id}>
-                <td>{task.id}</td>
+                {/*<td>{task.id}</td>*/}
                 <td>
                     <Link to={"/tasks/" + task.id} className={styles.detailLink}>
                         {task.name}
@@ -68,8 +82,10 @@ const TaskListTable = () => {
                 <td>{task.description}</td>
                 <td>{task.locationTime}</td>
                 <td>{task.assignee ? task.assignee.firstname.concat(" ", task.assignee.lastname) : "-"}</td>
-                <td>{task.timeFrom}</td>
-                <td>{task.timeTo}</td>
+                <td>{task.timeFrom.substring(0, 10)}</td>
+                <td>{task.timeTo.substring(0, 10)}</td>
+                <td className={
+                    `${getStatusClassName(task.state)} ${styles.state}`}>{task.state}</td>
                 <td className={styles.buttonTd}>
                     <Link to={"/tasks/edit/" + task.id}>
                         <EditButton/>

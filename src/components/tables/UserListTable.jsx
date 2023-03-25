@@ -27,7 +27,7 @@ const UserListTable = () => {
 
     function handleDeleteUser(userId) {
 
-        axios.delete('http://localhost:8080/api/v1/vehicles/' + userId, {
+        axios.delete('http://localhost:8080/api/v1/users/' + userId, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -54,24 +54,22 @@ const UserListTable = () => {
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Username</th>
                     <th>Jméno a příjmení</th>
                     <th>Email</th>
+                    <th>Telefon</th>
                     <th>Akce</th>
                 </tr>
                 </thead>
                 <tbody>
                 {users.map(user => (
                     <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.username}</td>
                         <td>
                             <Link to={"/users/" + user.id} className={styles.detailLink}>
                                 {user.firstname}&nbsp;{user.lastname}
                             </Link>
                         </td>
                         <td>{user.email}</td>
+                        <td>{user.phone}</td>
                         <td className={styles.buttonTd}>
                             <Link to={"/users/edit/" + user.id}>
                                 <EditButton/>

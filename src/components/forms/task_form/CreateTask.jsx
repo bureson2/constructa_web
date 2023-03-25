@@ -4,18 +4,18 @@ import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import {icon} from "leaflet";
 import "leaflet/dist/leaflet.css"
 import locationIcon from "./location_on_FILL1_wght100_GRAD0_opsz48.png";
+import CloseButton from "../../buttons/CloseButton";
 
 const CreateTask = () => {
     const navigate = useNavigate();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskLocation, setTaskLocation] = useState('');
-    const [locationCheckBox, setLocationCheckBox] = useState(false);
     const [timeFrom, setTimeFrom] = useState(new Date().toISOString().slice(0, 16));
     const [timeTo, setTimeTo] = useState(new Date().toISOString().slice(0, 16));
     const [markerPosition, setMarkerPosition] = useState([50.073658, 14.418540]);
@@ -30,10 +30,9 @@ const CreateTask = () => {
             description: taskDescription,
             timeFrom: timeFrom,
             timeTo: timeTo,
-            locationCheckBox: locationCheckBox,
             locationName: taskLocation,
-            longitude: locationCheckBox ? markerPosition[1]: null,
-            latitude: locationCheckBox ? markerPosition[0]: null
+            longitude: markerPosition[1],
+            latitude: markerPosition[0]
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -49,10 +48,16 @@ const CreateTask = () => {
         const marker = event.target;
         const position = marker.getLatLng();
         setMarkerPosition([position.lat, position.lng]);
+        console.log(markerPosition);
     }
 
     return (
         <form className={styles.form}>
+            <div className={styles.topButtons}>
+                <Link to={"/vehicles"} className={styles.topBackButton}>
+                    <CloseButton/>
+                </Link>
+            </div>
             <div>
                 <div className={styles.leftSide}>
                     <label htmlFor="taskName">Jméno:</label>
@@ -81,12 +86,8 @@ const CreateTask = () => {
                     />
                 </div>
                 <div className={styles.rightSide}>
-                    <div className={styles.mapCheckbox}>
-                        <input type="checkbox" name="locationCheckBox"
-                               onChange={(event) => setLocationCheckBox(!locationCheckBox)}/>
-                        <label htmlFor="taskLocation">Místo výkonu práce:
-                        </label>
-                    </div>
+                    <label htmlFor="taskLocation">Místo výkonu práce:
+                    </label>
 
                     <input type="text" id="taskLocation" name="taskLocation"
                            onChange={(event) => setTaskLocation(event.target.value)}/>
@@ -98,7 +99,7 @@ const CreateTask = () => {
                         />
                         <Marker position={markerPosition} icon={customIcon}
                                 draggable={true}
-                                onDragend={handleMarkerDragEnd}>
+                                onMouseUp={handleMarkerDragEnd}>
                             <Popup>
                                 Vámi zvolené místo
                             </Popup>
