@@ -15,6 +15,14 @@ import LoginPage from "./pages/login/LoginPage";
 import EditUser from "./components/forms/user_form/EditUser";
 import AddUser from "./components/forms/user_form/AddUser";
 import UserDetail from "./components/forms/user_form/UserDetail";
+import CompanyListTable from "./components/tables/CompanyListTable";
+import ProjectListTable from "./components/tables/ProjectListTable";
+import EditCompany from "./components/forms/company_form/EditCompant";
+import CreateCompany from "./components/forms/company_form/CreateCompany";
+import CompanyDetail from "./components/forms/company_form/CompanyDetail";
+import EditProject from "./components/forms/project_form/EditProject";
+import CreateProject from "./components/forms/project_form/CreateProject";
+import ProjectDetail from "./components/forms/project_form/ProjectDetail";
 
 function App() {
     return (
@@ -35,6 +43,14 @@ function App() {
                         <Route element={<Layout element={<EditVehicle/>} location={"VEHICLES"}/>}  path="/vehicles/edit/:id" />
                         <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>} path="/vehicles/create" />
                         <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
+                        <Route element={<Layout element={<CompanyListTable/>} location={"COMPANIES"}/>} path="/companies" />
+                        <Route element={<Layout element={<EditCompany/>} location={"COMPANIES"}/>}  path="/companies/edit/:id" />
+                        <Route element={<Layout element={<CreateCompany/>} location={"COMPANIES"}/>} path="/companies/create" />
+                        <Route element={<Layout element={<CompanyDetail/>} location={"COMPANIES"}/>} path="/companies/:id" />
+                        <Route element={<Layout element={<ProjectListTable/>} location={"PROJECTS"}/>} path="/projects" />
+                        <Route element={<Layout element={<EditProject/>} location={"PROJECTS"}/>}  path="/projects/edit/:id" />
+                        <Route element={<Layout element={<CreateProject/>} location={"PROJECTS"}/>} path="/projects/create" />
+                        <Route element={<Layout element={<ProjectDetail/>} location={"PROJECTS"}/>} path="/projects/:id" />
                     </Route>
                     <Route element={<LoginPage />} path="/login"/>
                 </Routes>

@@ -26,6 +26,11 @@ function SideNavigation({location}) {
                     Projekty
                 </Link>
             </li>
+            <li className={ location === "COMPANIES" ? styles.active : ""}>
+                <Link to="/companies" className={styles.navLink}>
+                    Společnosti
+                </Link>
+            </li>
         </ul>
     );
 }

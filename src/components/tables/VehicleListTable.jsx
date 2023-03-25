@@ -81,7 +81,7 @@ const VehicleListTable = () => {
                 <th>Typ vozidla</th>
                 <th>Značka</th>
                 <th>Typ model</th>
-                <th>Najeté kilometry</th>
+                <th>Najeté km / odpracované mth</th>
                 <th>Akce</th>
             </tr>
             </thead>
@@ -99,7 +99,20 @@ const VehicleListTable = () => {
                 <td>
                     {vehicle.name}
                 </td>
-                <td>{vehicle.mileage}</td>
+                <td>
+                    {vehicle.type === "CAR" ?
+                        <>
+                            {vehicle.mileage}&nbsp;km
+                        </> : ""}
+                    {vehicle.type === "VEHICLE" ?
+                        <>
+                            {vehicle.conditionMotorcycleWatch}&nbsp;mth
+                    </> : ""}
+                    {vehicle.type === "TRAILER" ?
+                        <>
+                            -
+                        </> : ""}
+                </td>
                 <td className={styles.buttonTd}>
                     <Link to={"/vehicles/edit/" + vehicle.id}>
                         <EditButton/>

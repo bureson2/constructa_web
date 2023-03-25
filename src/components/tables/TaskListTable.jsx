@@ -45,7 +45,7 @@ const TaskListTable = () => {
             case "V řešení":
                 return "yellow";
             case "Pozastaveno":
-                return "sred";
+                return "red";
             default:
                 return "green";
         }
@@ -61,7 +61,6 @@ const TaskListTable = () => {
         <table>
             <thead>
             <tr>
-                {/*<th>ID</th>*/}
                 <th>Úkol</th>
                 <th>Popis úkolu</th>
                 <th>Místo</th>
@@ -74,18 +73,19 @@ const TaskListTable = () => {
             </thead>
             <tbody>
             {tasks.map(task => (<tr key={task.id}>
-                {/*<td>{task.id}</td>*/}
                 <td>
                     <Link to={"/tasks/" + task.id} className={styles.detailLink}>
                         {task.name}
-                    </Link></td>
+                    </Link>
+                </td>
                 <td>{task.description}</td>
                 <td>{task.locationTime}</td>
                 <td>{task.assignee ? task.assignee.firstname.concat(" ", task.assignee.lastname) : "-"}</td>
                 <td>{task.timeFrom.substring(0, 10)}</td>
                 <td>{task.timeTo.substring(0, 10)}</td>
                 <td className={
-                    `${getStatusClassName(task.state)} ${styles.state}`}>{task.state}</td>
+                    `${getStatusClassName(task.state)} ${styles.state}`}>{task.state}
+                </td>
                 <td className={styles.buttonTd}>
                     <Link to={"/tasks/edit/" + task.id}>
                         <EditButton/>
