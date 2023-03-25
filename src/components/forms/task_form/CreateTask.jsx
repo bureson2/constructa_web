@@ -2,14 +2,12 @@ import axios from "axios";
 import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
-import {Link} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
-import React, {useEffect, useMemo, useState} from "react";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
-import {icon} from "leaflet";
+import {Link, useNavigate} from "react-router-dom";
+import React, {useState} from "react";
 import "leaflet/dist/leaflet.css"
-import locationIcon from "./location_on_FILL1_wght100_GRAD0_opsz48.png";
 import CloseButton from "../../buttons/CloseButton";
+import UserInput from "../../inputs/UserInput";
+import MapInput from "../../inputs/MapInput";
 
 const CreateTask = () => {
     const navigate = useNavigate();
@@ -19,10 +17,7 @@ const CreateTask = () => {
     const [timeFrom, setTimeFrom] = useState(new Date().toISOString().slice(0, 16));
     const [timeTo, setTimeTo] = useState(new Date().toISOString().slice(0, 16));
     const [markerPosition, setMarkerPosition] = useState([50.073658, 14.418540]);
-    const customIcon = icon({
-        iconUrl: locationIcon,
-        iconSize: [40, 40],
-    });
+    const [userId, setUserId] = useState('');
 
     function handleCreateTask() {
         axios.post('http://localhost:8080/api/v1/tasks', {
@@ -32,7 +27,8 @@ const CreateTask = () => {
             timeTo: timeTo,
             locationName: taskLocation,
             longitude: markerPosition[1],
-            latitude: markerPosition[0]
+            latitude: markerPosition[0],
+            userId: userId,
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -42,13 +38,6 @@ const CreateTask = () => {
                 console.log(error);
             });
         navigate("/tasks");
-    }
-
-    function handleMarkerDragEnd(event) {
-        const marker = event.target;
-        const position = marker.getLatLng();
-        setMarkerPosition([position.lat, position.lng]);
-        console.log(markerPosition);
     }
 
     return (
@@ -84,6 +73,9 @@ const CreateTask = () => {
                         value={timeTo}
                         onChange={(event) => setTimeTo(event.target.value)}
                     />
+                    <label htmlFor="assignee">Pověřená osoba:</label>
+                    <UserInput onUserIdChange={setUserId}
+                    />
                 </div>
                 <div className={styles.rightSide}>
                     <label htmlFor="taskLocation">Místo výkonu práce:
@@ -91,27 +83,13 @@ const CreateTask = () => {
 
                     <input type="text" id="taskLocation" name="taskLocation"
                            onChange={(event) => setTaskLocation(event.target.value)}/>
-                    <MapContainer center={markerPosition} zoom={13}
-                                  className={styles.map} scrollWheelZoom={true}>
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker position={markerPosition} icon={customIcon}
-                                draggable={true}
-                                onMouseUp={handleMarkerDragEnd}>
-                            <Popup>
-                                Vámi zvolené místo
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
+                    <MapInput setMarkerPosition={setMarkerPosition} markerPosition={markerPosition} />
                 </div>
             </div>
             <div className={styles.formButtons}>
                 <div onClick={handleCreateTask}><AcceptButton/></div>
                 <Link to={"/tasks"}><RejectButton/></Link>
             </div>
-
         </form>
     );
 }

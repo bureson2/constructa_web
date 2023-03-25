@@ -4,9 +4,7 @@ import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
 import {Link, useNavigate} from "react-router-dom";
 import RejectButton from "../../buttons/RejectButton";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
-import {icon} from "leaflet";
-import locationIcon from "./location_on_FILL1_wght100_GRAD0_opsz48.png";
+import MapInput from "../../inputs/MapInput";
 
 
 const EditTask = () => {
@@ -22,10 +20,6 @@ const EditTask = () => {
     const [assignee, setAssignee] = useState('');
     const [author, setAuthor] = useState('');
     const [taskState, setState] = useState('');
-    const customIcon = icon({
-        iconUrl: locationIcon,
-        iconSize: [40, 40],
-    });
 
     function handleEditTask() {
         axios.put('http://localhost:8080/api/v1/tasks', {
@@ -124,21 +118,7 @@ const EditTask = () => {
                     <input type="text" id="taskLocation" name="taskLocation"
                            value={taskLocation}
                            onChange={(event) => setTaskLocation(event.target.value)}/>
-                    <MapContainer center={markerPosition} zoom={7}
-                                  className={styles.map} scrollWheelZoom={true}>
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker position={markerPosition} icon={customIcon}
-                                draggable={true}
-                                id = "marker"
-                                >
-                            <Popup>
-                                Vámi zvolené místo
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
+                    <MapInput setMarkerPosition={setMarkerPosition} markerPosition={markerPosition} />
                 </div>
             </div>
             <div className={styles.formButtons}>

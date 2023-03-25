@@ -6,9 +6,7 @@ import {icon} from 'leaflet';
 // import locationIcon from "../../svg/location_icon.svg"
 import locationIcon from "../forms/task_form/location_on_FILL1_wght100_GRAD0_opsz48.png";
 
-const MapInput = () => {
-
-    const [markerPosition, setMarkerPosition] = useState([50.073658, 14.418540]);
+const MapInput = ({setMarkerPosition, markerPosition}) => {
 
     const customIcon = icon({
         iconUrl: locationIcon,
@@ -20,7 +18,7 @@ const MapInput = () => {
         const position = marker.getLatLng();
         setMarkerPosition([position.lat, position.lng]);
     }
-
+    
     return (
         <MapContainer center={markerPosition} zoom={13}
                       className={styles.map} scrollWheelZoom={true}>
