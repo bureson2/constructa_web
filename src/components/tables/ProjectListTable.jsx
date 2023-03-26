@@ -65,6 +65,8 @@ const ProjectListTable = () => {
                 <th>Lokalita</th>
                 <th>Stavební objekt</th>
                 <th>Projektový manager</th>
+                <th>Zahájení projektu</th>
+                <th>Plánované ukončení</th>
                 <th>Stav</th>
                 <th>Akce</th>
             </tr>
@@ -84,6 +86,8 @@ const ProjectListTable = () => {
                     </Link>
                     :
                     "-"}</td>
+                <td>{project.startedAt.substring(0, 10)}</td>
+                <td>{project.deadline.substring(0, 10)}</td>
                 <td className={`${getStatusClassName(project.state)} ${styles.state}`}>
                     {project.state}
                 </td>

@@ -19,7 +19,6 @@ const VehicleDetail = () => {
     const [boughtAt, setBoughtAt] = useState('');
 
     useEffect(() => {
-        // TODO
         axios.get('http://localhost:8080/api/v1/vehicles/' + vehicleId
             , {
                 headers: {

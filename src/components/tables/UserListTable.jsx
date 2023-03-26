@@ -49,6 +49,9 @@ const UserListTable = () => {
                     <Link to="/users/create">
                         <CreateButton/>
                     </Link>
+                    <Link to={"users/report/create"}>
+                        <ReportButton/>
+                    </Link>
                 </div>
             </div>
             <table>

@@ -74,8 +74,7 @@ const CreateTask = () => {
                         onChange={(event) => setTimeTo(event.target.value)}
                     />
                     <label htmlFor="assignee">Pověřená osoba:</label>
-                    <UserInput onUserIdChange={setUserId}
-                    />
+                    <UserInput onUserIdChange={setUserId} />
                 </div>
                 <div className={styles.rightSide}>
                     <label htmlFor="taskLocation">Místo výkonu práce:
