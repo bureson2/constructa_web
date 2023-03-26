@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import React, { useEffect } from 'react';
+
 import PrivateRoutes from "./routes/PrivateRoutes";
 import UserListTable from "./components/tables/UserListTable";
 import TaskListTable from "./components/tables/TaskListTable";
 import Layout from "./components/layout/Layout";
-import React from "react";
 import TaskDetail from "./components/forms/task_form/TaskDetail";
 import EditTask from "./components/forms/task_form/EditTask";
 import CreateTask from "./components/forms/task_form/CreateTask";
@@ -26,6 +27,9 @@ import ProjectDetail from "./components/forms/project_form/ProjectDetail";
 import CreateVehicleReport from "./components/forms/vehicle_report_form/CreateVehicleReport";
 
 function App() {
+    useEffect(() => {
+        document.title = 'Constructa';
+    }, []);
     return (
         <>
             <Router>

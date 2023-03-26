@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import BackButton from "../../buttons/BackButton";
 import CloseButton from "../../buttons/CloseButton";
 import EditButton from "../../buttons/EditButton";
+import VehicleReports from "../../tables/VehicleReports";
 
 const VehicleDetail = () => {
     const url = window.location.href;
@@ -99,7 +100,7 @@ const VehicleDetail = () => {
                     </> : ""}
                 </div>
                 <div className={styles.rightSide}>
-                    {/* TODO car reporty */}
+                    <VehicleReports vehicleId={vehicleId} vehicleType={vehicleType}/>
                 </div>
             </div>
             <Link to={"/vehicles"} className={styles.bottomBackButton}>

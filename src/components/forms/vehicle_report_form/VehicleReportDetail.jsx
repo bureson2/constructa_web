@@ -1,6 +1,7 @@
 const VehicleReportDetail = () => {
     return (
         <>
+
         </>
     );
 }

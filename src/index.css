@@ -36,3 +36,12 @@ code {
   margin: 0 2vw;
   width: 30vw;
 }
+
+#logo{
+  height: 80px;
+}
+
+#header{
+  display: flex;
+  align-items: center;
+}

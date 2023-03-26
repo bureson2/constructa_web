@@ -1,10 +1,11 @@
 import styles from './style.module.scss'
+import logo from './constructa.png'
 
 function Header() {
     return (
-        <h1 className={styles.application_name}>
-            Constructa
-        </h1>
+        <div id="header">
+            <img src={logo} alt={"Constructa"} id="logo"/>
+        </div>
     );
 }
 

@@ -16,8 +16,8 @@ const CreateVehicleReport = () => {
     const [vehicleId, setVehicleId] = useState('');
     const [driverId, setDriverId] = useState('');
     const [vehicleType, setType] = useState('');
-    const [originalConditionMotorcycleWatch, setOriginalConditionMotorcycleWatch] = useState('');
-    const [afterworkConditionMotorcycleWatch, setAfterworkConditionMotorcycleWatch] = useState('');
+    const [originalConditionMotorcycleWatch, setOriginalConditionMotorcycleWatch] = useState(0);
+    const [afterworkConditionMotorcycleWatch, setAfterworkConditionMotorcycleWatch] = useState(0);
     const [cargoMass, setCargoMass] = useState(0);
     const [cargoType, setCargoType] = useState(0);
     const [distance, setDistance] = useState(0);
@@ -27,8 +27,8 @@ const CreateVehicleReport = () => {
         axios.post('http://localhost:8080/api/v1/vehicles/reports', {
             timeFrom: timeFrom,
             timeTo: timeTo,
-            vehicleId: vehicleId,
-            driverId: driverId,
+            vehicle: vehicleId,
+            driver : driverId,
             originalConditionMotorcycleWatch: originalConditionMotorcycleWatch,
             afterworkConditionMotorcycleWatch: afterworkConditionMotorcycleWatch,
             cargoMass: cargoMass,
@@ -102,7 +102,7 @@ const CreateVehicleReport = () => {
                         </>
                         :
                         <>
-                            <label htmlFor="distance">Ujetá vzdálenost:</label>
+                            <label htmlFor="distance">Ujetá vzdálenost [km]:</label>
                             <input type="text" id="distance" name="distance"
                                    onChange={(event) => setDistance(event.target.value)}/>
                         </>

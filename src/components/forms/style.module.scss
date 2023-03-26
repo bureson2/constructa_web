@@ -16,6 +16,10 @@
   flex-direction: column;
 }
 
+.rightSide table{
+  min-width: 40vw;
+}
+
 .mapCheckbox{
   display: flex;
   flex-direction: row;

@@ -38,7 +38,8 @@ const CompanyListTable = () => {
         setCompanies(updatedCompanies);
     }
 
-    return (<div>
+    return (
+        <div>
         <div className={styles.tableHeader}>
             <h2>Společnosti</h2>
             <Link to="/companies/create">
