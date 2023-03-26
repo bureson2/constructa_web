@@ -11,7 +11,6 @@ import DeleteButton from "../../buttons/DeleteButton";
 const EditVehicle = () => {
     const navigate = useNavigate();
     const url = window.location.href;
-
     const [vehicleId, setVehicleId] = useState(url.substring(url.lastIndexOf("/") + 1));
     const [vehicleFactory, setVehicleFactory] = useState('');
     const [vehicleName, setVehicleName] = useState('');

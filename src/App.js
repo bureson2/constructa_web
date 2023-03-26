@@ -25,6 +25,7 @@ import EditProject from "./components/forms/project_form/EditProject";
 import CreateProject from "./components/forms/project_form/CreateProject";
 import ProjectDetail from "./components/forms/project_form/ProjectDetail";
 import CreateVehicleReport from "./components/forms/vehicle_report_form/CreateVehicleReport";
+import VehicleReportDetail from "./components/forms/vehicle_report_form/VehicleReportDetail";
 
 function App() {
     useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
                         <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>} path="/vehicles/create" />
                         <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
                         <Route element={<Layout element={<CreateVehicleReport/>} location={"VEHICLES"}/>} path="/vehicles/reports/create" />
+                        <Route element={<Layout element={<VehicleReportDetail/>} location={"VEHICLES"}/>} path="/vehicles/reports/:id" />
 
                         <Route element={<Layout element={<CompanyListTable/>} location={"COMPANIES"}/>} path="/companies" />
                         <Route element={<Layout element={<EditCompany/>} location={"COMPANIES"}/>}  path="/companies/edit/:id" />
