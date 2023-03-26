@@ -69,7 +69,7 @@ const VehicleListTable = () => {
                 <Link to="/vehicles/create">
                     <CreateButton/>
                 </Link>
-                <Link to={"vehicles/report/create"}>
+                <Link to={"/vehicles/reports/create"}>
                     <ReportButton/>
                 </Link>
             </div>

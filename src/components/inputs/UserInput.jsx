@@ -40,7 +40,7 @@ const UserInput = ({ onUserIdChange  }) => {
             inputValue={inputValue}
             onInputChange={ (event) => handleInputChange(event.valueOf())}
             onChange={handleSelectUser}
-            className="users-list"
+            className="input-list"
         />
     );
 };
