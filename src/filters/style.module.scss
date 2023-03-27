@@ -1,0 +1,26 @@
+@use '../base_css/base';
+
+.filterRow input{
+  font-family: base.$font;
+  border: 0 solid black;
+}
+
+.filterInput10 input{
+  width: 10vw;
+}
+
+.filterInput9 input{
+  width: 9vw;
+}
+
+.filterInput8 input{
+  width: 8vw;
+}
+
+.filterInput7 input{
+  width: 7vw;
+}
+
+.filterInput6 input{
+  width: 6vw;
+}

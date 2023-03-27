@@ -24,19 +24,18 @@ const ProjectListTable = () => {
         const updatedFilters = { ...filters, [name]: value };
         setFilters(updatedFilters);
 
+        console.log(updatedFilters.projectManager);
+
         const filtered = projects.filter((project) => {
             return (
-                project.name.toLowerCase().includes(updatedFilters.name.toLowerCase())
-                 && project.projectManager.toLowerCase().includes(updatedFilters.projectManager.toLowerCase())
-                // project.projectAddress.city.toLowerCase().includes(updatedFilters.projectAddress.city.toLowerCase()) &&
-                // project.buldingFacility.toLowerCase().includes(updatedFilters.buldingFacility.toLowerCase()) &&
-                // project.projectManager.toLowerCase().includes(updatedFilters.projectManager.toLowerCase()) &&
-                // project.startedAt.toLowerCase().includes(updatedFilters.startedAt.toLowerCase()) &&
-                // project.deadline.toLowerCase().includes(updatedFilters.deadline.toLowerCase()) &&
-                // project.state.toLowerCase().includes(updatedFilters.state.toLowerCase())
-                // project.projectAddress.city.toLowerCase().includes(updatedFilters.city.toLowerCase())
-                // &&
-                // // ...
+                project.name.toLowerCase().includes(updatedFilters.name.toLowerCase()) &&
+                //     TODO if null then break
+                project.projectAddress.city.toLowerCase().includes(updatedFilters.projectAddress.toLowerCase()) &&
+                project.buldingFacility.toLowerCase().includes(updatedFilters.buldingFacility.toLowerCase()) &&
+                (project.projectManager.firstname + " " + project.projectManager.lastname).toLowerCase().includes(updatedFilters.projectManager.toLowerCase()) &&
+                project.startedAt.toLowerCase().includes(updatedFilters.startedAt.toLowerCase()) &&
+                project.deadline.toLowerCase().includes(updatedFilters.deadline.toLowerCase()) &&
+                project.state.toLowerCase().includes(updatedFilters.state.toLowerCase())
             );
         });
         setFilteredProjects(filtered);
@@ -70,7 +69,7 @@ const ProjectListTable = () => {
             });
 
         const updatedProjects = projects.filter(task => task.id !== projectId);
-        setProjects(updatedProjects);
+        setFilteredProjects(updatedProjects);
     }
 
     function getStatusClassName(status) {
@@ -94,12 +93,12 @@ const ProjectListTable = () => {
                     <CreateButton/>
                 </Link>
             </div>
-            <Filter onFilterChange={handleFilterChange} />
             <table>
                 <thead>
+                <Filter onFilterChange={handleFilterChange} />
                 <tr>
                     <th>Jméno</th>
-                    <th>Lokalita</th>
+                    <th>Město</th>
                     <th>Stavební objekt</th>
                     <th>Projektový manager</th>
                     <th>Zahájení projektu</th>

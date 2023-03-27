@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./style.module.scss";
 
 function Filter({ onFilterChange }) {
     function handleFilterChange(event) {
@@ -8,15 +9,16 @@ function Filter({ onFilterChange }) {
     }
 
     return (
-        <div>
-            <input type="text" name="name" onChange={handleFilterChange} placeholder="Jméno..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Lokalita..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Stavební objekt..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Projektový manager..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Zahájení projektu..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Plánované ukončení..." />
-            <input type="text" name="city" onChange={handleFilterChange} placeholder="Stav projektu..." />
-        </div>
+        <tr className={styles.filterRow}>
+            <td className={styles.filterInput8}><input type="text" name="name" onChange={handleFilterChange} placeholder="Jméno..." /></td>
+            <td className={styles.filterInput8}><input type="text" name="projectAddress" onChange={handleFilterChange} placeholder="Město..." /></td>
+            <td className={styles.filterInput8}><input type="text" name="buldingFacility" onChange={handleFilterChange} placeholder="Název..." /></td>
+            <td className={styles.filterInput8}><input type="text" name="projectManager" onChange={handleFilterChange} placeholder="Jméno..." /></td>
+            <td className={styles.filterInput8}><input type="text" name="startedAt" onChange={handleFilterChange} placeholder="Datum..." /></td>
+            <td className={styles.filterInput8}><input type="text" name="deadline" onChange={handleFilterChange} placeholder="Datum..." /></td>
+            <td className={styles.filterInput6}><input type="text" name="state" onChange={handleFilterChange} placeholder="Stav..." /></td>
+            <td></td>
+        </tr>
     );
 }
 
