@@ -1,8 +1,17 @@
 @use '../base_css/base';
 
+.filterRow td{
+  padding: 0;
+}
+
+.filterRow:hover{
+  background-color: white;
+}
+
 .filterRow input{
   font-family: base.$font;
   border: 0 solid black;
+  padding: 10px;
 }
 
 .filterInput10 input{
