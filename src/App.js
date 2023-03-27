@@ -26,6 +26,9 @@ import CreateProject from "./components/forms/project_form/CreateProject";
 import ProjectDetail from "./components/forms/project_form/ProjectDetail";
 import CreateVehicleReport from "./components/forms/vehicle_report_form/CreateVehicleReport";
 import VehicleReportDetail from "./components/forms/vehicle_report_form/VehicleReportDetail";
+import WorkReportListTable from "./components/tables/WorkReportListTable";
+import CreateWorkReport from "./components/forms/work_report_form/CreateWorkReport";
+import WorkReportDetail from "./components/forms/work_report_form/WorkReportDetail";
 
 function App() {
     useEffect(() => {
@@ -42,6 +45,11 @@ function App() {
                         <Route element={<Layout element={<AddUser/>} location={"USERS"}/>} path="/users/create" />
                         <Route element={<Layout element={<UserDetail/>} location={"USERS"}/>} path="/users/:id" />
 
+                        <Route element={<Layout element={<WorkReportListTable />} location={"USERS"}/>} path="/work-reports/:id"/>
+                        <Route element={<Layout element={<CreateWorkReport />} location={"USERS"}/>} path="/work-reports/create"/>
+                        <Route element={<Layout element={<WorkReportDetail />} location={"USERS"}/>} path="/work-reports/report/:id"/>
+
+
                         <Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />
                         <Route element={<Layout element={<EditTask/>} location={"TASKS"}/>}  path="/tasks/edit/:id" />
                         <Route element={<Layout element={<CreateTask/>} location={"TASKS"}/>} path="/tasks/create" />
@@ -51,6 +59,7 @@ function App() {
                         <Route element={<Layout element={<EditVehicle/>} location={"VEHICLES"}/>}  path="/vehicles/edit/:id" />
                         <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>} path="/vehicles/create" />
                         <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
+
                         <Route element={<Layout element={<CreateVehicleReport/>} location={"VEHICLES"}/>} path="/vehicles/reports/create" />
                         <Route element={<Layout element={<VehicleReportDetail/>} location={"VEHICLES"}/>} path="/vehicles/reports/:id" />
 
@@ -63,8 +72,6 @@ function App() {
                         <Route element={<Layout element={<EditProject/>} location={"PROJECTS"}/>}  path="/projects/edit/:id" />
                         <Route element={<Layout element={<CreateProject/>} location={"PROJECTS"}/>} path="/projects/create" />
                         <Route element={<Layout element={<ProjectDetail/>} location={"PROJECTS"}/>} path="/projects/:id" />
-
-
                     </Route>
                     <Route element={<LoginPage />} path="/login"/>
                 </Routes>

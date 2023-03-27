@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import React, {useEffect, useState} from "react";
+import ReportButton from "../../buttons/ReportButton";
 
 const UserDetail = () => {
     const url = window.location.href;
@@ -56,6 +57,9 @@ const UserDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
+                <Link to={"/work-reports/" + userId} className={styles.topEditButton}>
+                    <ReportButton/>
+                </Link>
                 <Link to={"/users/edit/" + userId} className={styles.topEditButton}>
                     <EditButton/>
                 </Link>

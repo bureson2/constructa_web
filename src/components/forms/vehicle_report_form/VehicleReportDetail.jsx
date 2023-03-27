@@ -26,8 +26,7 @@ const VehicleReportDetail = () => {
         axios.get('http://localhost:8080/api/v1/vehicles/reports/' + vehicleReportId
             , {
                 headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                 }
             })
             .then(response => {

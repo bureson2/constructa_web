@@ -49,7 +49,7 @@ const UserListTable = () => {
                     <Link to="/users/create">
                         <CreateButton/>
                     </Link>
-                    <Link to={"users/report/create"}>
+                    <Link to={"/work-reports/create"}>
                         <ReportButton/>
                     </Link>
                 </div>
