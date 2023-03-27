@@ -51,59 +51,60 @@ const ProjectListTable = () => {
         }
     }
 
-    return (<div>
-        <div className={styles.tableHeader}>
-            <h2>Projekty</h2>
-            <Link to="/projects/create">
-                <CreateButton/>
-            </Link>
-        </div>
-        <table>
-            <thead>
-            <tr>
-                <th>Jméno</th>
-                <th>Lokalita</th>
-                <th>Stavební objekt</th>
-                <th>Projektový manager</th>
-                <th>Zahájení projektu</th>
-                <th>Plánované ukončení</th>
-                <th>Stav</th>
-                <th>Akce</th>
-            </tr>
-            </thead>
-            <tbody>
-            {projects.map(project => (<tr key={project.id}>
-                <td>
-                    <Link to={"/projects/" + project.id} className={styles.detailLink}>
-                        {project.name}
-                    </Link>
-                </td>
-                <td>{project.projectAddress ? project.projectAddress.city : "-"}</td>
-                <td>{project.buldingFacility}</td>
-                <td>{project.projectManager ?
-                    <Link to={"/users/" + project.projectManager.id} className={styles.detailLink}>
-                        {project.projectManager.firstname.concat(" ", project.projectManager.lastname) }
-                    </Link>
-                    :
-                    "-"}</td>
-                <td>{project.startedAt.substring(0, 10)}</td>
-                <td>{project.deadline.substring(0, 10)}</td>
-                <td className={`${getStatusClassName(project.state)} ${styles.state}`}>
-                    {project.state}
-                </td>
-                <td className={styles.buttonTd}>
-                    <Link to={"/projects/edit/" + project.id}>
-                        <EditButton/>
-                    </Link>
-                    <div onClick={() => handleDeleteProject(project.id)}>
-                        <DeleteButton />
-                    </div>
-                </td>
+    return (
+        <div>
+            <div className={styles.tableHeader}>
+                <h2>Projekty</h2>
+                <Link to="/projects/create">
+                    <CreateButton/>
+                </Link>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Jméno</th>
+                    <th>Lokalita</th>
+                    <th>Stavební objekt</th>
+                    <th>Projektový manager</th>
+                    <th>Zahájení projektu</th>
+                    <th>Plánované ukončení</th>
+                    <th>Stav</th>
+                    <th>Akce</th>
+                </tr>
+                </thead>
+                <tbody>
+                {projects.map(project => (<tr key={project.id}>
+                    <td>
+                        <Link to={"/projects/" + project.id} className={styles.detailLink}>
+                            {project.name}
+                        </Link>
+                    </td>
+                    <td>{project.projectAddress ? project.projectAddress.city : "-"}</td>
+                    <td>{project.buldingFacility}</td>
+                    <td>{project.projectManager ?
+                        <Link to={"/users/" + project.projectManager.id} className={styles.detailLink}>
+                            {project.projectManager.firstname.concat(" ", project.projectManager.lastname)}
+                        </Link>
+                        :
+                        "-"}</td>
+                    <td>{project.startedAt.substring(0, 10)}</td>
+                    <td>{project.deadline.substring(0, 10)}</td>
+                    <td className={`${getStatusClassName(project.state)} ${styles.state}`}>
+                        {project.state}
+                    </td>
+                    <td className={styles.buttonTd}>
+                        <Link to={"/projects/edit/" + project.id}>
+                            <EditButton/>
+                        </Link>
+                        <div onClick={() => handleDeleteProject(project.id)}>
+                            <DeleteButton/>
+                        </div>
+                    </td>
 
-            </tr>))}
-            </tbody>
-        </table>
-    </div>);
+                </tr>))}
+                </tbody>
+            </table>
+        </div>);
 };
 
 export default ProjectListTable;

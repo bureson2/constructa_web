@@ -1,6 +1,6 @@
 import styles from "../style.module.scss";
 import {Link, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import CloseButton from "../../buttons/CloseButton";
 import UserInput from "../../inputs/UserInput";
@@ -9,13 +9,35 @@ import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
 
 const CreateWorkReport = () => {
+    const url = window.location.href;
+    const userId = url.substring(url.lastIndexOf("/") + 1);
     const navigate = useNavigate();
     const now = new Date().toISOString().slice(0,16);
     const [timeFrom, setTimeFrom] = useState(now);
     const [timeTo, setTimeTo] = useState(now);
     const [type, setType] = useState('WORK_REPORT');
-    const [userId, setUserId] = useState('');
-    const [locationId, setLocationId] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [locationId, setLocation] = useState('');
+
+    useEffect(() => {
+        // TODO
+        axios.get('http://localhost:8080/api/v1/users/' + userId
+            , {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                setFirstname(response.data.firstname);
+                setLastname(response.data.lastname);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
 
     function handleCreateWorkReport() {
         axios.post('http://localhost:8080/api/v1/work-reports', {
@@ -45,7 +67,9 @@ const CreateWorkReport = () => {
             <div>
                 <div className={styles.leftSide}>
                     <label>Zaměstnanec:</label>
-                    <UserInput onUserIdChange={setUserId}/>
+                    <input value={firstname + " " + lastname}
+                        readOnly={true}/>
+                    {/*<UserInput onUserIdChange={setUserId}/>*/}
                     <label htmlFor="type">Typ výkazu:</label>
                     <select name="type" onChange={(event) => setType(event.target.value)}>
                         <option value="WORK_REPORT" selected>Pracovní záznam</option>

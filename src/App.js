@@ -46,7 +46,7 @@ function App() {
                         <Route element={<Layout element={<UserDetail/>} location={"USERS"}/>} path="/users/:id" />
 
                         <Route element={<Layout element={<WorkReportListTable />} location={"USERS"}/>} path="/work-reports/:id"/>
-                        <Route element={<Layout element={<CreateWorkReport />} location={"USERS"}/>} path="/work-reports/create"/>
+                        <Route element={<Layout element={<CreateWorkReport />} location={"USERS"}/>} path="/work-reports/create/:id"/>
                         <Route element={<Layout element={<WorkReportDetail />} location={"USERS"}/>} path="/work-reports/report/:id"/>
 
 

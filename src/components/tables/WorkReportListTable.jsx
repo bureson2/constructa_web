@@ -13,8 +13,6 @@ const WorkReportListTable = () => {
 
     const [reports, setReports] = useState([]);
 
-    // TODO - id usera
-
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/work-reports/user/' + userId , {
             headers: {
@@ -48,7 +46,7 @@ const WorkReportListTable = () => {
             <div className={styles.tableHeader}>
                 <h2>Docházka</h2>
                 <div className={styles.buttonTd}>
-                    <Link to={"/work-reports/create"}>
+                    <Link to={"/work-reports/create/" + userId}>
                         <ReportButton/>
                     </Link>
                 </div>
