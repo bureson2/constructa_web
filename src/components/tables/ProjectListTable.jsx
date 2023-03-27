@@ -5,9 +5,43 @@ import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
+import Filter from "../../filters/ProjectsFilter";
 
 const ProjectListTable = () => {
     const [projects, setProjects] = useState([]);
+    const [filteredProjects, setFilteredProjects] = useState([]);
+    const [filters, setFilters] = useState({
+        name: "",
+        projectAddress: "",
+        buldingFacility: "",
+        projectManager: "",
+        startedAt: "",
+        deadline: "",
+        state: "",
+    });
+
+    function handleFilterChange(name, value) {
+        const updatedFilters = { ...filters, [name]: value };
+        setFilters(updatedFilters);
+
+        const filtered = projects.filter((project) => {
+            return (
+                project.name.toLowerCase().includes(updatedFilters.name.toLowerCase())
+                 && project.projectManager.toLowerCase().includes(updatedFilters.projectManager.toLowerCase())
+                // project.projectAddress.city.toLowerCase().includes(updatedFilters.projectAddress.city.toLowerCase()) &&
+                // project.buldingFacility.toLowerCase().includes(updatedFilters.buldingFacility.toLowerCase()) &&
+                // project.projectManager.toLowerCase().includes(updatedFilters.projectManager.toLowerCase()) &&
+                // project.startedAt.toLowerCase().includes(updatedFilters.startedAt.toLowerCase()) &&
+                // project.deadline.toLowerCase().includes(updatedFilters.deadline.toLowerCase()) &&
+                // project.state.toLowerCase().includes(updatedFilters.state.toLowerCase())
+                // project.projectAddress.city.toLowerCase().includes(updatedFilters.city.toLowerCase())
+                // &&
+                // // ...
+            );
+        });
+        setFilteredProjects(filtered);
+    }
+
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/projects', {
@@ -17,6 +51,7 @@ const ProjectListTable = () => {
         })
             .then(response => {
                 setProjects(response.data);
+                setFilteredProjects(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -59,6 +94,7 @@ const ProjectListTable = () => {
                     <CreateButton/>
                 </Link>
             </div>
+            <Filter onFilterChange={handleFilterChange} />
             <table>
                 <thead>
                 <tr>
@@ -73,7 +109,7 @@ const ProjectListTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {projects.map(project => (<tr key={project.id}>
+                {filteredProjects.map(project => (<tr key={project.id}>
                     <td>
                         <Link to={"/projects/" + project.id} className={styles.detailLink}>
                             {project.name}
