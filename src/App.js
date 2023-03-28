@@ -29,6 +29,8 @@ import VehicleReportDetail from "./components/forms/vehicle_report_form/VehicleR
 import WorkReportListTable from "./components/tables/WorkReportListTable";
 import CreateWorkReport from "./components/forms/work_report_form/CreateWorkReport";
 import WorkReportDetail from "./components/forms/work_report_form/WorkReportDetail";
+import CreateConstructionReport from "./components/forms/construction_report/CreateConstructionReport";
+import ConstrcutionReportDetail from "./components/forms/construction_report/ConstrcutionReportDetail";
 
 function App() {
     useEffect(() => {
@@ -72,6 +74,9 @@ function App() {
                         <Route element={<Layout element={<EditProject/>} location={"PROJECTS"}/>}  path="/projects/edit/:id" />
                         <Route element={<Layout element={<CreateProject/>} location={"PROJECTS"}/>} path="/projects/create" />
                         <Route element={<Layout element={<ProjectDetail/>} location={"PROJECTS"}/>} path="/projects/:id" />
+                        <Route element={<Layout element={<CreateConstructionReport/>} location={"PROJECTS"}/>} path="/projects/:id/reports/create" />
+                        <Route element={<Layout element={<ConstrcutionReportDetail/>} location={"PROJECTS"}/>} path="/projects/reports/:id" />
+
                     </Route>
                     <Route element={<LoginPage />} path="/login"/>
                 </Routes>

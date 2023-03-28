@@ -1,16 +1,16 @@
-import styles from "./style.module.scss";
-import React, {useEffect, useState} from "react";
 import axios from "axios";
+import styles from "./style.module.scss";
 import {Link} from "react-router-dom";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
+import {useEffect, useState} from "react";
 
-const VehicleReports = ({vehicleId}) => {
+const ConstructionReports = ({projectId}) => {
     const [reports, setReports] = useState([]);
-    const [tableHeader, setTableHeader] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/v1/vehicles/" + vehicleId + "/reports", {
+        axios.get("http://localhost:8080/api/v1/construction-reports/project/" + projectId, {
+        // axios.get("http://localhost:8080/api/v1/construction-reports", {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -23,8 +23,8 @@ const VehicleReports = ({vehicleId}) => {
             });
     }, []);
 
-    function handleDeleteProject(vehicleReportId) {
-        axios.delete('http://localhost:8080/api/v1/vehicles/reports/' + vehicleReportId, {
+    function handleDeleteReport(constructionReportId) {
+        axios.delete('http://localhost:8080/api/v1/construction-reports/' + constructionReportId, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -33,7 +33,7 @@ const VehicleReports = ({vehicleId}) => {
                 console.log(error);
             });
 
-        const updatedReports = reports.filter(task => task.id !== vehicleReportId);
+        const updatedReports = reports.filter(task => task.id !== constructionReportId);
         setReports(updatedReports);
     }
 
@@ -41,30 +41,32 @@ const VehicleReports = ({vehicleId}) => {
         <>
             <div className={styles.tableHeader}>
                 <h2>
-                    Kniha jízd a stazek
+                    Stavební deník
                 </h2>
             </div>
             <table>
                 <thead>
                 <tr>
                     <th>Datum</th>
-                    <th>Řidič</th>
+                    <th>Zodpovědná osoba</th>
+                    <th>Aktivita</th>
                     <th>Akce</th>
                 </tr>
                 </thead>
                 <tbody>
                 {reports.map(report => (<tr key={report.id}>
                     <td>
-                        <Link to={"/vehicles/reports/" + report.id} className={styles.detailLink}>
-                            {report.timeFrom.substring(0, 10)}
+                        <Link to={"/projects/reports/" + report.id} className={styles.detailLink}>
+                            {report.date.substring(0, 10)}
                         </Link>
                     </td>
-                    <td>{report.driver.firstname + " " + report.driver.lastname}</td>
+                    <td>{report.executor.firstname + " " + report.executor.lastname}</td>
+                    <td>{report.taskName}</td>
                     <td className={styles.buttonTd}>
-                        <Link to={"/vehicles/reports/edit/" + report.id}>
+                        <Link to={"/projects/reports/edit/" + report.id}>
                             <EditButton/>
                         </Link>
-                        <div onClick={() => handleDeleteProject(report.id)}>
+                        <div onClick={() => handleDeleteReport(report.id)}>
                             <DeleteButton/>
                         </div>
                     </td>
@@ -76,4 +78,4 @@ const VehicleReports = ({vehicleId}) => {
     )
 }
 
-export default VehicleReports;
+export default ConstructionReports;

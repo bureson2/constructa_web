@@ -1,11 +1,12 @@
 import styles from "../style.module.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import BackButton from "../../buttons/BackButton";
-import UserInput from "../../inputs/UserInput";
+import ReportButton from "../../buttons/ReportButton";
+import ConstructionReports from "../../tables/ConstructionReports";
 
 const ProjectDetail = () => {
     const url = window.location.href;
@@ -41,10 +42,13 @@ const ProjectDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/projects/edit/" + projectId} className={styles.topEditButton}>
+                <Link to={"/projects/" + projectId + "/reports/create"} >
+                    <ReportButton/>
+                </Link>
+                <Link to={"/projects/edit/" + projectId}>
                     <EditButton/>
                 </Link>
-                <Link to={"/projects"} className={styles.topBackButton}>
+                <Link to={"/projects"}>
                     <CloseButton/>
                 </Link>
             </div>
@@ -77,6 +81,7 @@ const ProjectDetail = () => {
                     />
                 </div>
                 <div className={styles.rightSide}>
+                    <ConstructionReports projectId={projectId}/>
                 </div>
             </div>
             <div>

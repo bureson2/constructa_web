@@ -5,13 +5,25 @@
 }
 
 .filterRow:hover{
-  background-color: white;
+  background-color: #f5f5f5;
+}
+
+.filterRow{
+  background-color: #f5f5f5;
+}
+
+.filterRow input{
+  background-color: #f5f5f5;
 }
 
 .filterRow input{
   font-family: base.$font;
   border: 0 solid black;
   padding: 10px;
+}
+
+.filterInput12 input{
+  width: 12vw;
 }
 
 .filterInput10 input{

@@ -32,6 +32,14 @@ td img{
   height: 30px;
 }
 
+thead tr{
+  background-color: white;
+}
+
+thead tr:hover{
+  background-color: white;
+}
+
 th {
   font-weight: 700;
   border-bottom: 2px solid #ddd;

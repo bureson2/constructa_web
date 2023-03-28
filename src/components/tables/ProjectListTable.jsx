@@ -5,7 +5,7 @@ import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
-import Filter from "../../filters/ProjectsFilter";
+import ProjectsFilter from "../../filters/ProjectsFilter";
 
 const ProjectListTable = () => {
     const [projects, setProjects] = useState([]);
@@ -23,8 +23,6 @@ const ProjectListTable = () => {
     function handleFilterChange(name, value) {
         const updatedFilters = { ...filters, [name]: value };
         setFilters(updatedFilters);
-
-        console.log(updatedFilters.projectManager);
 
         const filtered = projects.filter((project) => {
             return (
@@ -95,7 +93,6 @@ const ProjectListTable = () => {
             </div>
             <table>
                 <thead>
-                <Filter onFilterChange={handleFilterChange} />
                 <tr>
                     <th>Jméno</th>
                     <th>Město</th>
@@ -106,6 +103,7 @@ const ProjectListTable = () => {
                     <th>Stav</th>
                     <th>Akce</th>
                 </tr>
+                <ProjectsFilter onFilterChange={handleFilterChange} />
                 </thead>
                 <tbody>
                 {filteredProjects.map(project => (<tr key={project.id}>

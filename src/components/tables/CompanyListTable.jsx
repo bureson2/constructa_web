@@ -5,9 +5,18 @@ import {Link} from "react-router-dom";
 import CreateButton from "../buttons/CreateButton";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
+import ProjectsFilter from "../../filters/ProjectsFilter";
+import CompaniesFilter from "../../filters/CompaniesFilter";
 
 const CompanyListTable = () => {
     const [companies, setCompanies] = useState([]);
+    const [filteredCompanies, setFilteredCompanies] = useState([]);
+    const [filters, setFilters] = useState({
+        name: "",
+        cin: "",
+        din: "",
+        companyAddress: "",
+    });
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/companies', {
@@ -17,6 +26,7 @@ const CompanyListTable = () => {
         })
             .then(response => {
                 setCompanies(response.data);
+                setFilteredCompanies(response.data)
             })
             .catch(error => {
                 console.log(error);
@@ -35,7 +45,22 @@ const CompanyListTable = () => {
             });
 
         const updatedCompanies = companies.filter(task => task.id !== companyId);
-        setCompanies(updatedCompanies);
+        setFilteredCompanies(updatedCompanies);
+    }
+
+    function handleFilterChange(name, value) {
+        const updatedFilters = { ...filters, [name]: value };
+        setFilters(updatedFilters);
+
+        const filtered = companies.filter((company) => {
+            return (
+                company.name.toLowerCase().includes(updatedFilters.name.toLowerCase()) &&
+                company.cin.toLowerCase().includes(updatedFilters.cin.toLowerCase()) &&
+                company.din.toLowerCase().includes(updatedFilters.din.toLowerCase()) &&
+                company.companyAddress.city.toLowerCase().includes(updatedFilters.companyAddress.toLowerCase())
+            );
+        });
+        setFilteredCompanies(filtered);
     }
 
     return (
@@ -55,9 +80,10 @@ const CompanyListTable = () => {
                 <th>Město</th>
                 <th>Akce</th>
             </tr>
+            <CompaniesFilter onFilterChange={handleFilterChange} />
             </thead>
             <tbody>
-            {companies.map(company => (<tr key={company.id}>
+            {filteredCompanies.map(company => (<tr key={company.id}>
                 <td>
                     <Link to={"/companies/" + company.id} className={styles.detailLink}>
                         {company.name}

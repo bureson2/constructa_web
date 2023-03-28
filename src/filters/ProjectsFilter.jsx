@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./style.module.scss";
 
-function Filter({ onFilterChange }) {
+function ProjectsFilter({ onFilterChange }) {
     function handleFilterChange(event) {
         const name = event.target.name;
         const value = event.target.value;
@@ -22,4 +22,4 @@ function Filter({ onFilterChange }) {
     );
 }
 
-export default Filter;
+export default ProjectsFilter;
