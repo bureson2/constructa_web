@@ -82,7 +82,7 @@ const CreateTask = () => {
 
                     <input type="text" id="taskLocation" name="taskLocation"
                            onChange={(event) => setTaskLocation(event.target.value)}/>
-                    <MapInput setMarkerPosition={setMarkerPosition} markerPosition={markerPosition} />
+                    <MapInput setMarkerPosition={setMarkerPosition} markerPosition={markerPosition} read={false}/>
                 </div>
             </div>
             <div className={styles.formButtons}>

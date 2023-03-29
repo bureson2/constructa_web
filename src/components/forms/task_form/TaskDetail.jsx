@@ -1,66 +1,64 @@
 import styles from "../style.module.scss";
-import axios from 'axios';
 import React, {useEffect, useState} from "react";
 import BackButton from "../../buttons/BackButton";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import MapInput from "../../inputs/MapInput";
 
 const TaskDetail = () => {
 
-    const navigate = useNavigate();
-    const url = window.location.href;
-    const taskId = url.substring(url.lastIndexOf("/") + 1);
+    // const url = window.location.href;
+    // const taskId = url.substring(url.lastIndexOf("/") + 1);
+    const {id} = useParams();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskLocation, setTaskLocation] = useState('');
     const [timeFrom, setTimeFrom] = useState(new Date().toISOString().slice(0, 16));
     const [timeTo, setTimeTo] = useState(new Date().toISOString().slice(0, 16));
-    const [markerPosition, setMarkerPosition] = useState([50.073658, 14.418540]);
+    const [markerPosition, setMarkerPosition] = useState([]);
     const [assignee, setAssignee] = useState('');
     const [author, setAuthor] = useState('');
     const [taskState, setState] = useState('');
 
+    const [map, setMap] = useState(<></>)
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/tasks/' + taskId
-            , {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                }
-            })
-            .then(response => {
-                setTaskName(response.data.name);
-                setTaskDescription(response.data.description);
-                setTimeFrom(response.data.timeFrom);
-                setTimeTo(response.data.timeTo);
-                setTaskLocation(response.data.locationName)
-                setAssignee(response.data.assignee ? response.data.assignee.firstname.concat(" ", response.data.assignee.lastname)
-                    : "-");
-                setAuthor(response.data.author ? response.data.author.firstname.concat(" ", response.data.author.lastname)
-                    : "-")
-                setMarkerPosition([response.data.latitude, response.data.longitude])
-                if(response.data.state === "Nový"){
-                    setState("NEW");
-                } else if(response.data.state === "V řešení") {
-                    setState("IN_PROGRESS");
-                } else if(response.data.state === "Pozastaveno") {
-                    setState("STOPPED");
-                } else if(response.data.state === "Hotovo") {
-                    setState("DONE");
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        fetchData();
     }, []);
+
+    function fetchData() {
+        fetch('http://localhost:8080/api/v1/tasks/' + id, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                    setTaskName(data.name);
+                    setTaskDescription(data.description);
+                    setTimeFrom(data.timeFrom);
+                    setTimeTo(data.timeTo);
+                    setTaskLocation(data.locationName);
+                    setAssignee(data.assignee ? data.assignee.firstname.concat(" ", data.assignee.lastname)
+                        : "-");
+                    setAuthor(data.author ? data.author.firstname.concat(" ", data.author.lastname)
+                        : "-")
+                    setMarkerPosition([data.latitude, data.longitude]);
+                    setState(data.state);
+                    setMap(
+                        <MapInput setMarkerPosition={setMarkerPosition} markerPosition={[data.latitude, data.longitude]} read={true}/>
+                    )
+                }
+            )
+            .catch(error => console.log(error));
+    }
 
     return (
         <form className={styles.form}>
             <div>
                 <div className={styles.topButtons}>
-                    <Link to={"/tasks/edit/" + taskId} className={styles.topEditButton}>
+                    <Link to={"/tasks/edit/" + id} className={styles.topEditButton}>
                         <EditButton/>
                     </Link>
                     <Link to={"/tasks"} className={styles.topBackButton}>
@@ -70,6 +68,8 @@ const TaskDetail = () => {
                 <div className={styles.leftSide}>
                     <label htmlFor="taskName">Jméno:</label>
                     <input type="text" id="taskName" name="taskName" value={taskName} readOnly={true}/>
+                    <label htmlFor="taskState">Stav:</label>
+                    <input type="text" id="taskState" name="taskState" value={taskState} readOnly={true}/>
                     <label htmlFor="taskDescription">Popis:</label>
                     <input type="text" id="taskDescription" name="taskDescription" value={taskDescription}
                            readOnly={true}/>
@@ -93,7 +93,8 @@ const TaskDetail = () => {
                     </label>
                     <input type="text" id="taskLocation" name="taskLocation"
                            value={taskLocation} readOnly={true}/>
-                    <MapInput setMarkerPosition={setMarkerPosition} markerPosition={markerPosition}/>
+                    {map}
+
                 </div>
             </div>
             <Link to={"/tasks"} className={styles.bottomBackButton}>
