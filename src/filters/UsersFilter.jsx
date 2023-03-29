@@ -10,10 +10,10 @@ function UsersFilter({ onFilterChange }) {
 
     return (
         <tr className={styles.filterRow}>
-            <td className={styles.filterInput12}><input type="text" name="name" onChange={handleFilterChange} placeholder="Jméno..." /></td>
-            <td className={styles.filterInput8}><input type="text" name="role" onChange={handleFilterChange} placeholder="Role..." /></td>
-            <td className={styles.filterInput8}><input type="text" name="email" onChange={handleFilterChange} placeholder="Email..." /></td>
-            <td className={styles.filterInput8}><input type="text" name="phone" onChange={handleFilterChange} placeholder="Telefon..." /></td>
+            <td><input type="text" name="name" onChange={handleFilterChange} placeholder="Jméno..." /></td>
+            <td><input type="text" name="role" onChange={handleFilterChange} placeholder="Role..." /></td>
+            <td><input type="text" name="email" onChange={handleFilterChange} placeholder="Email..." /></td>
+            <td><input type="text" name="phone" onChange={handleFilterChange} placeholder="Telefon..." /></td>
             <td></td>
         </tr>
     );

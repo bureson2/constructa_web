@@ -5,9 +5,19 @@ import EditButton from "../buttons/EditButton";
 import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
+import TaskFilter from "../../filters/TasksFilter";
 
 const TaskListTable = () => {
     const [tasks, setTasks] = useState([]);
+    const [filteredTasks, setFilteredTasks] = useState([]);
+    const [filters, setFilters] = useState({
+        name: "",
+        locationName: "",
+        assignee: "",
+        timeFrom: "",
+        timeTo: "",
+        state: "",
+    });
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/tasks', {
@@ -17,11 +27,29 @@ const TaskListTable = () => {
         })
             .then(response => {
                 setTasks(response.data);
+                setFilteredTasks(response.data)
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
+
+    function handleFilterChange(name, value) {
+        const updatedFilters = { ...filters, [name]: value };
+        setFilters(updatedFilters);
+
+        const filtered = tasks.filter((task) => {
+            return (
+                task.name.toLowerCase().includes(updatedFilters.name.toLowerCase()) &&
+                task.locationName.toLowerCase().includes(updatedFilters.locationName.toLowerCase()) &&
+                (task.assignee.firstname.toLowerCase() + " " + task.assignee.lastname.toLowerCase()).includes(updatedFilters.assignee) &&
+                task.timeFrom.toLowerCase().includes(updatedFilters.timeFrom.toLowerCase()) &&
+                task.timeTo.toLowerCase().includes(updatedFilters.timeTo.toLowerCase()) &&
+                task.state.toLowerCase().includes(updatedFilters.state.toLowerCase())
+            );
+        });
+        setFilteredTasks(filtered);
+    }
 
     function handleDeleteTask(taskId) {
 
@@ -62,7 +90,6 @@ const TaskListTable = () => {
             <thead>
             <tr>
                 <th>Úkol</th>
-                <th>Popis úkolu</th>
                 <th>Místo</th>
                 <th>Řešitel</th>
                 <th>Od</th>
@@ -70,21 +97,21 @@ const TaskListTable = () => {
                 <th>Stav</th>
                 <th>Akce</th>
             </tr>
+            <TaskFilter onFilterChange={handleFilterChange} />
             </thead>
             <tbody>
-            {tasks.map(task => (<tr key={task.id}>
-                <td>
+            {filteredTasks.map(task => (<tr key={task.id}>
+                <td className={"td26rem"}>
                     <Link to={"/tasks/" + task.id} className={styles.detailLink}>
                         {task.name}
                     </Link>
                 </td>
-                <td>{task.description}</td>
-                <td>{task.locationTime}</td>
-                <td>{task.assignee ? task.assignee.firstname.concat(" ", task.assignee.lastname) : "-"}</td>
-                <td>{task.timeFrom.substring(0, 10)}</td>
-                <td>{task.timeTo.substring(0, 10)}</td>
+                <td className={"td18rem"}>{task.locationName}</td>
+                <td className={"td14rem"}>{task.assignee ? task.assignee.firstname.concat(" ", task.assignee.lastname) : "-"}</td>
+                <td className={"td10rem"}>{task.timeFrom.substring(0, 10)}</td>
+                <td className={"td10rem"}>{task.timeTo.substring(0, 10)}</td>
                 <td className={
-                    `${getStatusClassName(task.state)} ${styles.state}`}>{task.state}
+                    `${getStatusClassName(task.state)} ${styles.state} "td10rem"`}>{task.state}
                 </td>
                 <td className={styles.buttonTd}>
                     <Link to={"/tasks/edit/" + task.id}>

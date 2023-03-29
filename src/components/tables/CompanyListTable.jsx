@@ -57,7 +57,10 @@ const CompanyListTable = () => {
                 company.name.toLowerCase().includes(updatedFilters.name.toLowerCase()) &&
                 company.cin.toLowerCase().includes(updatedFilters.cin.toLowerCase()) &&
                 company.din.toLowerCase().includes(updatedFilters.din.toLowerCase()) &&
-                company.companyAddress.city.toLowerCase().includes(updatedFilters.companyAddress.toLowerCase())
+                (company.companyAddress.city.toLowerCase() + ", "
+                    + company.companyAddress.street.toLowerCase() + " "
+                    + company.companyAddress.descriptiveNumber.toLowerCase())
+                    .includes(updatedFilters.companyAddress.toLowerCase())
             );
         });
         setFilteredCompanies(filtered);
@@ -84,14 +87,17 @@ const CompanyListTable = () => {
             </thead>
             <tbody>
             {filteredCompanies.map(company => (<tr key={company.id}>
-                <td>
+                <td className={"td22rem"}>
                     <Link to={"/companies/" + company.id} className={styles.detailLink}>
                         {company.name}
                     </Link>
                 </td>
-                <td>{company.cin}</td>
-                <td>{company.din}</td>
-                <td>{company.companyAddress ? company.companyAddress.city : "-"}</td>
+                <td className={"td14rem"}>{company.cin}</td>
+                <td className={"td14rem"}>{company.din}</td>
+                <td className={"td26rem"}>{company.companyAddress
+                    ?
+                    company.companyAddress.city + ", " + company.companyAddress.street + " " + company.companyAddress.descriptiveNumber:
+                    "-"}</td>
                 <td className={styles.buttonTd}>
                     <Link to={"/companies/edit/" + company.id}>
                         <EditButton/>

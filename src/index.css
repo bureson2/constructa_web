@@ -45,3 +45,30 @@ code {
   display: flex;
   align-items: center;
 }
+
+td input{
+  width: 100%;
+}
+
+.td26rem {
+  width: 26rem;
+}
+
+.td22rem {
+  width: 22rem;
+}
+
+.td18rem {
+  width: 18rem;
+}
+
+.td14rem {
+  width: 14rem;
+}
+
+.td10rem {
+  width: 10rem;
+}
+
+
+

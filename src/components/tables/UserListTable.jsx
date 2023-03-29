@@ -92,14 +92,14 @@ const UserListTable = () => {
                 <tbody>
                 {filteredUser.map(user => (
                     <tr key={user.id}>
-                        <td>
+                        <td className={"td22rem"}>
                             <Link to={"/users/" + user.id} className={styles.detailLink}>
                                 {user.firstname}&nbsp;{user.lastname}
                             </Link>
                         </td>
-                        <td>{user.role}</td>
-                        <td>{user.email}</td>
-                        <td>{user.phone}</td>
+                        <td className={"td14rem"}>{user.role}</td>
+                        <td className={"td18rem"}>{user.email}</td>
+                        <td className={"td18rem"}>{user.phone}</td>
                         <td className={styles.buttonTd}>
                             <Link to={"/users/edit/" + user.id}>
                                 <EditButton/>

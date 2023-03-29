@@ -63,7 +63,7 @@ const TaskDetail = () => {
                     <Link to={"/tasks/edit/" + taskId} className={styles.topEditButton}>
                         <EditButton/>
                     </Link>
-                    <Link to={"/vehicles"} className={styles.topBackButton}>
+                    <Link to={"/tasks"} className={styles.topBackButton}>
                         <CloseButton/>
                     </Link>
                 </div>

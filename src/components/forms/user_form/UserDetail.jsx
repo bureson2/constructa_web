@@ -23,6 +23,13 @@ const UserDetail = () => {
     const [monthSalary, setMonthSalary] = useState('');
     const [bankAccount, setBankAccout] = useState('');
     const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState({
+        country: "",
+        city: "",
+        postCode: "",
+        street: "",
+        descriptiveNumber: "",
+    });
 
     useEffect(() => {
         // TODO
@@ -46,7 +53,8 @@ const UserDetail = () => {
                 setBankAccout(response.data.bankAccount);
                 setPhone(response.data.phone);
                 setDateOfAcceptance(response.data.dateOfAcceptance);
-                setRoles(response.data.role)
+                setRoles(response.data.role);
+                setAddress(response.data.userAddress);
             })
             .catch(error => {
                 console.log(error);

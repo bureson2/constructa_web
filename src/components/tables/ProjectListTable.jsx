@@ -107,22 +107,22 @@ const ProjectListTable = () => {
                 </thead>
                 <tbody>
                 {filteredProjects.map(project => (<tr key={project.id}>
-                    <td>
+                    <td className={"td14rem"}>
                         <Link to={"/projects/" + project.id} className={styles.detailLink}>
                             {project.name}
                         </Link>
                     </td>
-                    <td>{project.projectAddress ? project.projectAddress.city : "-"}</td>
-                    <td>{project.buldingFacility}</td>
-                    <td>{project.projectManager ?
+                    <td className={"td10rem"}>{project.projectAddress ? project.projectAddress.city : "-"}</td>
+                    <td className={"td14rem"}>{project.buldingFacility}</td>
+                    <td className={"td14rem"}>{project.projectManager ?
                         <Link to={"/users/" + project.projectManager.id} className={styles.detailLink}>
                             {project.projectManager.firstname.concat(" ", project.projectManager.lastname)}
                         </Link>
                         :
                         "-"}</td>
-                    <td>{project.startedAt.substring(0, 10)}</td>
-                    <td>{project.deadline.substring(0, 10)}</td>
-                    <td className={`${getStatusClassName(project.state)} ${styles.state}`}>
+                    <td className={"td10rem"}>{project.startedAt.substring(0, 10)}</td>
+                    <td className={"td10rem"}>{project.deadline.substring(0, 10)}</td>
+                    <td className={`${getStatusClassName(project.state)} ${styles.state} td10rem`}>
                         {project.state}
                     </td>
                     <td className={styles.buttonTd}>

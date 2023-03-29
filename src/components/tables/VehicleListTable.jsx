@@ -9,10 +9,18 @@ import ReportButton from "../buttons/ReportButton";
 import carIcon from "../../svg/car_icon.svg";
 import vehicleIcon from "../../svg/vehicle_icon.svg";
 import trailerIcon from "../../svg/trailer_icon.svg";
+import VehiclesFilter from "../../filters/VehiclesFilter";
 
 
 const VehicleListTable = () => {
     const [vehicles, setVehicles] = useState([]);
+    const [filteredVehicles, setFilteredVehicles] = useState([]);
+    const [filters, setFilters] = useState({
+        registrationNumber: "",
+        type: "",
+        factory: "",
+        name: "",
+    });
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vehicles', {
@@ -22,6 +30,7 @@ const VehicleListTable = () => {
         })
             .then(response => {
                 setVehicles(response.data);
+                setFilteredVehicles(response.data)
             })
             .catch(error => {
                 console.log(error);
@@ -40,6 +49,21 @@ const VehicleListTable = () => {
 
         const updatedVehicles = vehicles.filter(vehicle => vehicle.id !== vehicleId);
         setVehicles(updatedVehicles);
+    }
+
+    function handleFilterChange(name, value) {
+        const updatedFilters = { ...filters, [name]: value };
+        setFilters(updatedFilters);
+
+        const filtered = vehicles.filter((vehicle) => {
+            return (
+                vehicle.registrationNumber.toLowerCase().includes(updatedFilters.registrationNumber.toLowerCase()) &&
+                vehicle.type.toLowerCase().includes(updatedFilters.type.toLowerCase()) &&
+                vehicle.factory.toLowerCase().includes(updatedFilters.factory.toLowerCase()) &&
+                vehicle.name.toLowerCase().includes(updatedFilters.name.toLowerCase())
+            );
+        });
+        setFilteredVehicles(filtered);
     }
 
     const getVehicleIcon = (vehicleType) => {
@@ -84,9 +108,10 @@ const VehicleListTable = () => {
                     <th>Najeté km / odpracované mth</th>
                     <th>Akce</th>
                 </tr>
+                <VehiclesFilter onFilterChange={handleFilterChange} />
                 </thead>
                 <tbody>
-                {vehicles.map(vehicle => (<tr key={vehicle.id}>
+                {filteredVehicles.map(vehicle => (<tr key={vehicle.id}>
                     <td>
                         <Link to={"/vehicles/" + vehicle.id} className={styles.detailLink}>
                             {vehicle.registrationNumber}
