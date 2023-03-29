@@ -33,9 +33,6 @@ function ConnectingParticlesBackground() {
         //
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
-        console.log(canvas);
-        console.log(ctx)
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -50,11 +47,6 @@ function ConnectingParticlesBackground() {
                 vy: Math.floor(Math.random() * 50) - 25
             });
         }
-
-        // canvas.addEventListener('mousemove', function (e) {
-        //     mouse.x = e.clientX;
-        //     mouse.y = e.clientY;
-        // });
 
         tick(ctx, canvas);
     }
