@@ -16,6 +16,11 @@ const CreateProject = () => {
     const [projectManagerId, setUserId] = useState('');
     const [startsAt, setStartsAt] = useState('');
     const [deadline, setDeadline] = useState('');
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [descriptiveNumber, setDescriptiveNumber] = useState('');
 
     function handleCreateProject() {
         axios.post('http://localhost:8080/api/v1/projects', {
@@ -24,6 +29,11 @@ const CreateProject = () => {
             startedAt: startsAt,
             deadline: deadline,
             userId: projectManagerId,
+            country: country,
+            city: city,
+            street: street,
+            postCode: postCode,
+            descriptiveNumber: descriptiveNumber,
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -72,6 +82,25 @@ const CreateProject = () => {
                     <UserInput onUserIdChange={setUserId} />
                 </div>
                 <div className={styles.rightSide}>
+                    <label htmlFor="city">Město:</label>
+                    <input type="text" id="city" name="city"
+                           onChange={(event) => setCity(event.target.value)}/>
+
+                    <label htmlFor="street">Ulice:</label>
+                    <input type="text" id="street" name="street"
+                           onChange={(event) => setStreet(event.target.value)}/>
+
+                    <label htmlFor="descriptiveNumber">Číslo popisné:</label>
+                    <input type="text" id="descriptiveNumber" name="descriptiveNumber"
+                           onChange={(event) => setDescriptiveNumber(event.target.value)}/>
+
+                    <label htmlFor="postCode">PSČ:</label>
+                    <input type="text" id="postCode" name="postCode"
+                           onChange={(event) => setPostCode(event.target.value)}/>
+
+                    <label htmlFor="country">Domovská země společnosti:</label>
+                    <input type="text" id="country" name="country"
+                           onChange={(event) => setCountry(event.target.value)}/>
                 </div>
             </div>
             <div className={styles.formButtons}>

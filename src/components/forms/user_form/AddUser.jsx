@@ -8,7 +8,6 @@ import CloseButton from "../../buttons/CloseButton";
 
 const AddUser = () => {
     const navigate = useNavigate();
-    // const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [titleBeforeName, setTitleBeforeName] = useState('');
     const [firstname, setFirstname] = useState('');
@@ -22,6 +21,11 @@ const AddUser = () => {
     const [monthSalary, setMonthSalary] = useState('');
     const [bankAccount, setBankAccout] = useState('');
     const [phone, setPhone] = useState('');
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [descriptiveNumber, setDescriptiveNumber] = useState('');
 
     function handleCreateUser() {
         axios.post('http://localhost:8080/api/v1/auth/register', {
@@ -37,7 +41,12 @@ const AddUser = () => {
             birthId: birthId,
             hourRate: hourRate,
             monthSalary: monthSalary,
-            bankAccount: bankAccount
+            bankAccount: bankAccount,
+            country: country,
+            city: city,
+            street: street,
+            postCode: postCode,
+            descriptiveNumber: descriptiveNumber,
         })
             .catch(error => {
                 console.log(error);
@@ -58,27 +67,54 @@ const AddUser = () => {
                     <label htmlFor="titleBeforeName">Tituly před jménem:</label>
                     <input type="text" id="titleBeforeName" name="titleBeforeName"
                            onChange={(event) => setTitleBeforeName(event.target.value)}/>
+
                     <label htmlFor="firstname">Jméno:</label>
                     <input type="text" id="firstname" name="firstname"
                            onChange={(event) => setFirstname(event.target.value)}/>
+
                     <label htmlFor="lastname">Příjmení:</label>
                     <input type="text" id="lastname" name="lastname"
                            onChange={(event) => setLastname(event.target.value)}/>
+
                     <label htmlFor="titleAfterName">Tituly za jménem:</label>
                     <input type="text" id="titleAfterName" name="titleAfterName"
                            onChange={(event) => setTitleAfterName(event.target.value)}/>
+
                     <label htmlFor="email">Email:</label>
                     <input type="text" id="email" name="email"
                            onChange={(event) => setEmail(event.target.value)}/>
+
                     <label htmlFor="phone">Telefoní číslo:</label>
                     <input type="text" id="phone" name="phone"
                            onChange={(event) => setPhone(event.target.value)}/>
+
                     <label htmlFor="dateOfBirth">Datum narození:</label>
                     <input type="date" id="dateOfBirth" name="dateOfBirth"
                            onChange={(event) => setDateOfBirth(event.target.value)}/>
+
                     <label htmlFor="birthId">Rodné číslo:</label>
                     <input type="text" id="birthId" name="birthId"
                            onChange={(event) => setBirthId(event.target.value)}/>
+
+                    <label htmlFor="city">Město:</label>
+                    <input type="text" id="city" name="city"
+                           onChange={(event) => setCity(event.target.value)}/>
+
+                    <label htmlFor="street">Ulice:</label>
+                    <input type="text" id="street" name="street"
+                           onChange={(event) => setStreet(event.target.value)}/>
+
+                    <label htmlFor="descriptiveNumber">Číslo popisné:</label>
+                    <input type="text" id="descriptiveNumber" name="descriptiveNumber"
+                           onChange={(event) => setDescriptiveNumber(event.target.value)}/>
+
+                    <label htmlFor="postCode">PSČ:</label>
+                    <input type="text" id="postCode" name="postCode"
+                           onChange={(event) => setPostCode(event.target.value)}/>
+
+                    <label htmlFor="country">Země:</label>
+                    <input type="text" id="country" name="country"
+                           onChange={(event) => setCountry(event.target.value)}/>
 
                 </div>
                 <div className={styles.rightSide}>

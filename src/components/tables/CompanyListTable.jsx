@@ -16,6 +16,7 @@ const CompanyListTable = () => {
         cin: "",
         din: "",
         companyAddress: "",
+        phone: ""
     });
 
     useEffect(() => {
@@ -55,8 +56,9 @@ const CompanyListTable = () => {
         const filtered = companies.filter((company) => {
             return (
                 company.name.toLowerCase().includes(updatedFilters.name.toLowerCase()) &&
-                company.cin.toLowerCase().includes(updatedFilters.cin.toLowerCase()) &&
+                company.cin.includes(updatedFilters.cin) &&
                 company.din.toLowerCase().includes(updatedFilters.din.toLowerCase()) &&
+                company.phone.includes(updatedFilters.phone) &&
                 (company.companyAddress.city.toLowerCase() + ", "
                     + company.companyAddress.street.toLowerCase() + " "
                     + company.companyAddress.descriptiveNumber.toLowerCase())
@@ -80,7 +82,7 @@ const CompanyListTable = () => {
                 <th>Jméno</th>
                 <th>IČO</th>
                 <th>DIČ</th>
-                <th>Město</th>
+                <th>Sídlo</th>
                 <th>Akce</th>
             </tr>
             <CompaniesFilter onFilterChange={handleFilterChange} />
@@ -98,6 +100,7 @@ const CompanyListTable = () => {
                     ?
                     company.companyAddress.city + ", " + company.companyAddress.street + " " + company.companyAddress.descriptiveNumber:
                     "-"}</td>
+                <td className={"td14rem"}>{company.phone}</td>
                 <td className={styles.buttonTd}>
                     <Link to={"/companies/edit/" + company.id}>
                         <EditButton/>

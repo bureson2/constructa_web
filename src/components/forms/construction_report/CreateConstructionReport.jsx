@@ -76,6 +76,7 @@ const CreateConstructionReport = () => {
                     </select>
                 </div>
                 <div className={styles.rightSide}>
+
                 </div>
             </div>
 

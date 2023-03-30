@@ -14,6 +14,7 @@ function CompaniesFilter({ onFilterChange }) {
             <td><input type="text" name="cin" onChange={handleFilterChange} placeholder="IČO..." /></td>
             <td><input type="text" name="din" onChange={handleFilterChange} placeholder="DIČ..." /></td>
             <td><input type="text" name="companyAddress" onChange={handleFilterChange} placeholder="Město..." /></td>
+            <td><input type="text" name="phone" onChange={handleFilterChange} placeholder="Telefon..." /></td>
         <td></td>
         </tr>
     );

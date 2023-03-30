@@ -23,13 +23,11 @@ const UserDetail = () => {
     const [monthSalary, setMonthSalary] = useState('');
     const [bankAccount, setBankAccout] = useState('');
     const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState({
-        country: "",
-        city: "",
-        postCode: "",
-        street: "",
-        descriptiveNumber: "",
-    });
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [descriptiveNumber, setDescriptiveNumber] = useState('');
 
     useEffect(() => {
         // TODO
@@ -54,7 +52,11 @@ const UserDetail = () => {
                 setPhone(response.data.phone);
                 setDateOfAcceptance(response.data.dateOfAcceptance);
                 setRoles(response.data.role);
-                setAddress(response.data.userAddress);
+                setCountry(response.data.address.country);
+                setCity(response.data.address.city);
+                setStreet(response.data.address.street);
+                setDescriptiveNumber(response.data.address.descriptiveNumber);
+                setPostCode(response.data.address.postCode);
             })
             .catch(error => {
                 console.log(error);
@@ -77,60 +79,55 @@ const UserDetail = () => {
             </div>
             <div>
                 <div className={styles.leftSide}>
-                    <label htmlFor="titleBeforeName">Tituly před jménem:</label>
-                    <input type="text" id="titleBeforeName" name="titleBeforeName"
-                           value={titleBeforeName} readOnly={true}
-                           onChange={(event) => setTitleBeforeName(event.target.value)}/>
-                    <label htmlFor="firstname">Jméno:</label>
-                    <input type="text" id="firstname" name="firstname"
-                           value={firstname} readOnly={true}
-                           onChange={(event) => setFirstname(event.target.value)}/>
-                    <label htmlFor="lastname">Příjmení:</label>
-                    <input type="text" id="lastname" name="lastname"
-                           value={lastname} readOnly={true}
-                           onChange={(event) => setLastname(event.target.value)}/>
-                    <label htmlFor="titleAfterName">Tituly za jménem:</label>
-                    <input type="text" id="titleAfterName" name="titleAfterName"
-                           value={titleAfterName} readOnly={true}
-                           onChange={(event) => setTitleAfterName(event.target.value)}/>
+                    <label htmlFor="name">Jméno</label>
+                    <input type="text" name="name" id="name" readOnly={true}
+                           value={
+                               (titleBeforeName ? titleBeforeName + " " : "")
+                               + firstname + " " + lastname + " " +
+                               (titleAfterName ? titleAfterName : "")
+                           }/>
+
                     <label htmlFor="email">Email:</label>
                     <input type="text" id="email" name="email"
-                           value={email} readOnly={true}
-                           onChange={(event) => setEmail(event.target.value)}/>
+                           value={email} readOnly={true}/>
+
                     <label htmlFor="phone">Telefoní číslo:</label>
                     <input type="text" id="phone" name="phone"
-                           value={phone} readOnly={true}
-                           onChange={(event) => setPhone(event.target.value)}/>
+                           value={phone} readOnly={true}/>
+
                     <label htmlFor="dateOfBirth">Datum narození:</label>
                     <input type="text" id="dateOfBirth" name="dateOfBirth"
-                           value={dateOfBirth.substring(0, 10)} readOnly={true}
-                           onChange={(event) => setDateOfBirth(event.target.value)}/>
+                           value={dateOfBirth.substring(0, 10)} readOnly={true}/>
+
                     <label htmlFor="birthId">Rodné číslo:</label>
                     <input type="text" id="birthId" name="birthId"
-                           value={birthId} readOnly={true}
-                           onChange={(event) => setBirthId(event.target.value)}/>
+                           value={birthId} readOnly={true}/>
+
+                    <label htmlFor="address">Bydliště:</label>
+                    <input type="text" id="address" name="address"
+                           value={city + ", " + street + " " + descriptiveNumber + ", " + postCode + ", " + country}
+                           readOnly={true}/>
                 </div>
                 <div className={styles.rightSide}>
                     <label htmlFor="dateOfAcceptance">Datum nástupu:</label>
                     <input type="text" id="dateOfAcceptance" name="dateOfAcceptance"
-                           value={dateOfAcceptance.substring(0, 10)} readOnly={true}
-                           onChange={(event) => setDateOfAcceptance(event.target.value)}/>
+                           value={dateOfAcceptance.substring(0, 10)} readOnly={true}/>
+
                     <label htmlFor="hourRate">Hodinová mzda:</label>
                     <input type="text" id="hourRate" name="hourRate"
-                           value={hourRate} readOnly={true}
-                           onChange={(event) => setHourRate(event.target.value)}/>
+                           value={hourRate} readOnly={true}/>
+
                     <label htmlFor="monthSalary">Měsíční mzda:</label>
                     <input type="text" id="monthSalary" name="monthSalary"
-                           value={monthSalary} readOnly={true}
-                           onChange={(event) => setMonthSalary(event.target.value)}/>
+                           value={monthSalary} readOnly={true}/>
+
                     <label htmlFor="bankAccount">Bankovní účet:</label>
                     <input type="text" id="bankAccount" name="bankAccount"
-                           value={bankAccount} readOnly={true}
-                           onChange={(event) => setBankAccout(event.target.value)}/>
+                           value={bankAccount} readOnly={true}/>
+
                     <label htmlFor="role">Pracovní pozice:</label>
                     <input type="text" id="role" name="role"
-                           value={roles} readOnly={true}
-                           onChange={(event) => setRoles(event.target.value)}/>
+                           value={roles} readOnly={true}/>
                 </div>
             </div>
             <Link to={"/users"} className={styles.bottomBackButton}>
