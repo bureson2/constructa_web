@@ -1,5 +1,5 @@
 import styles from "../style.module.scss";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import EditButton from "../../buttons/EditButton";
@@ -9,8 +9,7 @@ import ReportButton from "../../buttons/ReportButton";
 import ConstructionReports from "../../tables/ConstructionReports";
 
 const ProjectDetail = () => {
-    const url = window.location.href;
-    const projectId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
     const [projectName, setProjectName] = useState('');
     const [buldingFacility, setBuildingFacility] = useState('');
     const [projectState, setProjectState] = useState('');
@@ -24,7 +23,7 @@ const ProjectDetail = () => {
     const [descriptiveNumber, setDescriptiveNumber] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/projects/' + projectId
+        axios.get('http://localhost:8080/api/v1/projects/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
@@ -52,10 +51,10 @@ const ProjectDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/projects/" + projectId + "/reports/create"} >
+                <Link to={"/projects/" + id + "/reports/create"} >
                     <ReportButton/>
                 </Link>
-                <Link to={"/projects/edit/" + projectId}>
+                <Link to={"/projects/edit/" + id}>
                     <EditButton/>
                 </Link>
                 <Link to={"/projects"}>
@@ -97,7 +96,7 @@ const ProjectDetail = () => {
 
                 </div>
                 <div className={styles.rightSide}>
-                    <ConstructionReports projectId={projectId}/>
+                    <ConstructionReports projectId={id}/>
                 </div>
             </div>
             <div>

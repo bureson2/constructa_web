@@ -12,7 +12,6 @@ const CreateProject = () => {
     const navigate = useNavigate();
     const [projectName, setProjectName] = useState('');
     const [buldingFacility, setBuildingFacility] = useState('');
-    const [projectState, setProjectState] = useState('');
     const [projectManagerId, setUserId] = useState('');
     const [startsAt, setStartsAt] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -48,7 +47,7 @@ const CreateProject = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/projects"} className={styles.topBackButton}>
+                <Link to={"/projects"}>
                     <CloseButton/>
                 </Link>
             </div>

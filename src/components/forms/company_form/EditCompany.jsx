@@ -2,15 +2,13 @@ import styles from "../style.module.scss";
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
-import BackButton from "../../buttons/BackButton";
 import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
 
 const EditCompany = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const {id} = useParams();
     const [companyName, setCompanyName] = useState('');
     const [din, setDin] = useState('');
     const [cin, setCin] = useState('');
@@ -19,7 +17,7 @@ const EditCompany = () => {
     const [street, setStreet] = useState('');
     const [postCode, setPostCode] = useState('');
     const [descriptiveNumber, setDescriptiveNumber] = useState('');
-    const [phone,setPhone] = useState('');
+    const [phone, setPhone] = useState('');
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/companies/' + id
@@ -91,7 +89,7 @@ const EditCompany = () => {
 
                     <label htmlFor="phone">Telefonní číslo:</label>
                     <input type="text" id="phone" name="phone"
-                           value={phone} onChange={(event) => setPhone(event.target.value)} />
+                           value={phone} onChange={(event) => setPhone(event.target.value)}/>
                 </div>
                 <div className={styles.rightSide}>
                     <label htmlFor="city">Město:</label>
