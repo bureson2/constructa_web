@@ -47,7 +47,8 @@ const TaskDetail = () => {
                     setMarkerPosition([data.latitude, data.longitude]);
                     setState(data.state);
                     setMap(
-                        <MapInput setMarkerPosition={setMarkerPosition} markerPosition={[data.latitude, data.longitude]} read={true}/>
+                        <MapInput setMarkerPosition={setMarkerPosition} markerPosition={[data.latitude, data.longitude]}
+                                  read={true}/>
                     )
                 }
             )
@@ -68,22 +69,28 @@ const TaskDetail = () => {
                 <div className={styles.leftSide}>
                     <label htmlFor="taskName">Jméno:</label>
                     <input type="text" id="taskName" name="taskName" value={taskName} readOnly={true}/>
+
                     <label htmlFor="taskState">Stav:</label>
                     <input type="text" id="taskState" name="taskState" value={taskState} readOnly={true}/>
+
                     <label htmlFor="taskDescription">Popis:</label>
                     <input type="text" id="taskDescription" name="taskDescription" value={taskDescription}
                            readOnly={true}/>
-                    <label htmlFor="assignee">Zodpovědná osoba:</label>
-                    <input type="text" id="assignee" name="assignee"
-                           value={assignee}
-                           readOnly={true}/>
+
                     <label htmlFor="author">Zadavatel úkolu:</label>
                     <input type="text" id="author" name="author"
                            value={author}
                            readOnly={true}/>
+
+                    <label htmlFor="assignee">Zodpovědná osoba:</label>
+                    <input type="text" id="assignee" name="assignee"
+                           value={assignee}
+                           readOnly={true}/>
+
                     <label htmlFor="timeFrom">Datum zahájení:</label>
                     <input type="text" id="timeFrom" name="timeFrom"
                            value={timeFrom ? timeFrom.substring(0, 10) : timeFrom} readOnly={true}/>
+
                     <label htmlFor="timeTo">Datum ukončení:</label>
                     <input type="text" id="timeTo" name="timeTo"
                            value={timeTo ? timeTo.substring(0, 10) : timeTo} readOnly={true}/>
@@ -91,6 +98,7 @@ const TaskDetail = () => {
                 <div className={styles.rightSide}>
                     <label htmlFor="taskLocation">Místo výkonu práce:
                     </label>
+
                     <input type="text" id="taskLocation" name="taskLocation"
                            value={taskLocation} readOnly={true}/>
                     {map}

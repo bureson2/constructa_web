@@ -5,6 +5,8 @@ import AcceptButton from "../../buttons/AcceptButton";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import RejectButton from "../../buttons/RejectButton";
 import MapInput from "../../inputs/MapInput";
+import UserInput from "../../inputs/UserInput";
+import CloseButton from "../../buttons/CloseButton";
 
 
 const EditTask = () => {
@@ -30,7 +32,9 @@ const EditTask = () => {
             locationName: taskLocation,
             state: taskState,
             longitude: markerPosition[1],
-            latitude: markerPosition[0]
+            latitude: markerPosition[0],
+            userId: assignee
+
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -52,11 +56,10 @@ const EditTask = () => {
             .then(response => {
                 setTaskName(response.data.name);
                 setTaskDescription(response.data.description);
-                setTimeFrom(response.data.timeFrom);
-                setTimeTo(response.data.timeTo);
+                setTimeFrom(response.data.timeFrom.substring(0,16));
+                setTimeTo(response.data.timeTo.substring(0,16));
                 setTaskLocation(response.data.locationName)
-                setAssignee(response.data.assignee ? response.data.assignee.firstname.concat(" ", response.data.assignee.lastname)
-                    : "-");
+                setAssignee(response.data.assignee);
                 setAuthor(response.data.author ? response.data.author.firstname.concat(" ", response.data.author.lastname)
                     : "-")
                 setMarkerPosition([response.data.latitude, response.data.longitude])
@@ -77,32 +80,49 @@ const EditTask = () => {
 
     return (
         <form className={styles.form}>
+            <div className={styles.topButtons}>
+                <Link to={"/tasks/" + id}>
+                    <CloseButton/>
+                </Link>
+            </div>
             <div>
                 <div className={styles.leftSide}>
                     <label htmlFor="taskName">Jméno:</label>
                     <input type="text" id="taskName" name="taskName"
                            value={taskName}
                            onChange={(event) => setTaskName(event.target.value)}/>
+
                     <label htmlFor="taskDescription">Popis:</label>
                     <input type="text" id="taskDescription" name="taskDescription"
                            value={taskDescription}
                            onChange={(event) => setTaskDescription(event.target.value)}/>
+
                     <label htmlFor="assignee">Zadavatel:</label>
                     <input type="text" id="author" name="author"
                            value={author}
                            onChange={(event) => setAuthor(event.target.value)} readOnly={true}/>
+
                     <label htmlFor="assignee">Pověřená osoba:</label>
-                    <input type="text" id="assignee" name="assignee"
-                           value={assignee}
-                           onChange={(event) => setAssignee(event.target.value)} readOnly={true}/>
-                    <label htmlFor="timeFrom">Datum zahájení:</label>
-                    <input type="text" id="timeFrom" name="timeFrom"
-                           value={timeFrom}
-                           onChange={(event) => setTimeFrom(event.target.value)}/>
+                    <UserInput onUserIdChange={setAssignee} defaultUser={assignee} />
+
+                    <label htmlFor="timeTo">Datum zahájení:</label>
+                    <input
+                        type="datetime-local"
+                        id="timeFrom"
+                        name="timeFrom"
+                        value={timeFrom}
+                        onChange={(event) => setTimeFrom(event.target.value)}
+                    />
                     <label htmlFor="timeTo">Datum ukončení:</label>
-                    <input type="text" id="timeTo" name="timeTo"
-                           value={timeTo}
-                           onChange={(event) => setTimeTo(event.target.value)}/>
+                    <input
+                        type="datetime-local"
+                        id="timeTo"
+                        name="timeTo"
+                        min={new Date().toISOString().slice(0, 16)}
+                        value={timeTo}
+                        onChange={(event) => setTimeTo(event.target.value)}
+                    />
+
                     <label htmlFor="state-select">Současný stav:</label>
                     <select id="state-select" value={taskState} onChange={(event) => setState(event.target.value)}>
                         <option value="NEW">Nový</option>
