@@ -83,6 +83,7 @@ const CompanyListTable = () => {
                 <th>IČO</th>
                 <th>DIČ</th>
                 <th>Sídlo</th>
+                <th>Telefon</th>
                 <th>Akce</th>
             </tr>
             <CompaniesFilter onFilterChange={handleFilterChange} />

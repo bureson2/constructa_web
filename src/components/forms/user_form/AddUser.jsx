@@ -35,7 +35,7 @@ const AddUser = () => {
             firstname: firstname,
             lastname: lastname,
             titleAfterName: titleAfterName,
-            roles: roles,
+            role: roles,
             password: password,
             dateOfBirth: dateOfBirth,
             birthId: birthId,
