@@ -18,7 +18,7 @@ import AddUser from "./components/forms/user_form/AddUser";
 import UserDetail from "./components/forms/user_form/UserDetail";
 import CompanyListTable from "./components/tables/CompanyListTable";
 import ProjectListTable from "./components/tables/ProjectListTable";
-import EditCompany from "./components/forms/company_form/EditCompant";
+import EditCompany from "./components/forms/company_form/EditCompany";
 import CreateCompany from "./components/forms/company_form/CreateCompany";
 import CompanyDetail from "./components/forms/company_form/CompanyDetail";
 import EditProject from "./components/forms/project_form/EditProject";

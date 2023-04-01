@@ -2,15 +2,14 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import RejectButton from "../../buttons/RejectButton";
 import MapInput from "../../inputs/MapInput";
 
 
 const EditTask = () => {
     const navigate = useNavigate();
-    const url = window.location.href;
-    const taskId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskLocation, setTaskLocation] = useState('');
@@ -23,7 +22,7 @@ const EditTask = () => {
 
     function handleEditTask() {
         axios.put('http://localhost:8080/api/v1/tasks', {
-            id: taskId,
+            id: id,
             name: taskName,
             description: taskDescription,
             timeFrom: timeFrom,
@@ -44,7 +43,7 @@ const EditTask = () => {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/tasks/' + taskId
+        axios.get('http://localhost:8080/api/v1/tasks/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`

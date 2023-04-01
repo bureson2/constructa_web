@@ -1,15 +1,14 @@
 
 import styles from "../style.module.scss";
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import BackButton from "../../buttons/BackButton";
 import React, {useEffect, useState} from "react";
 
 const EditUser = () => {
-    const url = window.location.href;
-    const userId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [titleBeforeName, setTitleBeforeName] = useState('');
@@ -25,7 +24,7 @@ const EditUser = () => {
     const [phone, setPhone] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/users/' + userId
+        axios.get('http://localhost:8080/api/v1/users/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
@@ -70,7 +69,7 @@ const EditUser = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/vehicles"} className={styles.topBackButton}>
+                <Link to={"/vehicles"}>
                     <CloseButton/>
                 </Link>
             </div>
