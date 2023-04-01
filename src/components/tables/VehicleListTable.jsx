@@ -68,15 +68,15 @@ const VehicleListTable = () => {
 
     const getVehicleIcon = (vehicleType) => {
         switch (vehicleType) {
-            case 'CAR':
+            case 'Auto':
                 return <button className={styles.vehicleIcons}>
                     <img src={carIcon} alt="Car Icon"/>
                 </button>;
-            case 'VEHICLE':
+            case 'Stroj':
                 return <button className={styles.vehicleIcons}>
                     <img src={vehicleIcon} alt="vehicle Icon"/>
                 </button>;
-            case 'TRAILER':
+            case 'Přívěs':
                 return <button className={styles.vehicleIcons}>
                     <img src={trailerIcon} alt="trailer Icon"/>
                 </button>;
@@ -125,15 +125,15 @@ const VehicleListTable = () => {
                         {vehicle.name}
                     </td>
                     <td>
-                        {vehicle.type === "CAR" ?
+                        {vehicle.type === "Auto" ?
                             <>
                                 {vehicle.mileage}&nbsp;km
                             </> : ""}
-                        {vehicle.type === "VEHICLE" ?
+                        {vehicle.type === "Stroj" ?
                             <>
                                 {vehicle.conditionMotorcycleWatch}&nbsp;mth
                             </> : ""}
-                        {vehicle.type === "TRAILER" ?
+                        {vehicle.type === "Přívěs" ?
                             <>
                                 -
                             </> : ""}

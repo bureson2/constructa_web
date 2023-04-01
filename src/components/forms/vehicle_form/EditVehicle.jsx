@@ -1,35 +1,68 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import styles from "../style.module.scss";
 import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
-import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import DeleteButton from "../../buttons/DeleteButton";
 
 const EditVehicle = () => {
     const navigate = useNavigate();
-    const url = window.location.href;
-    const [vehicleId, setVehicleId] = useState(url.substring(url.lastIndexOf("/") + 1));
-    const [vehicleFactory, setVehicleFactory] = useState('');
-    const [vehicleName, setVehicleName] = useState('');
-    const [vehicleMileage, setVehicleMileage] = useState('');
-    const [vehicleRegistrationNumber, setVehicleRegistrationNumber] = useState('');
-    const [vehicleType, setVehicleType] = useState('');
-    const [motorcycleWatch, setMotorcycleWatch] = useState('');
-    const [createdAt, setCreatedAt] = useState('');
+    const {id} = useParams();
+    const [factory, setFactory] = useState('');
+    const [name, setName] = useState('');
+    const [vinCode, setVinCode] = useState('');
+    const [registrationNumber, setRegistrationNumber] = useState('');
+    const [conditionMotorcycleWatch, setConditionMotorcycleWatch] = useState(0);
+    const [mileage, setMileage] = useState(0);
+    const [type, setType] = useState('')
     const [boughtAt, setBoughtAt] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/vehicles/' + id
+            , {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                setFactory(response.data.factory);
+                setName(response.data.name);
+                setVinCode(response.data.vinCode)
+                setMileage(response.data.mileage);
+                setRegistrationNumber(response.data.registrationNumber);
+                setConditionMotorcycleWatch(response.data.conditionMotorcycleWatch);
+                setCreatedAt(response.data.createdAt.substring(0,10));
+                setBoughtAt(response.data.boughtAt.substring(0,10));
+                switch (response.data.type){
+                    case "Auto":
+                        setType("CAR");
+                        break;
+                    case "Stroj":
+                        setType("VEHICLE");
+                        break;
+                    default:
+                        setType("TRAILER")
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
     function handleEditVehicle() {
         axios.put('http://localhost:8080/api/v1/vehicles', {
-            id: vehicleId,
-            factory: vehicleFactory,
-            name: vehicleName,
-            registrationNumber: vehicleRegistrationNumber,
-            mileage: vehicleMileage,
-            type: vehicleType,
-            conditionMotorcycleWatch: motorcycleWatch,
+            id: id,
+            factory: factory,
+            name: name,
+            registrationNumber: registrationNumber,
+            vinCode: vinCode,
+            mileage: mileage,
+            type: type,
+            conditionMotorcycleWatch: conditionMotorcycleWatch,
             createdAt: createdAt,
             boughtAt: boughtAt,
         }, {
@@ -43,26 +76,6 @@ const EditVehicle = () => {
             });
         navigate("/vehicles");
     }
-
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/vehicles/' + vehicleId
-            , {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                setVehicleFactory(response.data.factory);
-                setVehicleName(response.data.name);
-                setVehicleMileage(response.data.mileage);
-                setVehicleRegistrationNumber(response.data.registrationNumber);
-                setVehicleType(response.data.type);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
 
     function handleDeleteVehicle(vehicleId) {
 
@@ -81,7 +94,7 @@ const EditVehicle = () => {
         <form className={styles.form}>
             <div className={styles.topButtons}>
                 <Link to={"/vehicles"} className={styles.topButtons}>
-                    <div onClick={() => handleDeleteVehicle(vehicleId)}>
+                    <div onClick={() => handleDeleteVehicle(id)}>
                         <DeleteButton/>
                     </div>
                     <CloseButton/>
@@ -91,49 +104,55 @@ const EditVehicle = () => {
                 <div className={styles.leftSide}>
                     <label htmlFor="vehicleFactory">Značka:</label>
                     <input type="text" id="vehicleFactory" name="vehicleFactory"
-                           value={vehicleFactory} readOnly={true}
-                           onChange={(event) => setVehicleFactory(event.target.value)}/>
+                           value={factory}
+                           onChange={(event) => setFactory(event.target.value)}/>
+
                     <label htmlFor="vehicleName">Model:</label>
                     <input type="text" id="vehicleName" name="vehicleName"
-                           value={vehicleName} readOnly={true}
-                           onChange={(event) => setVehicleName(event.target.value)}/>
+                           value={name}
+                           onChange={(event) => setName(event.target.value)}/>
+
                     <label htmlFor="vehicleRegistrationNumber">SPZ:</label>
                     <input type="text" id="vehicleRegistrationNumber" name="vehicleRegistrationNumber"
-                           value={vehicleRegistrationNumber} readOnly={true}
-                           onChange={(event) => setVehicleRegistrationNumber(event.target.value)}/>
+                           value={registrationNumber}
+                           onChange={(event) => setRegistrationNumber(event.target.value)}/>
+
+                    <label htmlFor="vinCode">VIN kód:</label>
+                    <input type="text" id="vinCode" name="vinCode"
+                           value={vinCode}
+                           onChange={(event) => setVinCode(event.target.value)}/>
+                </div>
+                <div className={styles.rightSide}>
                     <label htmlFor="createdAt">Datum výroby:</label>
-                    <input type="text" id="createdAt" name="createdAt"
-                           value={createdAt.substring(0, 10)} readOnly={true}
+                    <input type="date" id="createdAt" name="createdAt"
+                           value={createdAt}
                            onChange={(event) => setCreatedAt(event.target.value)}/>
+
                     <label htmlFor="boughtAt">Datum nákupu:</label>
-                    <input type="text" id="boughtAt" name="boughtAt"
-                           value={boughtAt.substring(0, 10)} readOnly={true}
+                    <input type="date" id="boughtAt" name="boughtAt"
+                           value={boughtAt}
                            onChange={(event) => setBoughtAt(event.target.value)}/>
-                    <label htmlFor="vehicleType">Druh vozidla:</label>
-                    <select name="vehicleType" id="vehicleType"
-                            value={vehicleType}
-                            onChange={(event) => setVehicleType(event.target.value)}>
+
+                    <label htmlFor="vehicleType">Typ vozidla:</label>
+                    <select name="type" value={type} onChange={(event) => setType(event.target.value)}>
                         <option value="CAR">Auto</option>
                         <option value="VEHICLE">Stroj</option>
                         <option value="TRAILER">Přívěs</option>
                     </select>
-                    {vehicleType === "CAR" ?
+                    {type === "CAR" || type === "Auto" ?
                         <>
                             <label htmlFor="vehicleMileage">Najeté kilometry:</label>
                             <input type="text" id="vehicleMileage" name="vehicleMileage"
-                                   value={vehicleMileage} readOnly={true}
-                                   onChange={(event) => setVehicleMileage(event.target.value)}/>
+                                   value={mileage}
+                                   onChange={(event) => setMileage(event.target.value)}/>
                         </> : ""
                     }
-                    {vehicleType === "VEHICLE" ? <>
+                    {type === "VEHICLE" || type === "Stroj" ? <>
                         <label htmlFor="vehicleMileage">Stav odpracovaných motohodin:</label>
                         <input type="text" id="motorcycleWatch" name="motorcycleWatch"
-                               value={motorcycleWatch} readOnly={true}
-                               onChange={(event) => setMotorcycleWatch(event.target.value)}/>
+                               value={conditionMotorcycleWatch}
+                               onChange={(event) => setConditionMotorcycleWatch(event.target.value)}/>
                     </> : ""}
-                </div>
-                <div className={styles.rightSide}>
-                    {/* TODO car reporty */}
                 </div>
             </div>
             <div className={styles.formButtons}>
