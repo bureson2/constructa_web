@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
 import EditButton from "../buttons/EditButton";
@@ -10,17 +10,23 @@ import carIcon from "../../svg/car_icon.svg";
 import vehicleIcon from "../../svg/vehicle_icon.svg";
 import trailerIcon from "../../svg/trailer_icon.svg";
 import VehiclesFilter from "../../filters/VehiclesFilter";
+import {UserContext} from "../../security_context/UserContext";
 
 
 const VehicleListTable = () => {
     const [vehicles, setVehicles] = useState([]);
     const [filteredVehicles, setFilteredVehicles] = useState([]);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const [filters, setFilters] = useState({
         registrationNumber: "",
         type: "",
         factory: "",
         name: "",
     });
+
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vehicles', {
@@ -106,8 +112,10 @@ const VehicleListTable = () => {
                     <th>Značka</th>
                     <th>Typ model</th>
                     <th>Najeté km / odpracované mth</th>
-                    <th>Akce</th>
-                </tr>
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <th>Akce</th> : ""
+                    }                </tr>
                 <VehiclesFilter onFilterChange={handleFilterChange} />
                 </thead>
                 <tbody>
@@ -138,14 +146,17 @@ const VehicleListTable = () => {
                                 -
                             </> : ""}
                     </td>
-                    <td className={styles.buttonTd}>
-                        <Link to={"/vehicles/edit/" + vehicle.id}>
-                            <EditButton/>
-                        </Link>
-                        <div onClick={() => handleDeleteVehicle(vehicle.id)}>
-                            <DeleteButton/>
-                        </div>
-                    </td>
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <td className={styles.buttonTd}>
+                                <Link to={"/vehicles/edit/" + vehicle.id}>
+                                    <EditButton/>
+                                </Link>
+                                <div onClick={() => handleDeleteVehicle(vehicle.id)}>
+                                    <DeleteButton/>
+                                </div>
+                            </td> : ""
+                    }
                 </tr>))}
                 </tbody>
             </table>

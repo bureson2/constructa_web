@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import styles from "./style.module.scss";
 import {Link} from "react-router-dom";
@@ -7,10 +7,12 @@ import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
 import ProjectsFilter from "../../filters/ProjectsFilter";
 import CompaniesFilter from "../../filters/CompaniesFilter";
+import {UserContext} from "../../security_context/UserContext";
 
 const CompanyListTable = () => {
     const [companies, setCompanies] = useState([]);
     const [filteredCompanies, setFilteredCompanies] = useState([]);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const [filters, setFilters] = useState({
         name: "",
         cin: "",
@@ -18,6 +20,10 @@ const CompanyListTable = () => {
         companyAddress: "",
         phone: ""
     });
+
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/companies', {
@@ -84,7 +90,10 @@ const CompanyListTable = () => {
                 <th>DIČ</th>
                 <th>Sídlo</th>
                 <th>Telefon</th>
-                <th>Akce</th>
+                {
+                    permissions === "ROLE_ADMIN" ?
+                        <th>Akce</th> : ""
+                }
             </tr>
             <CompaniesFilter onFilterChange={handleFilterChange} />
             </thead>
@@ -102,14 +111,17 @@ const CompanyListTable = () => {
                     company.companyAddress.city + ", " + company.companyAddress.street + " " + company.companyAddress.descriptiveNumber:
                     "-"}</td>
                 <td className={"td14rem"}>{company.phone}</td>
-                <td className={styles.buttonTd}>
-                    <Link to={"/companies/edit/" + company.id}>
-                        <EditButton/>
-                    </Link>
-                    <div onClick={() => handleDeleteProject(company.id)}>
-                        <DeleteButton />
-                    </div>
-                </td>
+                {
+                    permissions === "ROLE_ADMIN" ?
+                        <td className={styles.buttonTd}>
+                            <Link to={"/companies/edit/" + company.id}>
+                                <EditButton/>
+                            </Link>
+                            <div onClick={() => handleDeleteProject(company.id)}>
+                                <DeleteButton />
+                            </div>
+                        </td> : ""
+                }
             </tr>))}
             </tbody>
         </table>

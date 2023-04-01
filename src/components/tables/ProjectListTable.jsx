@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
 import EditButton from "../buttons/EditButton";
@@ -6,10 +6,12 @@ import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
 import ProjectsFilter from "../../filters/ProjectsFilter";
+import {UserContext} from "../../security_context/UserContext";
 
 const ProjectListTable = () => {
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const [filters, setFilters] = useState({
         name: "",
         projectAddress: "",
@@ -20,8 +22,12 @@ const ProjectListTable = () => {
         state: "",
     });
 
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
+
     function handleFilterChange(name, value) {
-        const updatedFilters = { ...filters, [name]: value };
+        const updatedFilters = {...filters, [name]: value};
         setFilters(updatedFilters);
 
         const filtered = projects.filter((project) => {
@@ -101,9 +107,11 @@ const ProjectListTable = () => {
                     <th>Zahájení projektu</th>
                     <th>Plánované ukončení</th>
                     <th>Stav</th>
-                    <th>Akce</th>
-                </tr>
-                <ProjectsFilter onFilterChange={handleFilterChange} />
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <th>Akce</th> : ""
+                    }                </tr>
+                <ProjectsFilter onFilterChange={handleFilterChange}/>
                 </thead>
                 <tbody>
                 {filteredProjects.map(project => (<tr key={project.id}>
@@ -125,15 +133,17 @@ const ProjectListTable = () => {
                     <td className={`${getStatusClassName(project.state)} ${styles.state} td10rem`}>
                         {project.state}
                     </td>
-                    <td className={styles.buttonTd}>
-                        <Link to={"/projects/edit/" + project.id}>
-                            <EditButton/>
-                        </Link>
-                        <div onClick={() => handleDeleteProject(project.id)}>
-                            <DeleteButton/>
-                        </div>
-                    </td>
-
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <td className={styles.buttonTd}>
+                                <Link to={"/projects/edit/" + project.id}>
+                                    <EditButton/>
+                                </Link>
+                                <div onClick={() => handleDeleteProject(project.id)}>
+                                    <DeleteButton/>
+                                </div>
+                            </td> : ""
+                    }
                 </tr>))}
                 </tbody>
             </table>

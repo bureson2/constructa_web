@@ -86,13 +86,13 @@ const VehicleDetail = () => {
                         <>
                             <label htmlFor="vehicleMileage">Najeté kilometry:</label>
                             <input type="text" id="vehicleMileage" name="vehicleMileage"
-                                   value={mileage} readOnly={true}/>
+                                   value={mileage + " km"} readOnly={true}/>
                         </> : ""
                     }
                     {type === "Stroj" ? <>
                         <label htmlFor="vehicleMileage">Stav odpracovaných motohodin:</label>
                         <input type="text" id="motorcycleWatch" name="motorcycleWatch"
-                               value={conditionMotorcycleWatch} readOnly={true}/>
+                               value={conditionMotorcycleWatch + " mth"} readOnly={true}/>
                     </> : ""}
 
                 </div>

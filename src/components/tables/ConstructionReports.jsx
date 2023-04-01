@@ -10,7 +10,7 @@ const ConstructionReports = ({projectId}) => {
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/v1/construction-reports/project/" + projectId, {
-        // axios.get("http://localhost:8080/api/v1/construction-reports", {
+            // axios.get("http://localhost:8080/api/v1/construction-reports", {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }

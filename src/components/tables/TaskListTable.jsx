@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
 import EditButton from "../buttons/EditButton";
@@ -6,10 +6,12 @@ import CreateButton from "../buttons/CreateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import {Link} from "react-router-dom";
 import TaskFilter from "../../filters/TasksFilter";
+import {UserContext} from "../../security_context/UserContext";
 
 const TaskListTable = () => {
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([]);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const [filters, setFilters] = useState({
         name: "",
         locationName: "",
@@ -18,6 +20,10 @@ const TaskListTable = () => {
         timeTo: "",
         state: "",
     });
+
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/tasks', {
@@ -95,8 +101,10 @@ const TaskListTable = () => {
                 <th>Od</th>
                 <th>Do</th>
                 <th>Stav</th>
-                <th>Akce</th>
-            </tr>
+                {
+                    permissions === "ROLE_ADMIN" ?
+                        <th>Akce</th> : ""
+                }            </tr>
             <TaskFilter onFilterChange={handleFilterChange} />
             </thead>
             <tbody>
@@ -113,14 +121,17 @@ const TaskListTable = () => {
                 <td className={
                     `${getStatusClassName(task.state)} ${styles.state} "td10rem"`}>{task.state}
                 </td>
-                <td className={styles.buttonTd}>
-                    <Link to={"/tasks/edit/" + task.id}>
-                        <EditButton/>
-                    </Link>
-                    <div onClick={() => handleDeleteTask(task.id)}>
-                        <DeleteButton />
-                    </div>
-                </td>
+                {
+                    permissions === "ROLE_ADMIN" ?
+                        <td className={styles.buttonTd}>
+                            <Link to={"/tasks/edit/" + task.id}>
+                                <EditButton/>
+                            </Link>
+                            <div onClick={() => handleDeleteTask(task.id)}>
+                                <DeleteButton />
+                            </div>
+                        </td> : ""
+                }
             </tr>))}
             </tbody>
         </table>

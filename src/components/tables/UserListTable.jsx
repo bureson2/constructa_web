@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from "./style.module.scss";
 import axios from 'axios';
 import {Link} from "react-router-dom";
@@ -7,16 +7,22 @@ import ReportButton from "../buttons/ReportButton";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
 import UsersFilter from "../../filters/UsersFilter";
+import {UserContext} from "../../security_context/UserContext";
 
 const UserListTable = () => {
     const [users, setUsers] = useState([]);
     const [filteredUser, setFilteredUsers] = useState([]);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const [filters, setFilters] = useState({
         name: "",
         role: "",
         email: "",
         phone: "",
     });
+
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/users'
@@ -50,7 +56,7 @@ const UserListTable = () => {
     }
 
     function handleFilterChange(name, value) {
-        const updatedFilters = { ...filters, [name]: value };
+        const updatedFilters = {...filters, [name]: value};
         setFilters(updatedFilters);
 
         const filtered = users.filter((user) => {
@@ -85,29 +91,35 @@ const UserListTable = () => {
                     <th>Pozice</th>
                     <th>Email</th>
                     <th>Telefon</th>
-                    <th>Akce</th>
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <th>Akce</th> : ""
+                    }
                 </tr>
-                <UsersFilter onFilterChange={handleFilterChange} />
+                <UsersFilter onFilterChange={handleFilterChange}/>
                 </thead>
                 <tbody>
                 {filteredUser.map(user => (
                     <tr key={user.id}>
-                        <td className={"td22rem"}>
+                        <td className={"td25percent"}>
                             <Link to={"/users/" + user.id} className={styles.detailLink}>
                                 {user.firstname}&nbsp;{user.lastname}
                             </Link>
                         </td>
-                        <td className={"td14rem"}>{user.role}</td>
-                        <td className={"td18rem"}>{user.email}</td>
-                        <td className={"td18rem"}>{user.phone}</td>
-                        <td className={styles.buttonTd}>
-                            <Link to={"/users/edit/" + user.id}>
-                                <EditButton/>
-                            </Link>
-                            <div onClick={() => handleDeleteUser(user.id)}>
-                                <DeleteButton/>
-                            </div>
-                        </td>
+                        <td className={"td25percent"}>{user.role}</td>
+                        <td className={"td25percent"}>{user.email}</td>
+                        <td className={"td25percent"}>{user.phone}</td>
+                        {
+                            permissions === "ROLE_ADMIN" ?
+                                <td className={styles.buttonTd}>
+                                    <Link to={"/users/edit/" + user.id}>
+                                        <EditButton/>
+                                    </Link>
+                                    <div onClick={() => handleDeleteUser(user.id)}>
+                                        <DeleteButton/>
+                                    </div>
+                                </td> : ""
+                        }
                     </tr>
                 ))}
                 </tbody>

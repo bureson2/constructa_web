@@ -49,10 +49,10 @@ const VehicleReportDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/vehicles/reports/edit/" + vehicleReportId} className={styles.topEditButton}>
+                <Link to={"/vehicles/reports/edit/" + vehicleReportId}>
                     <EditButton/>
                 </Link>
-                <Link to={"/vehicles"} className={styles.topBackButton}>
+                <Link to={"/vehicles"}>
                     <CloseButton/>
                 </Link>
             </div>

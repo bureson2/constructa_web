@@ -1,5 +1,7 @@
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import React, { useEffect } from 'react';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {UserProvider, UserContext} from "./security_context/UserContext";
+
 
 import PrivateRoutes from "./routes/PrivateRoutes";
 import UserListTable from "./components/tables/UserListTable";
@@ -32,56 +34,78 @@ import WorkReportDetail from "./components/forms/work_report_form/WorkReportDeta
 import CreateConstructionReport from "./components/forms/construction_report/CreateConstructionReport";
 import ConstrcutionReportDetail from "./components/forms/construction_report/ConstrcutionReportDetail";
 
+
 function App() {
+    const [userRole, setUserRole] = useState(null);
+
     useEffect(() => {
         document.title = 'Constructa';
     }, []);
     return (
-        <>
+        <UserProvider>
             <Router>
                 <Routes>
-                    <Route element = {<PrivateRoutes />}>
-                        <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/" />
-                        <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users" />
-                        <Route element={<Layout element={<EditUser/>} location={"USERS"}/>}  path="/users/edit/:id" />
-                        <Route element={<Layout element={<AddUser/>} location={"USERS"}/>} path="/users/create" />
-                        <Route element={<Layout element={<UserDetail/>} location={"USERS"}/>} path="/users/:id" />
+                    <Route element={<PrivateRoutes/>}>
+                        <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/"/>
+                        <Route element={<Layout element={<UserListTable/>} location={"USERS"}/>} path="/users"/>
+                        <Route element={<Layout element={<EditUser/>} location={"USERS"}/>} path="/users/edit/:id"/>
+                        <Route element={<Layout element={<AddUser/>} location={"USERS"}/>} path="/users/create"/>
+                        <Route element={<Layout element={<UserDetail/>} location={"USERS"}/>} path="/users/:id"/>
 
-                        <Route element={<Layout element={<WorkReportListTable />} location={"USERS"}/>} path="/work-reports/:id"/>
-                        <Route element={<Layout element={<CreateWorkReport />} location={"USERS"}/>} path="/work-reports/create/:id"/>
-                        <Route element={<Layout element={<WorkReportDetail />} location={"USERS"}/>} path="/work-reports/report/:id"/>
+                        <Route element={<Layout element={<WorkReportListTable/>} location={"USERS"}/>}
+                               path="/work-reports/:id"/>
+                        <Route element={<Layout element={<CreateWorkReport/>} location={"USERS"}/>}
+                               path="/work-reports/create/:id"/>
+                        <Route element={<Layout element={<WorkReportDetail/>} location={"USERS"}/>}
+                               path="/work-reports/report/:id"/>
 
 
-                        <Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks" />
-                        <Route element={<Layout element={<EditTask/>} location={"TASKS"}/>}  path="/tasks/edit/:id" />
-                        <Route element={<Layout element={<CreateTask/>} location={"TASKS"}/>} path="/tasks/create" />
-                        <Route element={<Layout element={<TaskDetail/>} location={"TASKS"}/>} path="/tasks/:id" />
+                        <Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks"/>
+                        <Route element={<Layout element={<EditTask/>} location={"TASKS"}/>} path="/tasks/edit/:id"/>
+                        <Route element={<Layout element={<CreateTask/>} location={"TASKS"}/>} path="/tasks/create"/>
+                        <Route element={<Layout element={<TaskDetail/>} location={"TASKS"}/>} path="/tasks/:id"/>
 
-                        <Route element={<Layout element={<VehicleListTable/>} location={"VEHICLES"}/>} path="/vehicles" />
-                        <Route element={<Layout element={<EditVehicle/>} location={"VEHICLES"}/>}  path="/vehicles/edit/:id" />
-                        <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>} path="/vehicles/create" />
-                        <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>} path="/vehicles/:id" />
+                        <Route element={<Layout element={<VehicleListTable/>} location={"VEHICLES"}/>}
+                               path="/vehicles"/>
+                        <Route element={<Layout element={<EditVehicle/>} location={"VEHICLES"}/>}
+                               path="/vehicles/edit/:id"/>
+                        <Route element={<Layout element={<CreateVehicle/>} location={"VEHICLES"}/>}
+                               path="/vehicles/create"/>
+                        <Route element={<Layout element={<VehicleDetail/>} location={"VEHICLES"}/>}
+                               path="/vehicles/:id"/>
 
-                        <Route element={<Layout element={<CreateVehicleReport/>} location={"VEHICLES"}/>} path="/vehicles/reports/create" />
-                        <Route element={<Layout element={<VehicleReportDetail/>} location={"VEHICLES"}/>} path="/vehicles/reports/:id" />
+                        <Route element={<Layout element={<CreateVehicleReport/>} location={"VEHICLES"}/>}
+                               path="/vehicles/reports/create"/>
+                        <Route element={<Layout element={<VehicleReportDetail/>} location={"VEHICLES"}/>}
+                               path="/vehicles/reports/:id"/>
 
-                        <Route element={<Layout element={<CompanyListTable/>} location={"COMPANIES"}/>} path="/companies" />
-                        <Route element={<Layout element={<EditCompany/>} location={"COMPANIES"}/>}  path="/companies/edit/:id" />
-                        <Route element={<Layout element={<CreateCompany/>} location={"COMPANIES"}/>} path="/companies/create" />
-                        <Route element={<Layout element={<CompanyDetail/>} location={"COMPANIES"}/>} path="/companies/:id" />
+                        <Route element={<Layout element={<CompanyListTable/>} location={"COMPANIES"}/>}
+                               path="/companies"/>
+                        <Route element={<Layout element={<EditCompany/>} location={"COMPANIES"}/>}
+                               path="/companies/edit/:id"/>
+                        <Route element={<Layout element={<CreateCompany/>} location={"COMPANIES"}/>}
+                               path="/companies/create"/>
+                        <Route element={<Layout element={<CompanyDetail/>} location={"COMPANIES"}/>}
+                               path="/companies/:id"/>
 
-                        <Route element={<Layout element={<ProjectListTable/>} location={"PROJECTS"}/>} path="/projects" />
-                        <Route element={<Layout element={<EditProject/>} location={"PROJECTS"}/>}  path="/projects/edit/:id" />
-                        <Route element={<Layout element={<CreateProject/>} location={"PROJECTS"}/>} path="/projects/create" />
-                        <Route element={<Layout element={<ProjectDetail/>} location={"PROJECTS"}/>} path="/projects/:id" />
-                        <Route element={<Layout element={<CreateConstructionReport/>} location={"PROJECTS"}/>} path="/projects/:id/reports/create" />
-                        <Route element={<Layout element={<ConstrcutionReportDetail/>} location={"PROJECTS"}/>} path="/projects/reports/:id" />
+                        <Route element={<Layout element={<ProjectListTable/>} location={"PROJECTS"}/>}
+                               path="/projects"/>
+                        <Route element={<Layout element={<EditProject/>} location={"PROJECTS"}/>}
+                               path="/projects/edit/:id"/>
+                        <Route element={<Layout element={<CreateProject/>} location={"PROJECTS"}/>}
+                               path="/projects/create"/>
+                        <Route element={<Layout element={<ProjectDetail/>} location={"PROJECTS"}/>}
+                               path="/projects/:id"/>
+                        <Route element={<Layout element={<CreateConstructionReport/>} location={"PROJECTS"}/>}
+                               path="/projects/:id/reports/create"/>
+                        <Route element={<Layout element={<ConstrcutionReportDetail/>} location={"PROJECTS"}/>}
+                               path="/projects/reports/:id"/>
 
                     </Route>
-                    <Route element={<LoginPage />} path="/login"/>
+                    <Route element={<LoginPage/>} path="/login"/>
                 </Routes>
             </Router>
-        </>
+        </UserProvider>
     );
 }
 
