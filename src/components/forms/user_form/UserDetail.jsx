@@ -1,15 +1,16 @@
 import styles from "../style.module.scss";
 import axios from 'axios';
 import BackButton from "../../buttons/BackButton";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ReportButton from "../../buttons/ReportButton";
+import {UserContext} from "../../../security_context/UserContext";
 
 const UserDetail = () => {
-    const url = window.location.href;
-    const userId = url.substring(url.lastIndexOf("/") + 1);
+    const {permissions, fetchPermissions} = useContext(UserContext);
+    const { id } = useParams();
     const [email, setEmail] = useState('');
     const [titleBeforeName, setTitleBeforeName] = useState('');
     const [firstname, setFirstname] = useState('');
@@ -30,8 +31,11 @@ const UserDetail = () => {
     const [descriptiveNumber, setDescriptiveNumber] = useState('');
 
     useEffect(() => {
-        // TODO
-        axios.get('http://localhost:8080/api/v1/users/' + userId
+        fetchPermissions();
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/users/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
@@ -67,13 +71,16 @@ const UserDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/work-reports/" + userId} className={styles.topEditButton}>
+                <Link to={"/work-reports/" + id}>
                     <ReportButton/>
                 </Link>
-                <Link to={"/users/edit/" + userId} className={styles.topEditButton}>
-                    <EditButton/>
-                </Link>
-                <Link to={"/users"} className={styles.topBackButton}>
+                {
+                    permissions === "ROLE_ADMIN" ?
+                        <Link to={"/users/edit/" + id}>
+                            <EditButton/>
+                        </Link> : ""
+                }
+                <Link to={"/users"}>
                     <CloseButton/>
                 </Link>
             </div>

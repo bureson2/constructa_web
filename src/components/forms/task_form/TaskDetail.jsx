@@ -1,15 +1,15 @@
 import styles from "../style.module.scss";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import BackButton from "../../buttons/BackButton";
 import {Link, useParams} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import MapInput from "../../inputs/MapInput";
+import {UserContext} from "../../../security_context/UserContext";
 
 const TaskDetail = () => {
 
-    // const url = window.location.href;
-    // const taskId = url.substring(url.lastIndexOf("/") + 1);
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const {id} = useParams();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
@@ -25,6 +25,7 @@ const TaskDetail = () => {
 
     useEffect(() => {
         fetchData();
+        fetchPermissions();
     }, []);
 
     function fetchData() {
@@ -59,9 +60,13 @@ const TaskDetail = () => {
         <form className={styles.form}>
             <div>
                 <div className={styles.topButtons}>
-                    <Link to={"/tasks/edit/" + id} className={styles.topEditButton}>
-                        <EditButton/>
-                    </Link>
+                    {
+                        ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                            <Link to={"/tasks/edit/" + id} className={styles.topEditButton}>
+                                <EditButton/>
+                            </Link> : ""
+                    }
+
                     <Link to={"/tasks"} className={styles.topBackButton}>
                         <CloseButton/>
                     </Link>

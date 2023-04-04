@@ -47,6 +47,11 @@ const AddUser = () => {
             street: street,
             postCode: postCode,
             descriptiveNumber: descriptiveNumber,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
         })
             .catch(error => {
                 console.log(error);

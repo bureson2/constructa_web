@@ -93,9 +93,12 @@ const ProjectListTable = () => {
         <div>
             <div className={styles.tableHeader}>
                 <h2>Projekty</h2>
-                <Link to="/projects/create">
-                    <CreateButton/>
-                </Link>
+                {
+                    ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                        <Link to="/projects/create">
+                            <CreateButton/>
+                        </Link> : ""
+                }
             </div>
             <table>
                 <thead>
@@ -134,7 +137,7 @@ const ProjectListTable = () => {
                         {project.state}
                     </td>
                     {
-                        permissions === "ROLE_ADMIN" ?
+                        ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
                             <td className={styles.buttonTd}>
                                 <Link to={"/projects/edit/" + project.id}>
                                     <EditButton/>

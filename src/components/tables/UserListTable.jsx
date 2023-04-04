@@ -75,14 +75,18 @@ const UserListTable = () => {
             <div className={styles.tableHeader}>
 
                 <h2>Seznam zaměstnanců</h2>
-                <div className={styles.buttonTd}>
-                    <Link to="/users/create">
-                        <CreateButton/>
-                    </Link>
-                    <Link to={"/work-reports/create"}>
-                        <ReportButton/>
-                    </Link>
-                </div>
+                {
+                    (permissions === "ROLE_ADMIN" || permissions === "ROLE_MANAGER") ?
+                        <div className={styles.buttonTd}>
+                            <Link to="/users/create">
+                                <CreateButton/>
+                            </Link>
+                            <Link to={"/work-reports/create"}>
+                                <ReportButton/>
+                            </Link>
+                        </div> : ""
+                }
+
             </div>
             <table>
                 <thead>
@@ -110,7 +114,7 @@ const UserListTable = () => {
                         <td className={"td25percent"}>{user.email}</td>
                         <td className={"td25percent"}>{user.phone}</td>
                         {
-                            permissions === "ROLE_ADMIN" ?
+                            (permissions === "ROLE_ADMIN" || permissions === "ROLE_MANAGER") ?
                                 <td className={styles.buttonTd}>
                                     <Link to={"/users/edit/" + user.id}>
                                         <EditButton/>

@@ -41,7 +41,7 @@ const TaskListTable = () => {
     }, []);
 
     function handleFilterChange(name, value) {
-        const updatedFilters = { ...filters, [name]: value };
+        const updatedFilters = {...filters, [name]: value};
         setFilters(updatedFilters);
 
         const filtered = tasks.filter((task) => {
@@ -59,7 +59,7 @@ const TaskListTable = () => {
 
     function handleDeleteTask(taskId) {
 
-        axios.delete('http://localhost:8080/api/v1/tasks/' + taskId , {
+        axios.delete('http://localhost:8080/api/v1/tasks/' + taskId, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -88,9 +88,12 @@ const TaskListTable = () => {
     return (<div>
         <div className={styles.tableHeader}>
             <h2>Seznam úkolů</h2>
-            <Link to="/tasks/create">
-                <CreateButton/>
-            </Link>
+            {
+                ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                    <Link to="/tasks/create">
+                        <CreateButton/>
+                    </Link> : ""
+            }
         </div>
         <table>
             <thead>
@@ -105,7 +108,7 @@ const TaskListTable = () => {
                     permissions === "ROLE_ADMIN" ?
                         <th>Akce</th> : ""
                 }            </tr>
-            <TaskFilter onFilterChange={handleFilterChange} />
+            <TaskFilter onFilterChange={handleFilterChange}/>
             </thead>
             <tbody>
             {filteredTasks.map(task => (<tr key={task.id}>
@@ -128,7 +131,7 @@ const TaskListTable = () => {
                                 <EditButton/>
                             </Link>
                             <div onClick={() => handleDeleteTask(task.id)}>
-                                <DeleteButton />
+                                <DeleteButton/>
                             </div>
                         </td> : ""
                 }

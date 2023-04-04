@@ -96,9 +96,12 @@ const VehicleListTable = () => {
             <div className={styles.tableHeader}>
                 <h2>Seznam vozidel</h2>
                 <div className={styles.buttonTd}>
-                    <Link to="/vehicles/create">
-                        <CreateButton/>
-                    </Link>
+                    {
+                        ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                            <Link to="/vehicles/create">
+                                <CreateButton/>
+                            </Link> : ""
+                    }
                     <Link to={"/vehicles/reports/create"}>
                         <ReportButton/>
                     </Link>

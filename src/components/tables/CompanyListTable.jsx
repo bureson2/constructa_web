@@ -42,7 +42,7 @@ const CompanyListTable = () => {
 
     function handleDeleteProject(companyId) {
 
-        axios.delete('http://localhost:8080/api/v1/companies/' + companyId , {
+        axios.delete('http://localhost:8080/api/v1/companies/' + companyId, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -56,7 +56,7 @@ const CompanyListTable = () => {
     }
 
     function handleFilterChange(name, value) {
-        const updatedFilters = { ...filters, [name]: value };
+        const updatedFilters = {...filters, [name]: value};
         setFilters(updatedFilters);
 
         const filtered = companies.filter((company) => {
@@ -76,56 +76,59 @@ const CompanyListTable = () => {
 
     return (
         <div>
-        <div className={styles.tableHeader}>
-            <h2>Společnosti</h2>
-            <Link to="/companies/create">
-                <CreateButton/>
-            </Link>
-        </div>
-        <table>
-            <thead>
-            <tr>
-                <th>Jméno</th>
-                <th>IČO</th>
-                <th>DIČ</th>
-                <th>Sídlo</th>
-                <th>Telefon</th>
+            <div className={styles.tableHeader}>
+                <h2>Společnosti</h2>
                 {
-                    permissions === "ROLE_ADMIN" ?
-                        <th>Akce</th> : ""
+                    ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                        <Link to="/companies/create">
+                            <CreateButton/>
+                        </Link> : ""
                 }
-            </tr>
-            <CompaniesFilter onFilterChange={handleFilterChange} />
-            </thead>
-            <tbody>
-            {filteredCompanies.map(company => (<tr key={company.id}>
-                <td className={"td22rem"}>
-                    <Link to={"/companies/" + company.id} className={styles.detailLink}>
-                        {company.name}
-                    </Link>
-                </td>
-                <td className={"td14rem"}>{company.cin}</td>
-                <td className={"td14rem"}>{company.din}</td>
-                <td className={"td26rem"}>{company.companyAddress
-                    ?
-                    company.companyAddress.city + ", " + company.companyAddress.street + " " + company.companyAddress.descriptiveNumber:
-                    "-"}</td>
-                <td className={"td14rem"}>{company.phone}</td>
-                {
-                    permissions === "ROLE_ADMIN" ?
-                        <td className={styles.buttonTd}>
-                            <Link to={"/companies/edit/" + company.id}>
-                                <EditButton/>
-                            </Link>
-                            <div onClick={() => handleDeleteProject(company.id)}>
-                                <DeleteButton />
-                            </div>
-                        </td> : ""
-                }
-            </tr>))}
-            </tbody>
-        </table>
-    </div>);
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Jméno</th>
+                    <th>IČO</th>
+                    <th>DIČ</th>
+                    <th>Sídlo</th>
+                    <th>Telefon</th>
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <th>Akce</th> : ""
+                    }
+                </tr>
+                <CompaniesFilter onFilterChange={handleFilterChange}/>
+                </thead>
+                <tbody>
+                {filteredCompanies.map(company => (<tr key={company.id}>
+                    <td className={"td22rem"}>
+                        <Link to={"/companies/" + company.id} className={styles.detailLink}>
+                            {company.name}
+                        </Link>
+                    </td>
+                    <td className={"td14rem"}>{company.cin}</td>
+                    <td className={"td14rem"}>{company.din}</td>
+                    <td className={"td26rem"}>{company.companyAddress
+                        ?
+                        company.companyAddress.city + ", " + company.companyAddress.street + " " + company.companyAddress.descriptiveNumber :
+                        "-"}</td>
+                    <td className={"td14rem"}>{company.phone}</td>
+                    {
+                        permissions === "ROLE_ADMIN" ?
+                            <td className={styles.buttonTd}>
+                                <Link to={"/companies/edit/" + company.id}>
+                                    <EditButton/>
+                                </Link>
+                                <div onClick={() => handleDeleteProject(company.id)}>
+                                    <DeleteButton/>
+                                </div>
+                            </td> : ""
+                    }
+                </tr>))}
+                </tbody>
+            </table>
+        </div>);
 };
 
 export default CompanyListTable;
