@@ -8,8 +8,8 @@ import {useNavigate} from "react-router-dom";
 
 function LoginPage() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('email@email.cz');
+    const [password, setPassword] = useState('1234');
     
     const handleSubmit = async (event) => {
         event.preventDefault();

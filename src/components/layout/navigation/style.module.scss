@@ -3,7 +3,11 @@
 .navList{
   list-style: none;
   margin: 0;
-  padding: 0;
+  //padding: 0;
+  background-color: #39393f;
+  border-radius: 3px;
+  border: 1px solid #414148;
+  padding: 15px 0;
 }
 
 .navList li{
@@ -11,18 +15,19 @@
 }
 
 .navList li:hover{
-  background-color: base.$secondary-color;
+  background-color: base.$primary-color;
 }
 
 .active{
-  background-color: base.$secondary-color;
+  background-color: base.$primary-color;
 }
 
 .navLink {
   font-size: base.$navigation-text-size;
   font-weight: bold;
   text-decoration: none;
-  color: base.$standard-text-color;
+  //color: base.$standard-text-color;
+  color: #cec8c8;
   display: block;
   width: 100%;
   height: 100%;
