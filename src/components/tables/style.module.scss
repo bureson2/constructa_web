@@ -21,6 +21,10 @@ table {
   color: #333;
   background-color: #fff;
   border: 1px solid #ddd;
+  //border-radius: 1em;
+  //border-collapse: collapse;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 th, td {
@@ -76,6 +80,12 @@ tr:hover {
 .vehicleIcons{
   border: 0;
   background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  align-items: center;
+}
+
+.vehicleIcons img{
+  margin-right: 1em;
 }
 
 .state{

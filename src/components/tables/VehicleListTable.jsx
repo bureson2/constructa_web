@@ -77,14 +77,17 @@ const VehicleListTable = () => {
             case 'Auto':
                 return <button className={styles.vehicleIcons}>
                     <img src={carIcon} alt="Car Icon"/>
+                    Auto
                 </button>;
             case 'Stroj':
                 return <button className={styles.vehicleIcons}>
-                    <img src={vehicleIcon} alt="vehicle Icon"/>
+                    <img src={vehicleIcon} alt="vehicle Icon" />
+                    Pracovní stroj
                 </button>;
             case 'Přívěs':
                 return <button className={styles.vehicleIcons}>
                     <img src={trailerIcon} alt="trailer Icon"/>
+                    Přívěs
                 </button>;
             default:
                 return null;
