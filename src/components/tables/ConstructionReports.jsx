@@ -10,7 +10,6 @@ const ConstructionReports = ({projectId}) => {
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/v1/construction-reports/project/" + projectId, {
-            // axios.get("http://localhost:8080/api/v1/construction-reports", {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
@@ -55,7 +54,7 @@ const ConstructionReports = ({projectId}) => {
                 </thead>
                 <tbody>
                 {reports.map(report => (<tr key={report.id}>
-                    <td>
+                    <td className={"td10rem"}>
                         <Link to={"/projects/reports/" + report.id} className={styles.detailLink}>
                             {report.date.substring(0, 10)}
                         </Link>
