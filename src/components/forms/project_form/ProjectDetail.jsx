@@ -1,14 +1,16 @@
 import styles from "../style.module.scss";
 import {Link, useParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import BackButton from "../../buttons/BackButton";
 import ReportButton from "../../buttons/ReportButton";
 import ConstructionReports from "../../tables/ConstructionReports";
+import {UserContext} from "../../../security_context/UserContext";
 
 const ProjectDetail = () => {
+    const {permissions, fetchPermissions} = useContext(UserContext);
     const { id } = useParams();
     const [projectName, setProjectName] = useState('');
     const [buldingFacility, setBuildingFacility] = useState('');
@@ -21,6 +23,10 @@ const ProjectDetail = () => {
     const [street, setStreet] = useState('');
     const [postCode, setPostCode] = useState('');
     const [descriptiveNumber, setDescriptiveNumber] = useState('');
+
+    useEffect(() => {
+        fetchPermissions();
+    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/projects/' + id
@@ -51,12 +57,17 @@ const ProjectDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/projects/" + id + "/reports/create"} >
-                    <ReportButton/>
-                </Link>
-                <Link to={"/projects/edit/" + id}>
-                    <EditButton/>
-                </Link>
+                {
+                    ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                        <>
+                            <Link to={"/projects/" + id + "/reports/create"} >
+                                <ReportButton/>
+                            </Link>
+                            <Link to={"/projects/edit/" + id}>
+                                <EditButton/>
+                            </Link>
+                        </>: ""
+                }
                 <Link to={"/projects"}>
                     <CloseButton/>
                 </Link>

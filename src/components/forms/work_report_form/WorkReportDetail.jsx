@@ -1,25 +1,21 @@
 import styles from "../style.module.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import CloseButton from "../../buttons/CloseButton";
-import UserInput from "../../inputs/UserInput";
-import AcceptButton from "../../buttons/AcceptButton";
-import RejectButton from "../../buttons/RejectButton";
+
 import BackButton from "../../buttons/BackButton";
 import axios from "axios";
 
 const WorkReportDetail = () => {
-    const url = window.location.href;
-    const workReportId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
 
     const [timeFrom, setTimeFrom] = useState('');
     const [timeTo, setTimeTo] = useState('');
     const [type, setType] = useState('WORK_REPORT');
     const [user, setUser] = useState('');
-    const [location, setLocation] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/work-reports/' + workReportId
+        axios.get('http://localhost:8080/api/v1/work-reports/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -30,7 +26,6 @@ const WorkReportDetail = () => {
                 setTimeTo(response.data.timeTo);
                 setType(response.data.type);
                 setUser(response.data.reportingEmployee);
-                setLocation(response.data.location);
             })
             .catch(error => {
                 console.log(error);
@@ -57,7 +52,7 @@ const WorkReportDetail = () => {
     return(
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/work-reports"} className={styles.topBackButton}>
+                <Link to={"/users"} >
                     <CloseButton/>
                 </Link>
             </div>

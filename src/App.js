@@ -32,11 +32,12 @@ import CreateWorkReport from "./components/forms/work_report_form/CreateWorkRepo
 import WorkReportDetail from "./components/forms/work_report_form/WorkReportDetail";
 import CreateConstructionReport from "./components/forms/construction_report/CreateConstructionReport";
 import ConstrcutionReportDetail from "./components/forms/construction_report/ConstrcutionReportDetail";
+import EditConstructionReport from "./components/forms/construction_report/EditConstructionReport";
+import EditVehicleReport from "./components/forms/vehicle_report_form/EditVehicleReport";
+import EditWorkReport from "./components/forms/work_report_form/EditWorkReport";
 
 
 function App() {
-    const [userRole, setUserRole] = useState(null);
-
     useEffect(() => {
         document.title = 'Constructa';
     }, []);
@@ -54,9 +55,13 @@ function App() {
                         <Route element={<Layout element={<WorkReportListTable/>} location={"USERS"}/>}
                                path="/work-reports/:id"/>
                         <Route element={<Layout element={<CreateWorkReport/>} location={"USERS"}/>}
+                               path="/work-reports/create"/>
+                        <Route element={<Layout element={<CreateWorkReport/>} location={"USERS"}/>}
                                path="/work-reports/create/:id"/>
                         <Route element={<Layout element={<WorkReportDetail/>} location={"USERS"}/>}
                                path="/work-reports/report/:id"/>
+                        <Route element={<Layout element={<EditWorkReport/>} location={"USERS    "}/>}
+                               path="/work-reports/edit/:id"/>
 
 
                         <Route element={<Layout element={<TaskListTable/>} location={"TASKS"}/>} path="/tasks"/>
@@ -77,6 +82,8 @@ function App() {
                                path="/vehicles/reports/create"/>
                         <Route element={<Layout element={<VehicleReportDetail/>} location={"VEHICLES"}/>}
                                path="/vehicles/reports/:id"/>
+                        <Route element={<Layout element={<EditVehicleReport/>} location={"VEHICLES"}/>}
+                               path="/vehicles/reports/edit/:id"/>
 
                         <Route element={<Layout element={<CompanyListTable/>} location={"COMPANIES"}/>}
                                path="/companies"/>
@@ -99,6 +106,8 @@ function App() {
                                path="/projects/:id/reports/create"/>
                         <Route element={<Layout element={<ConstrcutionReportDetail/>} location={"PROJECTS"}/>}
                                path="/projects/reports/:id"/>
+                        <Route element={<Layout element={<EditConstructionReport/>} location={"PROJECTS"}/>}
+                               path="/projects/reports/edit/:id"/>
 
                     </Route>
                     <Route element={<LoginPage/>} path="/login"/>

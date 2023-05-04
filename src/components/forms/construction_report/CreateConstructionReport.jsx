@@ -24,7 +24,8 @@ const CreateConstructionReport = () => {
             weather: weather,
             executorId: executorId,
             state: state,
-            constructionDiaryId: id,
+            projectId: id,
+            date: date,
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`

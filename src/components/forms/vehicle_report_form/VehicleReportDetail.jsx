@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import styles from "../style.module.scss";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import EditButton from "../../buttons/EditButton";
 import CloseButton from "../../buttons/CloseButton";
 import BackButton from "../../buttons/BackButton";
 
 const VehicleReportDetail = () => {
-    const url = window.location.href;
-    const vehicleReportId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
 
     const [timeFrom, setTimeFrom] = useState('');
     const [timeTo, setTimeTo] = useState('');
@@ -23,7 +22,7 @@ const VehicleReportDetail = () => {
     const [purchaseOfFuelLitres, setPurchaseOfFuelLitres] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/vehicles/reports/' + vehicleReportId
+        axios.get('http://localhost:8080/api/v1/vehicles/reports/' + id
             , {
                 headers: {
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -49,7 +48,7 @@ const VehicleReportDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/vehicles/reports/edit/" + vehicleReportId}>
+                <Link to={"/vehicles/reports/edit/" + id}>
                     <EditButton/>
                 </Link>
                 <Link to={"/vehicles"}>
@@ -99,31 +98,6 @@ const VehicleReportDetail = () => {
                     <input type="text" id="afterworkConditionMotorcycleWatch"
                            name="afterworkConditionMotorcycleWatch"
                            value={afterworkConditionMotorcycleWatch} readOnly={true}/>
-
-                    {/* TODO FIX dynamická změna po přijetí informací - rovnou upravit i h2 v detailu auta kniha jízd/stazky*/}
-
-                    {/*{vehicleType === "CAR" ?*/}
-                    {/*    <>*/}
-                    {/*        <label htmlFor="distance">Ujetá vzdálenost</label>*/}
-                    {/*        <input type="text" id="distance" name="distance"*/}
-                    {/*               value={distance} readOnly={true}/>*/}
-                    {/*    </>*/}
-                    {/*    : ""*/}
-                    {/*}*/}
-
-                    {/*{vehicleType === "VEHICLE" ?*/}
-                    {/*    <>*/}
-                    {/*        <label htmlFor="originalConditionMotorcycleWatch">Stav motohodin před zahájením</label>*/}
-                    {/*        <input type="text" id="originalConditionMotorcycleWatch"*/}
-                    {/*               name="originalConditionMotorcycleWatch"*/}
-                    {/*               value={originalConditionMotorcycleWatch} readOnly={true}/>*/}
-                    {/*        <label htmlFor="afterworkConditionMotorcycleWatch">Stav motohodin po ukončení</label>*/}
-                    {/*        <input type="text" id="afterworkConditionMotorcycleWatch"*/}
-                    {/*               name="afterworkConditionMotorcycleWatch"*/}
-                    {/*               value={afterworkConditionMotorcycleWatch} readOnly={true}/>*/}
-                    {/*    </>*/}
-                    {/*    : ""*/}
-                    {/*}*/}
                 </div>
             </div>
             <Link to={"/vehicles"} className={styles.bottomBackButton}>

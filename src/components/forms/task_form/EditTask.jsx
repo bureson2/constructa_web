@@ -8,7 +8,6 @@ import MapInput from "../../inputs/MapInput";
 import UserInput from "../../inputs/UserInput";
 import CloseButton from "../../buttons/CloseButton";
 
-
 const EditTask = () => {
     const navigate = useNavigate();
     const { id } = useParams();

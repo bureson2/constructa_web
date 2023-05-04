@@ -82,14 +82,16 @@ const VehicleDetail = () => {
                     <input type="text" id="vehicleType" name="vehicleType"
                            value={type} readOnly={true}/>
 
-                    {type === "Auto" ?
+                    {
+                        type === "Auto" ?
                         <>
                             <label htmlFor="vehicleMileage">Najeté kilometry:</label>
                             <input type="text" id="vehicleMileage" name="vehicleMileage"
                                    value={mileage + " km"} readOnly={true}/>
                         </> : ""
                     }
-                    {type === "Stroj" ? <>
+                    {
+                        type === "Stroj" ? <>
                         <label htmlFor="vehicleMileage">Stav odpracovaných motohodin:</label>
                         <input type="text" id="motorcycleWatch" name="motorcycleWatch"
                                value={conditionMotorcycleWatch + " mth"} readOnly={true}/>

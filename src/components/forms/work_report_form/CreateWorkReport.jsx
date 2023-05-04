@@ -1,16 +1,14 @@
 import styles from "../style.module.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import CloseButton from "../../buttons/CloseButton";
-import UserInput from "../../inputs/UserInput";
-import VehicleInput from "../../inputs/VehicleInput";
 import AcceptButton from "../../buttons/AcceptButton";
 import RejectButton from "../../buttons/RejectButton";
+import UserInput from "../../inputs/UserInput";
 
 const CreateWorkReport = () => {
-    const url = window.location.href;
-    const userId = url.substring(url.lastIndexOf("/") + 1);
+    const { id } = useParams();
     const navigate = useNavigate();
     const now = new Date().toISOString().slice(0,16);
     const [timeFrom, setTimeFrom] = useState(now);
@@ -18,24 +16,25 @@ const CreateWorkReport = () => {
     const [type, setType] = useState('WORK_REPORT');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
-    const [locationId, setLocation] = useState('');
+    const [userId, setUserId] = useState(id);
 
     useEffect(() => {
-        // TODO
-        axios.get('http://localhost:8080/api/v1/users/' + userId
-            , {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                setFirstname(response.data.firstname);
-                setLastname(response.data.lastname);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        if(id != null){
+            axios.get('http://localhost:8080/api/v1/users/' + id
+                , {
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    setFirstname(response.data.firstname);
+                    setLastname(response.data.lastname);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }, []);
 
 
@@ -45,7 +44,6 @@ const CreateWorkReport = () => {
             timeTo: timeTo,
             type: type,
             userId : userId,
-            locationId: locationId,
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -60,16 +58,21 @@ const CreateWorkReport = () => {
     return(
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/users"} className={styles.topBackButton}>
+                <Link to={"/users"} >
                     <CloseButton/>
                 </Link>
             </div>
             <div>
                 <div className={styles.leftSide}>
                     <label>Zaměstnanec:</label>
-                    <input value={firstname + " " + lastname}
-                        readOnly={true}/>
-                    {/*<UserInput onUserIdChange={setUserId}/>*/}
+
+                    {
+                        id == null ?
+                            <UserInput onUserIdChange={setUserId}/>
+                            :
+                            <input value={firstname + " " + lastname}
+                                   readOnly={true}/>
+                    }
                     <label htmlFor="type">Typ výkazu:</label>
                     <select name="type" onChange={(event) => setType(event.target.value)}>
                         <option value="WORK_REPORT" selected>Pracovní záznam</option>
