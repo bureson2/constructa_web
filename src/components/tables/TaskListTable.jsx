@@ -21,23 +21,33 @@ const TaskListTable = () => {
         state: "",
     });
 
-    useEffect(() => {
-        fetchPermissions();
-    }, []);
+    // useEffect(() => {
+    //     fetchPermissions();
+    // }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/tasks', {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-            }
-        })
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                await fetchPermissions();
+                let endpoint = 'http://localhost:8080/api/v1/tasks';
+                if (!["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions)){
+                    endpoint = 'http://localhost:8080/api/v1/tasks/my'
+                }
+
+                const response = await axios.get(endpoint, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    }
+                });
+
                 setTasks(response.data);
-                setFilteredTasks(response.data)
-            })
-            .catch(error => {
+                setFilteredTasks(response.data);
+            } catch (error) {
                 console.log(error);
-            });
+            }
+        };
+
+        fetchData();
     }, []);
 
     function handleFilterChange(name, value) {
@@ -69,7 +79,7 @@ const TaskListTable = () => {
             });
 
         const updatedTasks = tasks.filter(task => task.id !== taskId);
-        setTasks(updatedTasks);
+        setFilteredTasks(updatedTasks);
     }
 
     function getStatusClassName(status) {

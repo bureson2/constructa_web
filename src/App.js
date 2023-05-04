@@ -2,7 +2,6 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import {UserProvider, UserContext} from "./security_context/UserContext";
 
-
 import PrivateRoutes from "./routes/PrivateRoutes";
 import UserListTable from "./components/tables/UserListTable";
 import TaskListTable from "./components/tables/TaskListTable";

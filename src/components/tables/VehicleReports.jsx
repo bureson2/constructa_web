@@ -16,6 +16,7 @@ const VehicleReports = ({vehicleId}) => {
             }
         })
             .then(response => {
+                console.log(response.data);
                 setReports(response.data);
             })
             .catch(error => {
@@ -56,7 +57,7 @@ const VehicleReports = ({vehicleId}) => {
                 {reports.map(report => (<tr key={report.id}>
                     <td>
                         <Link to={"/vehicles/reports/" + report.id} className={styles.detailLink}>
-                            {report.timeFrom.substring(0, 10)}
+                            {report.timeTo.substring(0, 10)}
                         </Link>
                     </td>
                     <td>{report.driver.firstname + " " + report.driver.lastname}</td>

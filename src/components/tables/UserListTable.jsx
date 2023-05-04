@@ -52,7 +52,7 @@ const UserListTable = () => {
             });
 
         const updatedUser = users.filter(user => user.id !== userId);
-        setUsers(updatedUser);
+        setFilteredUsers(updatedUser);
     }
 
     function handleFilterChange(name, value) {
@@ -82,11 +82,10 @@ const UserListTable = () => {
                                 <CreateButton/>
                             </Link>
                             <Link to={"/work-reports/create"}>
-                                <ReportButton/>
+                                <ReportButton />
                             </Link>
                         </div> : ""
                 }
-
             </div>
             <table>
                 <thead>

@@ -7,6 +7,7 @@ import CloseButton from "../../buttons/CloseButton";
 import React, {useContext, useEffect, useState} from "react";
 import ReportButton from "../../buttons/ReportButton";
 import {UserContext} from "../../../security_context/UserContext";
+import CreateButton from "../../buttons/CreateButton";
 
 const UserDetail = () => {
     const {permissions, fetchPermissions} = useContext(UserContext);
@@ -71,9 +72,14 @@ const UserDetail = () => {
     return (
         <form className={styles.form}>
             <div className={styles.topButtons}>
-                <Link to={"/work-reports/" + id}>
-                    <ReportButton/>
-                </Link>
+                {
+                    ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_REPORTER"].includes(permissions) ?
+                        <Link to={"/work-reports/" + id}>
+                            <ReportButton/>
+                        </Link>
+                        :
+                        ""
+                }
                 {
                     permissions === "ROLE_ADMIN" ?
                         <Link to={"/users/edit/" + id}>
@@ -120,21 +126,27 @@ const UserDetail = () => {
                     <input type="text" id="dateOfAcceptance" name="dateOfAcceptance"
                            value={dateOfAcceptance.substring(0, 10)} readOnly={true}/>
 
-                    <label htmlFor="hourRate">Hodinová mzda:</label>
-                    <input type="text" id="hourRate" name="hourRate"
-                           value={hourRate} readOnly={true}/>
+                    {
+                        ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CONSTRUCTION_MANAGER"].includes(permissions) ?
+                            <>
+                            <label htmlFor="hourRate">Hodinová mzda:</label>
+                            <input type="text" id="hourRate" name="hourRate"
+                                   value={hourRate} readOnly={true}/>
 
-                    <label htmlFor="monthSalary">Měsíční mzda:</label>
-                    <input type="text" id="monthSalary" name="monthSalary"
-                           value={monthSalary} readOnly={true}/>
+                            <label htmlFor="monthSalary">Měsíční mzda:</label>
 
-                    <label htmlFor="bankAccount">Bankovní účet:</label>
-                    <input type="text" id="bankAccount" name="bankAccount"
-                           value={bankAccount} readOnly={true}/>
+                            <input type="text" id="monthSalary" name="monthSalary"
+                            value={monthSalary} readOnly={true}/>
 
-                    <label htmlFor="role">Pracovní pozice:</label>
-                    <input type="text" id="role" name="role"
-                           value={roles} readOnly={true}/>
+                            <label htmlFor="bankAccount">Bankovní účet:</label>
+                            <input type="text" id="bankAccount" name="bankAccount"
+                            value={bankAccount} readOnly={true}/>
+
+                            <label htmlFor="role">Pracovní pozice:</label>
+                            <input type="text" id="role" name="role"
+                            value={roles} readOnly={true}/>
+                            </> : ""
+                    }
                 </div>
             </div>
             <Link to={"/users"} className={styles.bottomBackButton}>

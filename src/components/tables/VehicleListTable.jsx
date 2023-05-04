@@ -54,7 +54,7 @@ const VehicleListTable = () => {
             });
 
         const updatedVehicles = vehicles.filter(vehicle => vehicle.id !== vehicleId);
-        setVehicles(updatedVehicles);
+        setFilteredVehicles(updatedVehicles);
     }
 
     function handleFilterChange(name, value) {
