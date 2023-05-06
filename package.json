@@ -44,8 +44,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/eslint-parser": "^7.21.8",
     "cypress": "^12.11.0",
-    "eslint": "^8.39.0",
-    "eslint-plugin-cypress": "^2.13.3"
+    "eslint": "^8.40.0",
+    "eslint-plugin-cypress": "^2.13.3",
+    "eslint-plugin-import": "^2.27.5"
   }
 }

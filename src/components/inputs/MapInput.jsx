@@ -3,7 +3,7 @@ import {MapContainer, Marker, TileLayer, useMap, useMapEvents} from 'react-leafl
 import styles from "./style.module.scss";
 import "leaflet/dist/leaflet.css"
 import {icon} from 'leaflet';
-import locationIcon from "../forms/task_form/location_on_FILL1_wght100_GRAD0_opsz48.png";
+import locationIcon from "../forms/task_form/location.png";
 
 const MapInput = ({setMarkerPosition, markerPosition, read}) => {
     const [position, setPosition] = useState(markerPosition);
