@@ -47,6 +47,7 @@
     "@babel/core": "^7.21.8",
     "@babel/eslint-parser": "^7.21.8",
     "cypress": "^12.11.0",
+    "cypress-xpath": "^2.0.1",
     "eslint": "^8.40.0",
     "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-import": "^2.27.5"

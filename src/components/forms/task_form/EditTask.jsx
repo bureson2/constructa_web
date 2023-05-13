@@ -33,10 +33,10 @@ const EditTask = () => {
             longitude: markerPosition[1],
             latitude: markerPosition[0],
             userId: assignee
-
         }, {
             headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
             }
         })
             .catch(error => {
