@@ -32,7 +32,7 @@ const EditTask = () => {
             state: taskState,
             longitude: markerPosition[1],
             latitude: markerPosition[0],
-            userId: assignee
+            userId: assignee.id
         }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
