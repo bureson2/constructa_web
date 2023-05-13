@@ -149,7 +149,7 @@ const EditProject = () => {
                            value = {postCode}
                            onChange={(event) => setPostCode(event.target.value)}/>
 
-                    <label htmlFor="country">Domovská země společnosti:</label>
+                    <label htmlFor="country">Země:</label>
                     <input type="text" id="country" name="country"
                            value = {country}
                            onChange={(event) => setCountry(event.target.value)}/>

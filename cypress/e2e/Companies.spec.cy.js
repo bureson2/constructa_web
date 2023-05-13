@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('companies CRUD operations', () => {
 
   let name = 'testCompany';
   let din = '123456';
@@ -41,6 +41,7 @@ describe('template spec', () => {
     cy.get('#country').type(country);
 
     cy.xpath('//*[@id="root"]/div/div/main/form/div[3]/div/button').click();
+    cy.url().should('match', new RegExp(`^${Cypress.config('baseUrl')}/companies.+$`));
   });
 
   it('Delete company', () => {
